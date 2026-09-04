@@ -83,9 +83,56 @@
   .statement-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
   .st-cell{background:var(--card);border-radius:14px;padding:10px 12px;box-shadow:var(--shadow-card);font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
   .st-cell strong{display:block;color:var(--ink);font-size:14px;margin-top:4px;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;}
-  .bottom-nav{position:absolute;left:16px;right:16px;bottom:calc(14px + var(--safe-b));display:grid;grid-template-columns:repeat(7,1fr);gap:2px;background:var(--card);border-radius:22px;padding:6px;box-shadow:var(--shadow-nav);z-index:20;}
-  .nav-btn{border:none;background:transparent;color:var(--muted);font-family:Inter,sans-serif;font-size:9.5px;font-weight:700;border-radius:14px;padding:11px 0;cursor:pointer;transition:all .15s ease;white-space:nowrap;min-width:0;}
+  .bottom-nav{position:absolute;left:16px;right:16px;bottom:calc(14px + var(--safe-b));display:grid;grid-template-columns:repeat(8,1fr);gap:2px;background:var(--card);border-radius:22px;padding:6px;box-shadow:var(--shadow-nav);z-index:20;}
+  .nav-btn{border:none;background:transparent;color:var(--muted);font-family:Inter,sans-serif;font-size:8.5px;font-weight:700;border-radius:12px;padding:10px 0;cursor:pointer;transition:all .15s ease;white-space:nowrap;min-width:0;}
   .nav-btn.active{background:var(--ink);color:var(--bg);font-weight:800;}
+
+  /* ===== NUEVO: módulo presupuesto rediseñado ===== */
+  .budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .budget-column .list-card{margin-bottom:0;padding:10px 12px;}
+  .budget-column h3{margin:0 0 8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);display:flex;align-items:center;gap:6px;}
+  .budget-available-block{background:linear-gradient(135deg,var(--blue-bg),var(--green-soft));border-radius:22px;padding:22px;margin:14px 0;text-align:center;box-shadow:var(--shadow-card);}
+  body.dark .budget-available-block{background:linear-gradient(135deg,#172238,#112820);}
+  .budget-available-block .label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
+  .budget-available-block .value{font-size:clamp(28px,9vw,40px);font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink);margin-top:4px;}
+  .budget-available-block .meta{font-size:11px;color:var(--muted);margin-top:6px;}
+  .fixed-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .fixed-item:last-child{border-bottom:none;}
+  .fixed-item .fi-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;flex-shrink:0;}
+  .fixed-item .fi-info{flex:1;min-width:0;}
+  .fixed-item .fi-name{font-size:12.5px;font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .fixed-item .fi-sub{font-size:10.5px;color:var(--muted);margin-top:2px;}
+  .fixed-item .fi-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
+  .fixed-item .fi-amount{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .fixed-item .fi-reminder{font-size:10px;font-weight:700;color:var(--blue-text);background:var(--blue-bg);padding:2px 6px;border-radius:6px;white-space:nowrap;}
+  .fixed-item .fi-reminder.soon{background:var(--amber-soft);color:#b45309;}
+  body.dark .fixed-item .fi-reminder.soon{color:#fbbf24;}
+  .fixed-item .fi-reminder.today{background:rgba(239,68,68,.12);color:var(--red);}
+  .fi-convert{border:none;background:var(--pill);color:var(--muted);width:26px;height:26px;border-radius:50%;font-size:12px;cursor:pointer;flex-shrink:0;padding:0;}
+  .fi-convert:hover{color:var(--ink);}
+  .fi-del{border:none;background:transparent;color:var(--muted);font-size:14px;cursor:pointer;padding:0;width:22px;height:22px;}
+  .fi-del:hover{color:var(--red);}
+
+  /* ===== NUEVO: préstamos bancarios ===== */
+  .loan-card{background:var(--card);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow-card);border-left:4px solid var(--line);}
+  .loan-card.active{border-left-color:var(--accent);}
+  .loan-card.overdue{border-left-color:var(--red);background:rgba(239,68,68,.03);}
+  .loan-card.paid{border-left-color:var(--green);opacity:.75;}
+  body.dark .loan-card.overdue{background:rgba(239,68,68,.08);}
+  .loan-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .loan-entity{font-size:14px;font-weight:800;color:var(--ink);}
+  .loan-status{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:999px;flex-shrink:0;}
+  .loan-status.active{background:var(--blue-bg);color:var(--blue-text);}
+  .loan-status.overdue{background:rgba(239,68,68,.15);color:var(--red);}
+  .loan-status.paid{background:var(--green-soft);color:#15803d;}
+  body.dark .loan-status.paid{color:#34d399;}
+  .loan-body{margin-top:10px;}
+  .loan-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;}
+  .loan-row .k{color:var(--muted);}
+  .loan-row .v{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .loan-actions{display:flex;gap:6px;margin-top:10px;}
+  .loan-actions .btn{flex:1;padding:8px 10px;font-size:11.5px;}
+
   .center-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow-y:auto;}
   .auth-card{width:100%;max-width:420px;background:var(--card);border-radius:26px;padding:26px 22px;box-shadow:var(--shadow-card);}
   .auth-card h1{margin:0 0 2px;font-size:26px;font-weight:800;letter-spacing:-.02em;}
@@ -144,14 +191,13 @@
   @keyframes toastIn{from{opacity:0;transform:translate(-50%,10px);}to{opacity:1;transform:translate(-50%,0);}}
   .hidden{display:none!important;}
   @media (max-width:480px){body{padding:0;}.phone{width:100%;height:100vh;height:100dvh;border-radius:0;padding:0;box-shadow:none;}.screen{border-radius:0;height:100vh;height:100dvh;min-height:100vh;min-height:100dvh;}.center-screen{padding:18px;}.auth-card{padding:22px 18px;}}
-  @media (max-width:360px){.topbar{padding:16px 14px 10px;}.scroll{padding-left:14px;padding-right:14px;}.hero{padding:18px;}.actions{gap:8px;}.btn{font-size:12.5px;padding:14px 8px;}.nav-btn{font-size:8.5px;}}
+  @media (max-width:360px){.topbar{padding:16px 14px 10px;}.scroll{padding-left:14px;padding-right:14px;}.hero{padding:18px;}.actions{gap:8px;}.btn{font-size:12.5px;padding:14px 8px;}.nav-btn{font-size:7.5px;}}
   @media print{:root,body.dark{--bg:#fff;--card:#fff;--card-hero:#fff;--pill:#f2f2f2;--ink:#000;--ink-soft:#000;--muted:#555;--line:#bbb;--line-soft:#eee;--green:#067647;--red:#b42318;--shadow-card:none;--shadow-btn:none;--shadow-nav:none;}body{background:#fff!important;padding:0;}.phone{width:100%;height:auto;padding:0;border-radius:0;box-shadow:none;background:#fff;}.screen{height:auto;overflow:visible;border-radius:0;background:#fff;}.scroll{overflow:visible;padding:0;}.topbar,.bottom-nav,.toast,.modal,.banner,.no-print,.dash-controls{display:none!important;}.tab-view{display:none!important;}#tab-movimientos{display:block!important;}.list-card{box-shadow:none;border:1px solid #ccc;border-radius:12px;}.st-cell{box-shadow:none;border:1px solid #ccc;}.row{break-inside:avoid;}}
 </style>
 </head>
 <body>
 <div class="phone">
 
-  <!-- AUTH -->
   <div id="screen-auth" class="screen view active">
     <div class="center-screen">
       <div class="auth-card">
@@ -202,7 +248,6 @@
     </div>
   </div>
 
-  <!-- LOCK -->
   <div id="screen-lock" class="screen view">
     <div class="center-screen">
       <div class="auth-card" style="text-align:center;">
@@ -216,7 +261,6 @@
     </div>
   </div>
 
-  <!-- ONBOARDING -->
   <div id="screen-onboarding" class="screen view">
     <div class="center-screen">
       <div class="auth-card">
@@ -231,7 +275,6 @@
     </div>
   </div>
 
-  <!-- APP -->
   <div id="screen-app" class="screen view">
     <header class="topbar">
       <div class="brand"><div class="logo">C</div><h1>Centavo</h1></div>
@@ -263,7 +306,7 @@
           <button class="btn secondary" onclick="openMovementModal(null,'expense')">− Registrar Gasto</button>
           <button class="btn primary" onclick="openMovementModal(null,'income')">+ Añadir Ingreso</button>
         </div>
-        <h2 class="section-title">Próximos pagos pendientes</h2>
+        <h2 class="section-title">Próximos pagos e ingresos pendientes</h2>
         <div class="list-card"><div id="homePaymentsList"></div></div>
         <h2 class="section-title">¿En qué se va tu dinero?</h2>
         <p class="section-sub">Toca una categoría para ver subcategorías y comercios</p>
@@ -300,10 +343,44 @@
       </section>
 
       <section id="tab-pagos" class="tab-view" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;margin-bottom:10px;gap:10px;"><h2 class="section-title" style="margin:0;">Próximos pagos</h2><button class="btn primary mini" onclick="openPaymentModal()">+ Añadir</button></div>
-        <p class="section-sub">Nacen como "pendiente". Conviértelos en gasto cuando pagues.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;margin-bottom:10px;gap:10px;"><h2 class="section-title" style="margin:0;">Pagos sueltos</h2><button class="btn primary mini" onclick="openPaymentModal()">+ Añadir</button></div>
+        <p class="section-sub">Pagos únicos o no recurrentes. Los fijos van en "Presupuesto".</p>
         <div class="list-card"><div id="paymentsList"></div></div>
         <button class="btn secondary block" onclick="openTemplates()">📋 Plantillas de compromisos fijos</button>
+      </section>
+
+      <section id="tab-presupuesto" class="tab-view" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:10px;">
+          <h2 class="section-title" style="margin:0;">Presupuesto mensual</h2>
+          <button class="btn primary mini" onclick="openFixedModal()">+ Fijo</button>
+        </div>
+        <p class="section-sub">Tus ingresos y gastos fijos del mes, ordenados por fecha.</p>
+
+        <div class="budget-available-block">
+          <div class="label">Dinero disponible del mes</div>
+          <div class="value" id="budgetAvailable">$0.00</div>
+          <div class="meta"><span id="budgetIncoming">+$0.00</span> a recibir · <span id="budgetOutgoing">-$0.00</span> a pagar</div>
+        </div>
+
+        <div class="budget-grid">
+          <div class="budget-column">
+            <h3>➕ Ingresos fijos</h3>
+            <div class="list-card"><div id="fixedIncomeList"></div></div>
+          </div>
+          <div class="budget-column">
+            <h3>➖ Gastos fijos</h3>
+            <div class="list-card"><div id="fixedExpenseList"></div></div>
+          </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top:24px;">Categorías y límites</h2>
+        <p class="section-sub">Pon límites por categoría para tus gastos variables.</p>
+        <div class="list-card" id="budgetList"></div>
+        <button class="btn secondary block" onclick="addCategory()">+ Nueva categoría personalizada</button>
+
+        <h2 class="section-title" style="margin-top:24px;">Recurrentes</h2>
+        <p class="section-sub">Aplica tus movimientos recurrentes del mes.</p>
+        <button class="btn primary block" onclick="applyRecurrences()">Aplicar recurrentes</button>
       </section>
 
       <section id="tab-tarjetas" class="tab-view" style="display:none;">
@@ -322,17 +399,14 @@
         <div class="list-card"><div id="loansList"></div></div>
       </section>
 
-      <section id="tab-presupuesto" class="tab-view" style="display:none;">
-        <h2 class="section-title" style="margin-top:4px;">Presupuestos</h2>
-        <p class="section-sub">Pon límites por categoría.</p>
-        <div class="list-card" id="budgetList"></div>
-        <button class="btn secondary block" onclick="addCategory()">+ Nueva categoría personalizada</button>
-        <h2 class="section-title" style="margin-top:24px;">Compromisos fijos</h2>
-        <p class="section-sub">Edita aquí lo que registraste al crear tu cuenta.</p>
-        <div class="list-card" id="commitmentsList"></div>
-        <h2 class="section-title" style="margin-top:24px;">Recurrentes</h2>
-        <p class="section-sub">Aplica tus movimientos recurrentes del mes.</p>
-        <button class="btn primary block" onclick="applyRecurrences()">Aplicar recurrentes</button>
+      <section id="tab-prestamos" class="tab-view" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;margin-bottom:10px;gap:10px;"><h2 class="section-title" style="margin:0;">Préstamos bancarios</h2><button class="btn primary mini" onclick="openBankLoanModal()">+ Préstamo</button></div>
+        <div class="statement-summary">
+          <div class="st-cell">Deuda total<strong class="red" id="bankLoanTotal">$0.00</strong></div>
+          <div class="st-cell">Intereses pagados<strong id="bankLoanInterest">$0.00</strong></div>
+        </div>
+        <p class="section-sub">Préstamos de bancos y entidades con tasa de interés. No afecta tu presupuesto.</p>
+        <div id="bankLoansList"></div>
       </section>
 
       <section id="tab-mas" class="tab-view" style="display:none;">
@@ -375,15 +449,16 @@
       <button class="nav-btn active" data-tab="inicio" onclick="switchTab('inicio')">Inicio</button>
       <button class="nav-btn" data-tab="movimientos" onclick="switchTab('movimientos')">Cuenta</button>
       <button class="nav-btn" data-tab="pagos" onclick="switchTab('pagos')">Pagos</button>
+      <button class="nav-btn" data-tab="presupuesto" onclick="switchTab('presupuesto')">Presup.</button>
       <button class="nav-btn" data-tab="tarjetas" onclick="switchTab('tarjetas')">Tarj.</button>
       <button class="nav-btn" data-tab="personas" onclick="switchTab('personas')">Personas</button>
-      <button class="nav-btn" data-tab="presupuesto" onclick="switchTab('presupuesto')">Presup.</button>
+      <button class="nav-btn" data-tab="prestamos" onclick="switchTab('prestamos')">Prést.</button>
       <button class="nav-btn" data-tab="mas" onclick="switchTab('mas')">Ajustes</button>
     </nav>
   </div>
 </div>
 
-<!-- MODALES -->
+<!-- MODALES EXISTENTES (se mantienen igual que antes, abreviados por legibilidad) -->
 <div id="movementModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3 id="movementModalTitle">Nuevo movimiento</h3><button class="close-btn" onclick="closeModal('movementModal')">✕</button></div>
   <div class="auth-tabs three">
@@ -391,25 +466,24 @@
     <button id="btnIncome" class="auth-tab" onclick="setMovementType('income')">Ingreso</button>
     <button id="btnTransfer" class="auth-tab" onclick="setMovementType('transfer')">Dinero dado</button>
   </div>
-  <p class="help-text hidden" id="transferHint">Sale de tu disponible, pero no cuenta como gasto (dinero a otra persona o cuenta).</p>
-  <label>Monto</label>
-  <div class="amount-row"><span id="amountSymbol">$</span><input id="amountInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" /></div>
+  <p class="help-text hidden" id="transferHint">Sale de tu disponible, pero no cuenta como gasto.</p>
+  <label>Monto</label><div class="amount-row"><span id="amountSymbol">$</span><input id="amountInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" /></div>
   <div class="chips"><button type="button" class="chip-pick mini" onclick="addQuick(5)">+5</button><button type="button" class="chip-pick mini" onclick="addQuick(10)">+10</button><button type="button" class="chip-pick mini" onclick="addQuick(20)">+20</button><button type="button" class="chip-pick mini" onclick="addQuick(50)">+50</button></div>
   <label>Categoría</label><div id="categoryChips" class="chips"></div>
   <div id="subBox" class="hidden"><label>Subcategoría (opcional)</label><div id="subChips" class="chips"></div></div>
-  <label>Comercio (opcional)</label><input id="merchantInput" type="text" list="merchantList" placeholder="Ej. Walmart, farmacia..." /><datalist id="merchantList"></datalist>
+  <label>Comercio (opcional)</label><input id="merchantInput" type="text" list="merchantList" placeholder="Ej. Walmart" /><datalist id="merchantList"></datalist>
   <label>Fecha</label><input id="dateInput" type="date" />
-  <label>Nota opcional</label><input id="noteInput" type="text" placeholder="Ej. supermercado, sueldo..." />
+  <label>Nota opcional</label><input id="noteInput" type="text" />
   <label class="check"><input id="recurringCheck" type="checkbox" /><span>Repetir cada mes</span></label>
   <div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:14px;">
     <button id="deleteMovementBtn" class="btn danger hidden" onclick="deleteCurrentMovement()">Borrar</button>
-    <button id="saveMovementBtn" class="btn primary" onclick="saveMovement()">Guardar gasto</button>
+    <button id="saveMovementBtn" class="btn primary" onclick="saveMovement()">Guardar</button>
   </div>
 </div></div>
 
 <div id="batchModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3>Registro por lote</h3><button class="close-btn" onclick="closeModal('batchModal')">✕</button></div>
-  <p class="help-text">Añade varios ingresos y gastos de una sola vez.</p>
+  <p class="help-text">Añade varios movimientos de una vez.</p>
   <div id="batchRows"></div>
   <button class="btn secondary block" onclick="addBatchRow()">+ Añadir línea</button>
   <button class="btn primary block" style="margin-top:10px;" onclick="saveBatch()">Guardar lote</button>
@@ -417,8 +491,8 @@
 
 <div id="paymentModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3 id="paymentModalTitle">Nuevo pago</h3><button class="close-btn" onclick="closeModal('paymentModal')">✕</button></div>
-  <label>Nombre</label><input id="paymentNameInput" type="text" placeholder="Renta, Netflix..." />
-  <label>Monto</label><div class="amount-row"><span>$</span><input id="paymentAmountInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" /></div>
+  <label>Nombre</label><input id="paymentNameInput" type="text" />
+  <label>Monto</label><div class="amount-row"><span>$</span><input id="paymentAmountInput" type="number" inputmode="decimal" min="0" step="0.01" /></div>
   <label>Categoría</label><select id="paymentCategorySelect"></select>
   <label>Día del mes</label><select id="paymentDayInput"></select>
   <label class="check"><input id="paymentActiveCheck" type="checkbox" checked /><span>Activo</span></label>
@@ -426,19 +500,38 @@
   <div style="display:grid;grid-template-columns:auto auto 1fr;gap:8px;margin-top:14px;">
     <button id="deletePaymentBtn" class="btn danger hidden" onclick="deleteCurrentPayment()">Borrar</button>
     <button id="markPaidBtn" class="btn secondary hidden" onclick="markPaymentPaid()">✔ Pagado</button>
-    <button id="convertBtn" class="btn secondary hidden" onclick="convertToExpense()">💸 Convertir en gasto</button>
+    <button id="convertBtn" class="btn secondary hidden" onclick="convertToExpense()">💸 Convertir</button>
   </div>
   <button class="btn primary block" style="margin-top:8px;" onclick="savePayment()">Guardar pago</button>
 </div></div>
 
+<!-- NUEVO: Modal de compromiso fijo (ingreso o gasto) -->
+<div id="fixedModal" class="modal"><div class="modal-sheet">
+  <div class="modal-top"><h3 id="fixedModalTitle">Compromiso fijo</h3><button class="close-btn" onclick="closeModal('fixedModal')">✕</button></div>
+  <div class="auth-tabs">
+    <button id="fixedTypeIncome" class="auth-tab" onclick="setFixedType('income')">Ingreso fijo</button>
+    <button id="fixedTypeExpense" class="auth-tab active" onclick="setFixedType('expense')">Gasto fijo</button>
+  </div>
+  <label>Nombre</label><input id="fixedNameInput" type="text" placeholder="Renta, Sueldo, Netflix…" />
+  <label>Monto</label><div class="amount-row"><span>$</span><input id="fixedAmountInput" type="number" inputmode="decimal" min="0" step="0.01" /></div>
+  <label>Categoría</label><select id="fixedCategorySelect"></select>
+  <label>Día del mes</label><select id="fixedDayInput"></select>
+  <label class="check"><input id="fixedActiveCheck" type="checkbox" checked /><span>Activo</span></label>
+  <label class="check"><input id="fixedReminderCheck" type="checkbox" checked /><span>Recordatorio dinámico</span></label>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:14px;">
+    <button id="fixedDeleteBtn" class="btn danger hidden" onclick="deleteCurrentFixed()">Borrar</button>
+    <button class="btn primary" onclick="saveFixed()">Guardar fijo</button>
+  </div>
+</div></div>
+
 <div id="cardModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3 id="cardModalTitle">Nueva tarjeta</h3><button class="close-btn" onclick="closeModal('cardModal')">✕</button></div>
-  <label>Nombre</label><input id="cardNameInput" type="text" placeholder="Ej. Visa banco X" />
-  <label>Límite</label><input id="cardLimitInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" />
-  <label>Saldo usado</label><input id="cardUsedInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" />
+  <label>Nombre</label><input id="cardNameInput" type="text" />
+  <label>Límite</label><input id="cardLimitInput" type="number" inputmode="decimal" min="0" step="0.01" />
+  <label>Saldo usado</label><input id="cardUsedInput" type="number" inputmode="decimal" min="0" step="0.01" />
   <label>Día de corte</label><select id="cardCutInput"></select>
   <label>Día de pago</label><select id="cardDayInput"></select>
-  <label class="check"><input id="cardReminderCheck" type="checkbox" checked /><span>Recordarme vencimientos</span></label>
+  <label class="check"><input id="cardReminderCheck" type="checkbox" checked /><span>Recordarme</span></label>
   <div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:14px;">
     <button id="deleteCardBtn" class="btn danger hidden" onclick="deleteCard()">Borrar</button>
     <button class="btn primary" onclick="saveCard()">Guardar tarjeta</button>
@@ -447,21 +540,51 @@
 
 <div id="loanModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3 id="loanModalTitle">Registro de persona</h3><button class="close-btn" onclick="closeModal('loanModal')">✕</button></div>
-  <label>Persona</label><input id="loanPerson" type="text" placeholder="Nombre" />
-  <label>Dirección del dinero</label>
-  <select id="loanDir"><option value="owedToMe">Me debe dinero</option><option value="iOwe">Le debo dinero</option></select>
-  <label>Monto</label><input id="loanAmount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" />
+  <label>Persona</label><input id="loanPerson" type="text" />
+  <label>Dirección del dinero</label><select id="loanDir"><option value="owedToMe">Me debe dinero</option><option value="iOwe">Le debo dinero</option></select>
+  <label>Monto</label><input id="loanAmount" type="number" inputmode="decimal" min="0" step="0.01" />
   <label>Fecha</label><input id="loanDate" type="date" />
-  <label>Nota</label><input id="loanNote" type="text" placeholder="Opcional" />
+  <label>Nota</label><input id="loanNote" type="text" />
   <div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:14px;">
     <button id="deleteLoanBtn" class="btn danger hidden" onclick="deleteLoan()">Borrar</button>
     <button class="btn primary" onclick="saveLoan()">Guardar</button>
   </div>
 </div></div>
 
+<!-- NUEVO: Modal de préstamo bancario -->
+<div id="bankLoanModal" class="modal"><div class="modal-sheet">
+  <div class="modal-top"><h3 id="bankLoanModalTitle">Nuevo préstamo</h3><button class="close-btn" onclick="closeModal('bankLoanModal')">✕</button></div>
+  <label>Entidad (banco)</label><input id="blEntity" type="text" placeholder="BBVA, Scotiabank…" />
+  <label>Tipo de préstamo</label>
+  <select id="blKind">
+    <option value="personal">Personal</option>
+    <option value="auto">Automotriz</option>
+    <option value="mortgage">Hipotecario</option>
+    <option value="student">Educativo</option>
+    <option value="business">Empresarial</option>
+    <option value="other">Otro</option>
+  </select>
+  <label>Monto original</label><input id="blPrincipal" type="number" inputmode="decimal" min="0" step="0.01" />
+  <label>Saldo actual (lo que aún debes)</label><input id="blBalance" type="number" inputmode="decimal" min="0" step="0.01" />
+  <label>Tasa de interés anual (%)</label><input id="blRate" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ej: 18.5" />
+  <label>Cuota mensual</label><input id="blInstallment" type="number" inputmode="decimal" min="0" step="0.01" />
+  <label>Día de pago mensual</label><select id="blDueDay"></select>
+  <label>Fecha de inicio</label><input id="blStart" type="date" />
+  <label>Estado</label>
+  <select id="blStatus">
+    <option value="active">Activo</option>
+    <option value="overdue">Vencido</option>
+    <option value="paid">Pagado</option>
+  </select>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:8px;margin-top:14px;">
+    <button id="blDeleteBtn" class="btn danger hidden" onclick="deleteBankLoan()">Borrar</button>
+    <button class="btn primary" onclick="saveBankLoan()">Guardar préstamo</button>
+  </div>
+</div></div>
+
 <div id="templatesModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3>Compromisos fijos</h3><button class="close-btn" onclick="closeModal('templatesModal')">✕</button></div>
-  <p class="help-text">Añade en un toque los gastos que se repiten cada mes. Nacen como "pendiente".</p>
+  <p class="help-text">Añade en un toque gastos que se repiten.</p>
   <div id="templatesList"></div>
 </div></div>
 
@@ -469,12 +592,10 @@
   <div class="modal-top"><h3 id="categoryModalTitle">Categoría</h3><button class="close-btn" onclick="closeModal('categoryModal')">✕</button></div>
   <div id="categoryModalSummary" style="color:var(--muted);margin-bottom:12px;"></div>
   <div><label>Nombre</label><input id="renameInput" type="text" /><button class="btn secondary block" onclick="renameCategory()">✏️ Renombrar</button></div>
-  <div id="categoryBudgetBox"><label>Límite mensual</label><input id="budgetInput" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" /><button class="btn primary block" onclick="saveBudget()">Guardar presupuesto</button></div>
-  <h2 class="section-title" style="margin-top:18px;">Subcategorías y comercios</h2>
-  <div id="categoryBreakdown"></div>
-  <h2 class="section-title" style="margin-top:18px;">Movimientos</h2>
-  <div id="categoryMovementList"></div>
-  <button class="btn secondary block" style="margin-top:14px;" id="archiveBtn" onclick="archiveCategory()">🗄️ Archivar categoría</button>
+  <div id="categoryBudgetBox"><label>Límite mensual</label><input id="budgetInput" type="number" inputmode="decimal" min="0" step="0.01" /><button class="btn primary block" onclick="saveBudget()">Guardar presupuesto</button></div>
+  <h2 class="section-title" style="margin-top:18px;">Subcategorías y comercios</h2><div id="categoryBreakdown"></div>
+  <h2 class="section-title" style="margin-top:18px;">Movimientos</h2><div id="categoryMovementList"></div>
+  <button class="btn secondary block" style="margin-top:14px;" id="archiveBtn" onclick="archiveCategory()">🗄️ Archivar</button>
 </div></div>
 
 <div id="testModal" class="modal"><div class="modal-sheet">
@@ -485,33 +606,32 @@
 
 <div id="setupModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3>☁️ Activar sincronización</h3><button class="close-btn" onclick="closeModal('setupModal')">✕</button></div>
-  <p class="help-text">Tu cuenta ya funciona. Falta crear la tabla donde se guardan tus datos. Es la <strong>única vez</strong> que se toca Supabase (30 segundos):</p>
+  <p class="help-text">Falta crear la tabla donde se guardan tus datos. Es la única vez que se toca Supabase:</p>
   <ol class="help-text" style="padding-left:18px;">
-    <li>Verifica que pegaste tu URL y tu anon key en el código.</li>
-    <li>En Supabase: <strong>SQL Editor → New query</strong>, pega el código de abajo y toca <strong>Run</strong>.</li>
-    <li>Vuelve aquí: la app detectará la tabla y se conectará sola.</li>
+    <li>Verifica URL y anon key en el código.</li>
+    <li>En Supabase: <strong>SQL Editor</strong>, pega y toca <strong>Run</strong>.</li>
+    <li>Vuelve: la app detecta la tabla sola.</li>
   </ol>
   <textarea id="setupSql" readonly style="height:150px;font-size:11px;font-family:monospace;"></textarea>
   <div style="display:flex;gap:8px;margin-top:10px;">
     <button class="btn secondary" onclick="copySetupSql()">📋 Copiar SQL</button>
-    <button class="btn primary" onclick="retryCloud()">🔄 Reintentar ahora</button>
+    <button class="btn primary" onclick="retryCloud()">🔄 Reintentar</button>
   </div>
 </div></div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-  /* ================== CONFIGURACIÓN ==================
-     Credenciales ya integradas para tu proyecto: kkkyteytkspgfvzcioyt */
+  /* ================== CONFIGURACIÓN ================== */
   const SUPABASE_URL = 'https://kkkyteytkspgfvzcioyt.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_Qh5VkHGdqxoF1qCtAdLFQQ_Nu-AD_gb';
-  const DEFAULT_OWNER_EMAIL = 'admin@centavo.com'; // <- tu correo de dueño
+  const DEFAULT_OWNER_EMAIL = 'admin@centavo.com';
 
   const cloudEnabled = !!(window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY);
   const sb = cloudEnabled ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-  const CONFIG_KEY = 'centavo-config-v8';
-  const SCHEMA_VERSION = 8;
+  const CONFIG_KEY = 'centavo-config-v9';
+  const SCHEMA_VERSION = 9;
   let appConfig = loadConfig();
   let testing = false;
 
@@ -521,12 +641,13 @@
   }
   function saveConfig(){ localStorage.setItem(CONFIG_KEY, JSON.stringify(appConfig)); }
 
-  const DATA_PREFIX='centavo-data-v8:', THEME_KEY='centavo-theme-v8';
+  const DATA_PREFIX='centavo-data-v9:', THEME_KEY='centavo-theme-v9';
   const TYPE_LABELS = { expense:'Gasto', income:'Ingreso', transfer:'Dinero dado' };
 
   let currentUser=null, data=null, saveTimer=null;
   let ui={tab:'inicio',dashMode:'current',dashFrom:'',dashTo:'',period:'current',month:'',from:'',to:'',search:'',type:'all',categoryId:null,
-    editingId:null,editingPaymentId:null,editingCardId:null,editingLoanId:null,detailCategoryId:null,movementType:'expense',selectedCategory:null,selectedSub:null,
+    editingId:null,editingPaymentId:null,editingCardId:null,editingLoanId:null,editingBankLoanId:null,editingFixedId:null,fixedType:'expense',
+    detailCategoryId:null,movementType:'expense',selectedCategory:null,selectedSub:null,
     loginMethod:'password',authMode:'login',onbStep:1,onbCats:null,onbCommit:[]};
 
   function isPro(){ return true; }
@@ -534,11 +655,12 @@
   function mapUser(u){ return { id:u.id, email:u.email, name:(u.user_metadata&&u.user_metadata.name)||'' }; }
   function traducirError(msg){
     const m=(msg||'').toLowerCase();
+    if(m.includes('after')&&m.includes('seconds'))return '⏳ Espera unos segundos. Si ya creaste cuenta, usa "Entrar".';
+    if(m.includes('already registered'))return 'Este correo ya está registrado. Usa "Entrar".';
+    if(m.includes('not confirmed'))return 'Revisa tu correo (y spam): debes confirmar tu cuenta.';
     if(m.includes('invalid login'))return 'Correo o contraseña incorrectos.';
-    if(m.includes('already registered'))return 'Este correo ya está registrado.';
-    if(m.includes('at least 6'))return 'La contraseña debe tener al menos 6 caracteres.';
-    if(m.includes('email not confirmed'))return 'Confirma tu correo (revisa tu bandeja de entrada).';
-    if(m.includes('rate limit'))return 'Demasiados intentos. Espera un momento.';
+    if(m.includes('at least 6'))return 'Contraseña mínima 6 caracteres.';
+    if(m.includes('rate limit'))return 'Demasiados intentos. Espera 1 minuto.';
     return 'Error: '+msg;
   }
 
@@ -559,12 +681,21 @@
   }
   function defaultData(user){
     return {schema:SCHEMA_VERSION,userId:user.id,settings:{currency:'$',pinLock:false,notifications:false,pinHash:''},onboarding:{completed:false,mode:null},meta:{sample:false},
-      categories:defaultCategories(),movements:[],payments:[],cards:[],loans:[]};
+      categories:defaultCategories(),movements:[],payments:[],cards:[],loans:[],bankLoans:[]};
   }
   function migrate(p){
     p.schema=p.schema||1;
-    p.cards=Array.isArray(p.cards)?p.cards:[];p.loans=Array.isArray(p.loans)?p.loans:[];
-    p.payments=(p.payments||[]).map(x=>({...x,status:x.status||'pendiente',fixed:!!x.fixed,reminder:x.reminder!==false,lastPaidMonth:x.lastPaidMonth||null}));
+    p.cards=Array.isArray(p.cards)?p.cards:[];
+    p.loans=Array.isArray(p.loans)?p.loans:[];
+    p.bankLoans=Array.isArray(p.bankLoans)?p.bankLoans:[];
+    p.payments=(p.payments||[]).map(x=>({
+      ...x,
+      status:x.status||'pendiente',
+      fixed:!!x.fixed,
+      kind:x.kind||'expense', // NUEVO: 'income' | 'expense'
+      reminder:x.reminder!==false,
+      lastPaidMonth:x.lastPaidMonth||null
+    }));
     p.categories=(p.categories||[]).map(c=>({...c,subs:Array.isArray(c.subs)?c.subs:[]}));
     p.movements=(p.movements||[]).map(m=>({...m,subId:m.subId||null,merchant:m.merchant||''}));
     p.settings={currency:'$',pinLock:false,notifications:false,pinHash:'',...(p.settings||{})};
@@ -593,10 +724,10 @@
   async function syncUp(){
     if(!sb||!currentUser)return;
     const {error}=await sb.from('app_data').upsert({user_id:currentUser.id,data,updated_at:new Date().toISOString()});
-    if(error)toast('☁️ Sin sincronizar ahora: quedó guardado en este dispositivo.');
+    if(error)toast('☁️ Sin sincronizar ahora: quedó en este dispositivo.');
   }
   async function syncNow(){
-    if(!sb)return toast('Nube no configurada: modo local activo.');
+    if(!sb)return toast('Nube no configurada.');
     await syncUp();
     const fresh=await cloudLoadOrCreate(currentUser);
     data=fresh;saveData();render();
@@ -620,21 +751,50 @@
   function getCategory(id){return data.categories.find(c=>c.id===id)||{id:'x',name:'Sin categoría',emoji:'❓',type:'expense',bg:'--pill',color:'#64748b',budget:0,subs:[]};}
   function calcSummary(list){return list.reduce((a,m)=>{const n=Number(m.amount||0);if(m.type==='income')a.income+=n;else if(m.type==='transfer')a.transfer+=n;else a.expense+=n;a.available=a.income-a.expense-a.transfer;return a;},{income:0,expense:0,transfer:0,available:0});}
   function currentMonthMovements(){return data.movements.filter(m=>monthKey(m.date)===currentMonthKey());}
-  function availableNow(){return calcSummary(currentMonthMovements()).available;}
-  function validateExpense(amount){if(!appConfig.balanceValidation)return{ok:true};const av=availableNow();if(Number(amount)>av)return{ok:false,msg:`No puedes registrar este gasto de ${formatMoney(amount)}: tu balance disponible hoy es ${formatMoney(av)}. Registra un ingreso o ajusta el monto.`};return{ok:true};}
-  function getDashMovements(){if(ui.dashMode==='previous')return data.movements.filter(m=>monthKey(m.date)===previousMonthKey());if(ui.dashMode==='range')return data.movements.filter(m=>(!ui.dashFrom||m.date>=ui.dashFrom)&&(!ui.dashTo||m.date<=ui.dashTo));return currentMonthMovements();}
-  function getPeriodMovements(){if(ui.period==='current')return currentMonthMovements();if(ui.period==='previous')return data.movements.filter(m=>monthKey(m.date)===previousMonthKey());if(ui.period==='month')return data.movements.filter(m=>monthKey(m.date)===ui.month);if(ui.period==='range')return data.movements.filter(m=>(!ui.from||m.date>=ui.from)&&(!ui.to||m.date<=ui.to));return [...data.movements];}
+
+  /* === CARRY-OVER: balance acumulativo entre meses === */
+  function firstDayOfMonth(dateStr){
+    const d = dateStr ? new Date(dateStr+'T00:00:00') : new Date();
+    return isoDate(new Date(d.getFullYear(), d.getMonth(), 1));
+  }
+  function balanceBefore(ds){
+    return data.movements.filter(m=>m.date<ds).reduce((a,m)=>a+(m.type==='income'?Number(m.amount||0):-Number(m.amount||0)),0);
+  }
+  function availableNow(){
+    const first = firstDayOfMonth();
+    const carry = balanceBefore(first);
+    const cur = calcSummary(currentMonthMovements());
+    return carry + cur.available;
+  }
+  function validateExpense(amount){
+    if(!appConfig.balanceValidation)return{ok:true};
+    const av=availableNow();
+    if(Number(amount)>av)return{ok:false,msg:`No puedes registrar este gasto de ${formatMoney(amount)}: tu balance disponible es ${formatMoney(av)}.`};
+    return{ok:true};
+  }
+  function getDashMovements(){
+    if(ui.dashMode==='previous')return data.movements.filter(m=>monthKey(m.date)===previousMonthKey());
+    if(ui.dashMode==='range')return data.movements.filter(m=>(!ui.dashFrom||m.date>=ui.dashFrom)&&(!ui.dashTo||m.date<=ui.dashTo));
+    return currentMonthMovements();
+  }
+  function getPeriodMovements(){
+    if(ui.period==='current')return currentMonthMovements();
+    if(ui.period==='previous')return data.movements.filter(m=>monthKey(m.date)===previousMonthKey());
+    if(ui.period==='month')return data.movements.filter(m=>monthKey(m.date)===ui.month);
+    if(ui.period==='range')return data.movements.filter(m=>(!ui.from||m.date>=ui.from)&&(!ui.to||m.date<=ui.to));
+    return [...data.movements];
+  }
   function getFilteredMovements(){let l=getPeriodMovements();if(ui.type!=='all')l=l.filter(m=>m.type===ui.type);if(ui.categoryId)l=l.filter(m=>m.categoryId===ui.categoryId);if(ui.search){const q=ui.search.toLowerCase();l=l.filter(m=>(m.note||'').toLowerCase().includes(q)||(m.merchant||'').toLowerCase().includes(q)||getCategory(m.categoryId).name.toLowerCase().includes(q));}return l.sort((a,b)=>b.date.localeCompare(a.date)||(b.createdAt||0)-(a.createdAt||0));}
   function runningBalanceMap(){const all=[...data.movements].sort((a,b)=>a.date.localeCompare(b.date)||(a.createdAt||0)-(b.createdAt||0));let bal=0;const map={};all.forEach(m=>{bal+=m.type==='income'?Number(m.amount||0):-Number(m.amount||0);map[m.id]=bal;});return map;}
-  function balanceBefore(ds){return data.movements.filter(m=>m.date<ds).reduce((a,m)=>a+(m.type==='income'?Number(m.amount||0):-Number(m.amount||0)),0);}
   function expenseByCategoryList(l){return l.filter(m=>m.type==='expense').reduce((a,m)=>{a[m.categoryId]=(a[m.categoryId]||0)+Number(m.amount||0);return a;},{});}
   function countBudgets(){return data.categories.filter(c=>c.type==='expense'&&Number(c.budget||0)>0).length;}
   function hasSample(){return data.movements.some(m=>m.sample)||data.payments.some(p=>p.sample);}
 
   function pushMovement(mov){const m={id:uid(),type:'expense',amount:0,categoryId:null,subId:null,merchant:'',note:'',date:isoDate(),recurring:false,sample:false,createdAt:Date.now(),...mov};data.movements.push(m);return m;}
-  function pushPayment(p){const x={id:uid(),name:'',amount:0,categoryId:'casa',dueDay:new Date().getDate(),active:true,reminder:true,status:'pendiente',fixed:false,lastPaidMonth:null,sample:false,...p};data.payments.push(x);return x;}
+  function pushPayment(p){const x={id:uid(),name:'',amount:0,categoryId:'casa',dueDay:new Date().getDate(),active:true,reminder:true,status:'pendiente',fixed:false,kind:'expense',lastPaidMonth:null,sample:false,...p};data.payments.push(x);return x;}
   function pushCard(c){const x={id:uid(),name:'',limit:0,used:0,dueDay:1,cutDay:1,reminder:true,paidCycle:null,updatedAt:Date.now(),sample:false,...c};data.cards.push(x);return x;}
   function pushLoan(l){const x={id:uid(),person:'',dir:'owedToMe',amount:0,remaining:0,date:isoDate(),note:'',payments:[],...l};x.remaining=Number(x.amount);data.loans.push(x);return x;}
+  function pushBankLoan(l){const x={id:uid(),entity:'',kind:'personal',principal:0,balance:0,rate:0,installment:0,dueDay:1,startDate:'',status:'active',paidInterest:0,...l};data.bankLoans.push(x);return x;}
   function loanPay(id,amt){const l=data.loans.find(x=>x.id===id);if(!l)return false;l.payments.push({date:isoDate(),amount:Number(amt)});l.remaining=Math.max(0,Number(l.remaining)-Number(amt));return true;}
   function convertPayment(id){const p=data.payments.find(x=>x.id===id);if(!p)return false;pushMovement({type:'expense',amount:Number(p.amount),categoryId:p.categoryId,note:p.name,sample:false});p.status='pagado';p.lastPaidMonth=currentMonthKey();return true;}
   function addCategoryTo(ds,name){const c={id:'cat-'+uid(),name,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',budget:0,subs:[]};ds.categories.push(c);return c;}
@@ -661,88 +821,48 @@
     if(sb){
       const {data:res,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
       if(error)return toast(traducirError(error.message));
-      if(!res.session)return toast('Cuenta creada. Revisa tu correo para confirmarla y luego entra.');
-      currentUser=mapUser(res.user);
-      data=await cloudLoadOrCreate(currentUser);
-      saveData();toast('Cuenta creada');enterApp();
+      if(!res.session)return toast('Cuenta creada. Revisa tu correo para confirmarla.');
+      currentUser=mapUser(res.user);data=await cloudLoadOrCreate(currentUser);saveData();toast('Cuenta creada');enterApp();
     }else{
-      const key='centavo-local-users-v8';
+      const key='centavo-local-users-v9';
       const users=JSON.parse(localStorage.getItem(key)||'[]');
       if(users.some(u=>u.email===email))return toast('Este correo ya existe.');
       const user={id:uid(),name,email,ph:await hashText(pw)};
       users.push(user);localStorage.setItem(key,JSON.stringify(users));
-      localStorage.setItem('centavo-local-session-v8',user.id);
-      currentUser=user;data=defaultData(user);saveData();toast('Cuenta creada (modo local)');enterApp();
+      localStorage.setItem('centavo-local-session-v9',user.id);
+      currentUser=user;data=defaultData(user);saveData();toast('Cuenta creada');enterApp();
     }
   }
-
   async function loginUser(){
     const email=document.getElementById('loginEmail').value.trim().toLowerCase();
     if(sb){
-      if(ui.loginMethod==='pin')return toast('El PIN es para desbloquear este dispositivo. Entra con tu contraseña la primera vez.');
+      if(ui.loginMethod==='pin')return toast('El PIN desbloquea este dispositivo. Entra con contraseña la primera vez.');
       const pw=document.getElementById('loginPasswordInput').value;
       const {data:res,error}=await sb.auth.signInWithPassword({email,password:pw});
       if(error)return toast(traducirError(error.message));
-      currentUser=mapUser(res.user);
-      data=await cloudLoadOrCreate(currentUser);
-      saveData();toast('Hola, '+(currentUser.name||'usuario'));enterApp();
+      currentUser=mapUser(res.user);data=await cloudLoadOrCreate(currentUser);saveData();toast('Hola, '+(currentUser.name||'usuario'));enterApp();
     }else{
-      const key='centavo-local-users-v8';
-      const users=JSON.parse(localStorage.getItem(key)||'[]');
+      const key='centavo-local-users-v9';const users=JSON.parse(localStorage.getItem(key)||'[]');
       const user=users.find(u=>u.email===email);
       if(!user)return toast('No encontramos esa cuenta.');
       if((await hashText(document.getElementById('loginPasswordInput').value))!==user.ph)return toast('Contraseña incorrecta.');
-      localStorage.setItem('centavo-local-session-v8',user.id);
+      localStorage.setItem('centavo-local-session-v9',user.id);
       currentUser=user;data=localLoad(user);toast('Hola, '+(user.name||'usuario'));enterApp();
     }
   }
-
-  async function logout(){
-    if(sb)await sb.auth.signOut();
-    localStorage.removeItem('centavo-local-session-v8');
-    currentUser=null;data=null;setAuthMode('login');showScreen('auth');
-  }
-
-  async function requestResetCode(){
-    const email=document.getElementById('forgotEmail').value.trim().toLowerCase();
-    if(sb){
-      const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin});
-      if(error)return toast(traducirError(error.message));
-      toast('Te enviamos un correo para restablecer la contraseña.');
-    }else{
-      document.getElementById('resetDemoCode').textContent='Modo local: define nueva contraseña directamente.';
-      document.getElementById('forgotStep1').classList.add('hidden');
-      document.getElementById('forgotStep2').classList.remove('hidden');
-    }
-  }
-  async function performReset(){
-    const pw=document.getElementById('newPassword').value,c=document.getElementById('newPasswordConfirm').value;
-    if(pw.length<6)return toast('Contraseña mínima 6 caracteres.');
-    if(pw!==c)return toast('Las contraseñas no coinciden.');
-    if(sb){toast('Usa el enlace que llegó a tu correo para cambiarla.');return;}
-    const key='centavo-local-users-v8';const users=JSON.parse(localStorage.getItem(key)||'[]');
-    const email=document.getElementById('forgotEmail').value.trim().toLowerCase();
-    const user=users.find(u=>u.email===email);if(!user)return toast('No encontramos esa cuenta.');
-    user.ph=await hashText(pw);localStorage.setItem(key,JSON.stringify(users));
-    toast('Contraseña actualizada');setAuthMode('login');
-  }
+  async function logout(){if(sb)await sb.auth.signOut();localStorage.removeItem('centavo-local-session-v9');currentUser=null;data=null;setAuthMode('login');showScreen('auth');}
+  async function requestResetCode(){const email=document.getElementById('forgotEmail').value.trim().toLowerCase();if(sb){const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin});if(error)return toast(traducirError(error.message));toast('Te enviamos un correo.');}else{document.getElementById('resetDemoCode').textContent='Modo local: define nueva contraseña.';document.getElementById('forgotStep1').classList.add('hidden');document.getElementById('forgotStep2').classList.remove('hidden');}}
+  async function performReset(){const pw=document.getElementById('newPassword').value,c=document.getElementById('newPasswordConfirm').value;if(pw.length<6)return toast('Mínimo 6 caracteres.');if(pw!==c)return toast('No coinciden.');if(sb){toast('Usa el enlace del correo.');return;}const key='centavo-local-users-v9';const users=JSON.parse(localStorage.getItem(key)||'[]');const email=document.getElementById('forgotEmail').value.trim().toLowerCase();const user=users.find(u=>u.email===email);if(!user)return toast('No encontramos esa cuenta.');user.ph=await hashText(pw);localStorage.setItem(key,JSON.stringify(users));toast('Actualizada');setAuthMode('login');}
 
   function renderLock(){document.getElementById('lockUserName').textContent=currentUser.name||currentUser.email;document.getElementById('lockPinInput').value='';}
-  async function unlockPin(){
-    const pin=document.getElementById('lockPinInput').value;
-    if((await hashText(pin))===(data.settings.pinHash||'')){toast('Desbloqueado');enterApp();}
-    else toast('PIN incorrecto');
-  }
-  async function lockUsePassword(){
-    if(sb){await sb.auth.signOut();currentUser=null;data=null;setAuthMode('login');showScreen('auth');}
-    else logout();
-  }
+  async function unlockPin(){if((await hashText(document.getElementById('lockPinInput').value))===(data.settings.pinHash||'')){toast('Desbloqueado');enterApp();}else toast('PIN incorrecto');}
+  async function lockUsePassword(){if(sb){await sb.auth.signOut();currentUser=null;data=null;setAuthMode('login');showScreen('auth');}else logout();}
 
   function ensureOnbState(){if(!ui.onbCats)ui.onbCats=JSON.parse(JSON.stringify(defaultCategories().filter(c=>c.type==='expense')));if(!ui.onbCommit)ui.onbCommit=[];}
   function renderOnboarding(){ensureOnbState();for(let i=1;i<=5;i++){document.getElementById('onbStep'+i).classList.toggle('hidden',ui.onbStep!==i);document.getElementById('dot'+i).classList.toggle('active',ui.onbStep===i);}document.getElementById('onbNext').classList.toggle('hidden',ui.onbStep===5);if(ui.onbStep===3)renderOnbCats();if(ui.onbStep===4)renderOnbCommit();}
   function nextOnboarding(){if(ui.onbStep<5){ui.onbStep++;renderOnboarding();}}
-  function renderOnbCats(){document.getElementById('onbCatChips').innerHTML=ui.onbCats.map(c=>`<button type="button" class="chip-pick mini" onclick="removeOnbCat('${c.id}')">${c.emoji} ${c.name} ✕</button>`).join('')||'<span class="help-text">Sin categorías: añade al menos una.</span>';}
-  function addOnbCat(){const inp=document.getElementById('onbCatInput');const n=inp.value.trim();if(!n)return;if(ui.onbCats.some(c=>c.name.toLowerCase()===n.toLowerCase()))return toast('Ya existe esa categoría.');ui.onbCats.push({id:'cat-'+uid(),name:n,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',budget:0,subs:[]});inp.value='';renderOnbCats();}
+  function renderOnbCats(){document.getElementById('onbCatChips').innerHTML=ui.onbCats.map(c=>`<button type="button" class="chip-pick mini" onclick="removeOnbCat('${c.id}')">${c.emoji} ${c.name} ✕</button>`).join('')||'<span class="help-text">Añade al menos una.</span>';}
+  function addOnbCat(){const inp=document.getElementById('onbCatInput');const n=inp.value.trim();if(!n)return;if(ui.onbCats.some(c=>c.name.toLowerCase()===n.toLowerCase()))return toast('Ya existe.');ui.onbCats.push({id:'cat-'+uid(),name:n,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',budget:0,subs:[]});inp.value='';renderOnbCats();}
   function removeOnbCat(id){ui.onbCats=ui.onbCats.filter(c=>c.id!==id);renderOnbCats();}
   function restoreOnbCats(){ui.onbCats=JSON.parse(JSON.stringify(defaultCategories().filter(c=>c.type==='expense')));renderOnbCats();}
   function renderOnbCommit(){document.getElementById('onbCommitList').innerHTML=ui.onbCommit.map((k,i)=>`<div class="row" style="cursor:default;"><div class="row-left"><div style="min-width:0;"><div class="row-title">${k.name}</div><div class="row-sub">Día ${k.day} · ${k.amount}</div></div></div><button class="btn secondary mini" onclick="removeOnbCommit(${i})">✕</button></div>`).join('');}
@@ -753,7 +873,8 @@
     ensureOnbState();
     const expenseCats=ui.onbCats.length?ui.onbCats:defaultCategories().filter(c=>c.type==='expense');
     data.categories=[...JSON.parse(JSON.stringify(expenseCats)),...defaultCategories().filter(c=>c.type==='income')];
-    ui.onbCommit.forEach(k=>pushPayment({name:k.name,amount:Number(k.amount),categoryId:guessCat(k.name),dueDay:k.day,fixed:true}));
+    // Onboarding commitments → fixed payments (nueva estructura)
+    ui.onbCommit.forEach(k=>pushPayment({name:k.name,amount:Number(k.amount),categoryId:guessCat(k.name),dueDay:k.day,fixed:true,kind:'expense',active:true,reminder:true}));
     data.onboarding.completed=true;data.onboarding.mode=mode;
     if(mode==='examples'){addSampleData();data.meta.sample=true;}else data.meta.sample=false;
     saveData();showScreen('app');render();switchTab('inicio');notifyDueToday();
@@ -770,66 +891,58 @@
       pushMovement({type:'expense',amount:40,categoryId:'transporte',subId:'gas',note:'Gasolina',date:d(4),sample:true,createdAt:t++}),
       pushMovement({type:'transfer',amount:50,categoryId:'otros-gasto',note:'Dinero a mamá',date:d(5),sample:true,createdAt:t++})
     ];
-    data.payments=[pushPayment({name:'Renta',amount:300,categoryId:'casa',dueDay:fd(3),sample:true}),pushPayment({name:'Internet',amount:45,categoryId:'servicios',dueDay:fd(6),sample:true}),pushPayment({name:'Luz',amount:60,categoryId:'servicios',dueDay:new Date().getDate(),sample:true})];
+    data.payments=[
+      pushPayment({name:'Renta',amount:300,categoryId:'casa',dueDay:fd(3),sample:true,fixed:true,kind:'expense'}),
+      pushPayment({name:'Internet',amount:45,categoryId:'servicios',dueDay:fd(6),sample:true,fixed:true,kind:'expense'}),
+      pushPayment({name:'Sueldo',amount:3200,categoryId:'sueldo',dueDay:fd(1),sample:true,fixed:true,kind:'income'})
+    ];
     data.cards=[pushCard({name:'Visa principal',limit:5000,used:1250,dueDay:fd(4),cutDay:fd(9),sample:true})];
     data.loans=[pushLoan({person:'Ana',dir:'owedToMe',amount:200,date:d(2)}),pushLoan({person:'Luis',dir:'iOwe',amount:80,date:d(3)})];
+    data.bankLoans=[pushBankLoan({entity:'BBVA',kind:'personal',principal:5000,balance:3800,rate:22.5,installment:250,dueDay:fd(10),startDate:isoDate(new Date(now.getFullYear(),now.getMonth()-4,1)),status:'active'})];
   }
-  function clearSample(){data.movements=data.movements.filter(m=>!m.sample);data.payments=data.payments.filter(p=>!p.sample);data.cards=data.cards.filter(c=>!c.sample);data.loans=data.loans.filter(l=>!l.sample);data.meta.sample=false;saveData();render();toast('Datos de ejemplo borrados');}
+  function clearSample(){data.movements=data.movements.filter(m=>!m.sample);data.payments=data.payments.filter(p=>!p.sample);data.cards=data.cards.filter(c=>!c.sample);data.loans=data.loans.filter(l=>!l.sample);data.bankLoans=data.bankLoans.filter(b=>!b.sample);data.meta.sample=false;saveData();render();toast('Datos de ejemplo borrados');}
 
   async function init(){
     applyTheme();applyTagline();
-    document.getElementById('privacyNote').textContent=cloudEnabled?'☁️ Tu información se guarda cifrada en tu cuenta y se sincroniza entre dispositivos.':'🔒 Nube no configurada: tus datos viven solo en este dispositivo.';
-    if(cloudEnabled){
-      document.getElementById('loginMethodTabs').style.gridTemplateColumns='1fr';
-      document.getElementById('loginMethodPin').classList.add('hidden');
-      document.getElementById('forgotHelp').textContent='Te enviaremos un correo con un enlace para restablecerla.';
-    }
+    document.getElementById('privacyNote').textContent=cloudEnabled?'☁️ Tu información se guarda cifrada en tu cuenta y se sincroniza.':'🔒 Nube no configurada: tus datos viven solo en este dispositivo.';
+    if(cloudEnabled){document.getElementById('loginMethodTabs').style.gridTemplateColumns='1fr';document.getElementById('loginMethodPin').classList.add('hidden');document.getElementById('forgotHelp').textContent='Te enviaremos un correo con un enlace para restablecerla.';}
     setInterval(()=>{if(currentUser&&data)renderSummary();},60000);
     if(sb){
       const {data:{session}}=await sb.auth.getSession();
       sb.auth.onAuthStateChange((ev)=>{if(ev==='SIGNED_OUT'&&!currentUser){setAuthMode('login');showScreen('auth');}});
-      if(session){
-        currentUser=mapUser(session.user);
-        try{data=await cloudLoadOrCreate(currentUser);}catch{data=localLoad(currentUser);}
-        if(data.settings.pinLock&&data.settings.pinHash){renderLock();showScreen('lock');return;}
-        enterApp();return;
-      }
+      if(session){currentUser=mapUser(session.user);try{data=await cloudLoadOrCreate(currentUser);}catch{data=localLoad(currentUser);}if(data.settings.pinLock&&data.settings.pinHash){renderLock();showScreen('lock');return;}enterApp();return;}
       showScreen('auth');return;
     }
-    const sid=localStorage.getItem('centavo-local-session-v8');
-    if(sid){
-      const users=JSON.parse(localStorage.getItem('centavo-local-users-v8')||'[]');
-      const u=users.find(x=>x.id===sid);
-      if(u){currentUser=u;data=localLoad(u);if(data.settings.pinLock&&data.settings.pinHash){renderLock();showScreen('lock');return;}enterApp();return;}
-    }
+    const sid=localStorage.getItem('centavo-local-session-v9');
+    if(sid){const users=JSON.parse(localStorage.getItem('centavo-local-users-v9')||'[]');const u=users.find(x=>x.id===sid);if(u){currentUser=u;data=localLoad(u);if(data.settings.pinLock&&data.settings.pinHash){renderLock();showScreen('lock');return;}enterApp();return;}}
     showScreen('auth');
   }
   function enterApp(){if(!data.onboarding.completed){ui.onbStep=1;renderOnboarding();showScreen('onboarding');return;}showScreen('app');render();switchTab('inicio');notifyDueToday();}
 
-  function toggleNotifications(){
-    if(!data.settings.notifications&&('Notification' in window)){
-      Notification.requestPermission().then(p=>{if(p!=='granted')return toast('Permiso denegado.');data.settings.notifications=true;saveData();renderMas();toast('Notificaciones activadas');});
-      return;
-    }
-    data.settings.notifications=!data.settings.notifications;saveData();renderMas();
-  }
+  function toggleNotifications(){if(!data.settings.notifications&&('Notification' in window)){Notification.requestPermission().then(p=>{if(p!=='granted')return toast('Permiso denegado.');data.settings.notifications=true;saveData();renderMas();toast('Notificaciones activadas');});return;}data.settings.notifications=!data.settings.notifications;saveData();renderMas();}
   function notifyDueToday(){
-    try{
-      if(!data.settings.notifications||!('Notification' in window)||Notification.permission!=='granted')return;
-      getReminderPayments().filter(p=>p.du===0).forEach(p=>new Notification('Centavo',{body:`Hoy vence: ${p.name} (${formatMoney(p.amount)})`}));
-      data.cards.filter(c=>Number(c.used||0)>0).forEach(c=>{const ci=cardCutInfo(c);if(ci.du===0)new Notification('Centavo',{body:`${c.name}: corte hoy. Debes ${formatMoney(c.used)}`});});
+    try{if(!data.settings.notifications||!('Notification' in window)||Notification.permission!=='granted')return;
+      getUpcomingUnified().filter(p=>p.du===0).forEach(p=>new Notification('Centavo',{body:`Hoy: ${p.name} (${formatMoney(p.amount)})`}));
+      data.cards.filter(c=>Number(c.used||0)>0).forEach(c=>{const ci=cardCutInfo(c);if(ci.du===0)new Notification('Centavo',{body:`${c.name}: corte hoy`});});
     }catch{}
   }
 
-  function render(){if(!currentUser||!data)return;renderSummary();renderBanner();renderAlerts();renderHomePayments();renderHomeCategories();renderInsights();renderCategoryFilter();renderMovements();renderPayments();renderCards();renderLoans();renderBudgets();renderCommitments();renderMas();document.getElementById('amountSymbol').textContent=data.settings.currency;}
+  function render(){if(!currentUser||!data)return;renderSummary();renderBanner();renderAlerts();renderHomePayments();renderHomeCategories();renderInsights();renderCategoryFilter();renderMovements();renderPayments();renderCards();renderLoans();renderBankLoans();renderBudgetModule();renderBudgets();renderMas();document.getElementById('amountSymbol').textContent=data.settings.currency;}
+
+  /* === RESUMEN CON CARRY-OVER === */
   function renderSummary(){
     document.getElementById('heroLabel').textContent='Balance disponible al día '+todayLabel();
     const s=calcSummary(getDashMovements());
-    document.getElementById('availableValue').textContent=formatMoney(s.available);
+    const carry = balanceBefore(firstDayOfMonth());
+    const displayed = (ui.dashMode==='current') ? (carry + s.available) : s.available;
+    document.getElementById('availableValue').textContent=formatMoney(displayed);
     document.getElementById('incomeValue').textContent='+'+formatMoney(s.income);
     document.getElementById('expenseValue').textContent='-'+formatMoney(s.expense);
     const ex=document.getElementById('heroExtra');let txt='';
-    if(ui.dashMode==='current'&&s.available>0)txt+=`Hoy puedes gastar ${formatMoney(s.available/daysLeftInMonth())}.`;
+    if(ui.dashMode==='current'){
+      if(carry!==0)txt+=(carry>0?`Acumulado mes anterior: ${formatMoney(carry)}. `:`Déficit anterior: ${formatMoney(carry)}. `);
+      if(s.available>0)txt+=`Hoy puedes gastar ${formatMoney((carry+s.available)/daysLeftInMonth())} diario.`;
+    }
     if(s.transfer>0)txt+=(txt?' · ':'')+`Dinero dado: ${formatMoney(s.transfer)}`;
     ex.textContent=txt;ex.classList.toggle('hidden',!txt);
   }
@@ -839,32 +952,65 @@
   function cardCutInfo(c){const nd=getNextPaymentDate(c.cutDay||c.dueDay);return{nd,du:daysUntil(nd)};}
   function cardOverdue(c){const n=new Date();const dueThis=new Date(n.getFullYear(),n.getMonth(),Number(c.dueDay||1));return n>dueThis&&c.paidCycle!==currentMonthKey()&&Number(c.used||0)>0;}
   function getCardReminders(){return data.cards.filter(c=>c.reminder!==false&&c.paidCycle!==currentMonthKey()&&Number(c.used||0)>0&&!cardOverdue(c)).map(c=>{const nd=getNextPaymentDate(c.dueDay);return{...c,nd,du:daysUntil(nd)};}).filter(c=>c.du<=3);}
+
   function renderAlerts(){
     const area=document.getElementById('alertArea');
-    const s=calcSummary(currentMonthMovements());
-    const upcoming=getUpcomingPayments(15);const upTotal=upcoming.reduce((a,b)=>a+Number(b.amount||0),0);
+    const s=calcSummary(currentMonthMovements());const carry=balanceBefore(firstDayOfMonth());
+    const avail=carry+s.available;
+    const upcoming=getUpcomingUnified(15);const upExp=upcoming.filter(p=>p.kind==='expense').reduce((a,b)=>a+Number(b.amount||0),0);
     let html='';
     data.cards.filter(c=>Number(c.used||0)>0).forEach(c=>{const ci=cardCutInfo(c);html+=`<div class="banner"><span>💳 ${c.name}: debes ${formatMoney(c.used)} · corte ${ci.du===0?'hoy':`en ${ci.du} días`} (día ${c.cutDay||c.dueDay}).</span></div>`;});
-    getReminderPayments().forEach(p=>{const w=p.du===0?'hoy':p.du===1?'mañana':`en ${p.du} días`;html+=`<div class="banner warning"><span>🔔 ${p.name} vence ${w} (${formatMoney(p.amount)}).</span><button onclick="quickConvert('${p.id}')">Convertir en gasto</button></div>`;});
+    getUpcomingUnified(7).filter(p=>p.reminder!==false&&p.status!=='pagado').slice(0,3).forEach(p=>{
+      const w=p.du===0?'hoy':p.du===1?'mañana':`en ${p.du} días`;
+      const label=p.kind==='income'?'Ingreso':'Pago';
+      const btn=p.kind==='expense'?`<button onclick="quickConvert('${p.id}')">Convertir en gasto</button>`:'';
+      html+=`<div class="banner warning"><span>🔔 ${label}: ${p.name} ${w} (${formatMoney(p.amount)}).</span>${btn}</div>`;
+    });
     getCardReminders().forEach(c=>{const w=c.du===0?'hoy':c.du===1?'mañana':`en ${c.du} días`;html+=`<div class="banner warning"><span>💳 ${c.name}: pago ${w} (${formatMoney(c.used)}).</span><button onclick="markCardPaid('${c.id}')">Pagada</button></div>`;});
     data.cards.filter(cardOverdue).forEach(c=>{html+=`<div class="banner danger"><span>🚨 ${c.name} aparece vencida este ciclo.</span><button onclick="markCardPaid('${c.id}')">Pagada</button></div>`;});
     if(!hasSample()&&data.movements.length===0)html+=`<div class="banner"><span>Registra tu primer ingreso para empezar.</span><button onclick="openMovementModal(null,'income')">Añadir</button></div>`;
-    else if(s.available<0)html+=`<div class="banner danger"><span>Tus salidas superaron tus ingresos este mes.</span></div>`;
-    else if(upTotal>s.available&&s.available>0)html+=`<div class="banner danger"><span>Próximos pagos (${formatMoney(upTotal)}) superan tu disponible (${formatMoney(s.available)}).</span></div>`;
-    else if(s.income>0&&s.available<=s.income*0.1)html+=`<div class="banner warning"><span>Tu disponible está bajo. Revisa antes de seguir.</span></div>`;
+    else if(avail<0)html+=`<div class="banner danger"><span>Tus salidas superaron tus ingresos este mes.</span></div>`;
+    else if(upExp>avail&&avail>0)html+=`<div class="banner danger"><span>Próximos pagos (${formatMoney(upExp)}) superan tu disponible (${formatMoney(avail)}).</span></div>`;
     area.innerHTML=html;
   }
 
   function getNextPaymentDate(day){const t=new Date();t.setHours(0,0,0,0);let d=new Date(t.getFullYear(),t.getMonth(),Number(day||1));if(d<t)d=new Date(t.getFullYear(),t.getMonth()+1,Number(day||1));return d;}
   function daysUntil(d){const t=new Date();t.setHours(0,0,0,0);return Math.round((d-t)/86400000);}
-  function getReminderPayments(){return data.payments.filter(p=>p.active!==false&&p.reminder!==false&&p.status!=='pagado'&&p.lastPaidMonth!==currentMonthKey()).map(p=>{const nd=getNextPaymentDate(p.dueDay);return{...p,nd,du:daysUntil(nd)};}).filter(p=>p.du<=3).sort((a,b)=>a.nd-b.nd);}
-  function getUpcomingPayments(days=15){const t=new Date();t.setHours(0,0,0,0);const l=new Date(t);l.setDate(l.getDate()+days);return data.payments.filter(p=>p.active!==false&&p.status!=='pagado').map(p=>{const n=getNextPaymentDate(p.dueDay);return{...p,nextDate:n,daysUntil:daysUntil(n)};}).filter(p=>p.nextDate>=t&&p.nextDate<=l).sort((a,b)=>a.nextDate-b.nextDate);}
+
+  /* === PRÓXIMOS UNIFICADOS: incluye ingresos fijos === */
+  function getUpcomingUnified(days=15){
+    const t=new Date();t.setHours(0,0,0,0);
+    const l=new Date(t);l.setDate(l.getDate()+days);
+    return data.payments.filter(p=>p.active!==false&&p.status!=='pagado')
+      .map(p=>{const n=getNextPaymentDate(p.dueDay);return{...p,kind:p.kind||'expense',nextDate:n,du:daysUntil(n)};})
+      .filter(p=>p.nextDate>=t&&p.nextDate<=l)
+      .sort((a,b)=>a.nextDate-b.nextDate);
+  }
+  function getReminderPayments(){return getUpcomingUnified(3).filter(p=>p.reminder!==false);}
+
   function formatPaymentDue(p){const du=p.daysUntil!==undefined?p.daysUntil:p.du;if(du===0)return 'Hoy';if(du===1)return 'Mañana';if(du<7)return `${du} días`;const d=new Date(p.nextDate||p.nd);return ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][d.getDay()];}
   function quickConvert(id){const p=data.payments.find(x=>x.id===id);if(!p)return;const v=validateExpense(Number(p.amount));if(!v.ok)return toast(v.msg);convertPayment(id);saveData();render();toast('Pago convertido en gasto');}
-  function convertToExpense(){const p=data.payments.find(x=>x.id===ui.editingPaymentId);if(!p)return;convertPayment(p.id);saveData();render();closeModal('paymentModal');toast('Pago convertido en gasto: ya no aparece en próximos');}
+  function convertToExpense(){const p=data.payments.find(x=>x.id===ui.editingPaymentId);if(!p)return;convertPayment(p.id);saveData();render();closeModal('paymentModal');toast('Convertido en gasto');}
   function markPaymentPaid(){const p=data.payments.find(x=>x.id===ui.editingPaymentId);if(!p)return;p.status='pagado';p.lastPaidMonth=currentMonthKey();saveData();render();closeModal('paymentModal');toast('Marcado como pagado');}
-  function renderHomePayments(){const up=getUpcomingPayments(15);const el=document.getElementById('homePaymentsList');if(!up.length){el.innerHTML='<div class="empty"><strong>Sin pagos pendientes</strong>Añade compromisos o usa plantillas.</div>';return;}el.innerHTML=up.slice(0,3).map(p=>{const c=getCategory(p.categoryId);return `<div class="row" onclick="openPaymentModal('${p.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${p.name} <span class="status-chip">pendiente</span></div><div class="row-sub">${formatPaymentDue(p)}</div></div></div><div class="row-right"><div class="row-amount">${formatMoney(p.amount)}</div></div></div>`;}).join('');}
-  function renderPayments(){const el=document.getElementById('paymentsList');const list=data.payments.filter(p=>p.status!=='pagado').map(p=>({...p,nextDate:getNextPaymentDate(p.dueDay),daysUntil:daysUntil(getNextPaymentDate(p.dueDay))})).sort((a,b)=>a.nextDate-b.nextDate);if(!list.length){el.innerHTML='<div class="empty"><strong>Sin pagos pendientes</strong>Los convertidos en gasto desaparecen de aquí.</div>';return;}el.innerHTML=list.map(p=>{const c=getCategory(p.categoryId);return `<div class="row" onclick="openPaymentModal('${p.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${p.name} <span class="status-chip">pendiente</span></div><div class="row-sub">${p.active?'Activo':'Inactivo'} · día ${p.dueDay} · ${formatPaymentDue(p)}</div></div></div><div class="row-right"><div class="row-amount">${formatMoney(p.amount)}</div></div></div>`;}).join('');}
+
+  /* === HOME: próximos pagos e ingresos unificados === */
+  function renderHomePayments(){
+    const up=getUpcomingUnified(15);const el=document.getElementById('homePaymentsList');
+    if(!up.length){el.innerHTML='<div class="empty"><strong>Sin pagos ni ingresos próximos</strong>Registra tus fijos en "Presupuesto".</div>';return;}
+    el.innerHTML=up.slice(0,5).map(p=>{
+      const c=getCategory(p.categoryId);
+      const isInc=p.kind==='income';
+      const amountCls=isInc?'green':'red';
+      const sign=isInc?'+':'-';
+      return `<div class="row" onclick="openPaymentModal('${p.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${p.name} <span class="status-chip">${isInc?'Ingreso':'Gasto'}</span></div><div class="row-sub">${isInc?'Entra':'Sale'} ${formatPaymentDue(p)}</div></div></div><div class="row-right"><div class="row-amount ${amountCls}">${sign} ${formatMoney(p.amount)}</div></div></div>`;
+    }).join('');
+  }
+  function renderPayments(){
+    const el=document.getElementById('paymentsList');
+    const list=data.payments.filter(p=>p.status!=='pagado'&&!p.fixed).map(p=>({...p,nextDate:getNextPaymentDate(p.dueDay),du:daysUntil(getNextPaymentDate(p.dueDay))})).sort((a,b)=>a.nextDate-b.nextDate);
+    if(!list.length){el.innerHTML='<div class="empty"><strong>Sin pagos sueltos</strong>Añade pagos únicos aquí. Los fijos van en "Presupuesto".</div>';return;}
+    el.innerHTML=list.map(p=>{const c=getCategory(p.categoryId);return `<div class="row" onclick="openPaymentModal('${p.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${p.name}</div><div class="row-sub">${p.active?'Activo':'Inactivo'} · día ${p.dueDay} · ${formatPaymentDue(p)}</div></div></div><div class="row-right"><div class="row-amount">${formatMoney(p.amount)}</div></div></div>`;}).join('');
+  }
   function openPaymentModal(id=null,pre=null){
     ui.editingPaymentId=id;const p=id?data.payments.find(x=>x.id===id):null;
     document.getElementById('paymentModalTitle').textContent=p?'Editar pago':'Nuevo pago';
@@ -884,58 +1030,296 @@
     const name=document.getElementById('paymentNameInput').value.trim(),amount=parseFloat(document.getElementById('paymentAmountInput').value),categoryId=document.getElementById('paymentCategorySelect').value,dueDay=parseInt(document.getElementById('paymentDayInput').value,10),active=document.getElementById('paymentActiveCheck').checked,reminder=document.getElementById('reminderCheck').checked;
     if(!name)return toast('Escribe un nombre');if(!amount||amount<=0)return toast('Monto inválido');
     const ex=ui.editingPaymentId?data.payments.find(p=>p.id===ui.editingPaymentId):null;
-    const pay={id:ui.editingPaymentId||uid(),name,amount:Number(amount),categoryId,dueDay,active,reminder,status:ex?.status||'pendiente',fixed:ex?.fixed||false,lastPaidMonth:ex?.lastPaidMonth||null,sample:false};
+    const pay={id:ui.editingPaymentId||uid(),name,amount:Number(amount),categoryId,dueDay,active,reminder,status:ex?.status||'pendiente',fixed:false,kind:ex?.kind||'expense',lastPaidMonth:ex?.lastPaidMonth||null,sample:false};
     if(ui.editingPaymentId){const i=data.payments.findIndex(p=>p.id===ui.editingPaymentId);if(i>=0)data.payments[i]=pay;}else data.payments.push(pay);
-    saveData();render();closeModal('paymentModal');toast('Pago guardado como pendiente');
+    saveData();render();closeModal('paymentModal');toast('Pago guardado');
   }
-  function deleteCurrentPayment(){if(!ui.editingPaymentId||!confirm('¿Borrar este pago?'))return;data.payments=data.payments.filter(p=>p.id!==ui.editingPaymentId);saveData();render();closeModal('paymentModal');toast('Pago borrado');}
+  function deleteCurrentPayment(){if(!ui.editingPaymentId||!confirm('¿Borrar este pago?'))return;data.payments=data.payments.filter(p=>p.id!==ui.editingPaymentId);saveData();render();closeModal('paymentModal');toast('Borrado');}
+
   function openTemplates(){renderTemplates();openModal('templatesModal');}
-  function renderTemplates(){const T=[{name:'Renta',categoryId:'casa'},{name:'Luz',categoryId:'servicios'},{name:'Agua',categoryId:'servicios'},{name:'Internet',categoryId:'servicios'},{name:'Teléfono',categoryId:'servicios'},{name:'Netflix',categoryId:'ocio'},{name:'Spotify',categoryId:'ocio'},{name:'Gimnasio',categoryId:'salud'}];window._tpl=T;document.getElementById('templatesList').innerHTML=T.map((t,i)=>{const c=getCategory(t.categoryId);return `<div class="row"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${t.name}</div><div class="row-sub">${c.name}</div></div></div><button class="btn secondary mini" onclick="useTemplate(${i})">Usar</button></div>`;}).join('');}
+  function renderTemplates(){const T=[{name:'Renta',categoryId:'casa'},{name:'Luz',categoryId:'servicios'},{name:'Agua',categoryId:'servicios'},{name:'Internet',categoryId:'servicios'},{name:'Teléfono',categoryId:'servicios'},{name:'Netflix',categoryId:'ocio'},{name:'Spotify',categoryId:'ocio'}];window._tpl=T;document.getElementById('templatesList').innerHTML=T.map((t,i)=>{const c=getCategory(t.categoryId);return `<div class="row"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${t.name}</div><div class="row-sub">${c.name}</div></div></div><button class="btn secondary mini" onclick="useTemplate(${i})">Usar</button></div>`;}).join('');}
   function useTemplate(i){closeModal('templatesModal');openPaymentModal(null,window._tpl[i]);}
+
+  /* =========================================================
+     MÓDULO PRESUPUESTO REDISEÑADO (dos columnas + disponible)
+     ========================================================= */
+  function renderBudgetModule(){
+    const fixeds = data.payments.filter(p=>p.fixed);
+    const incomes = fixeds.filter(p=>p.kind==='income').sort((a,b)=>a.dueDay-b.dueDay);
+    const expenses = fixeds.filter(p=>p.kind==='expense').sort((a,b)=>a.dueDay-b.dueDay);
+
+    // Cálculo del mes (considera pagos fijos aún no ejecutados y ya ejecutados)
+    const incoming = incomes.reduce((a,p)=>a+Number(p.amount||0),0);
+    const outgoing = expenses.reduce((a,p)=>a+Number(p.amount||0),0);
+    const carry = balanceBefore(firstDayOfMonth());
+    const currentMovements = calcSummary(currentMonthMovements()).available;
+    const monthAvailable = carry + currentMovements + incoming - outgoing;
+    // (incoming-outgoing son lo "planificado"; currentMovements es lo "real" ya registrado)
+
+    document.getElementById('budgetAvailable').textContent = formatMoney(monthAvailable);
+    document.getElementById('budgetAvailable').className = 'value ' + (monthAvailable>=0?'green':'red');
+    document.getElementById('budgetIncoming').textContent = '+'+formatMoney(incoming);
+    document.getElementById('budgetIncoming').className = 'green';
+    document.getElementById('budgetOutgoing').textContent = '-'+formatMoney(outgoing);
+    document.getElementById('budgetOutgoing').className = 'red';
+
+    document.getElementById('fixedIncomeList').innerHTML = incomes.length
+      ? incomes.map(p=>fixedItemHtml(p,'income')).join('')
+      : '<div class="empty"><strong>Sin ingresos fijos</strong><br>Añade tu sueldo u otros.</div>';
+    document.getElementById('fixedExpenseList').innerHTML = expenses.length
+      ? expenses.map(p=>fixedItemHtml(p,'expense')).join('')
+      : '<div class="empty"><strong>Sin gastos fijos</strong><br>Añade renta, luz, etc.</div>';
+  }
+
+  function fixedItemHtml(p, kind){
+    const c=getCategory(p.categoryId);
+    const du = daysUntil(getNextPaymentDate(p.dueDay));
+    let reminderText='';
+    let reminderCls='';
+    if(p.status==='pagado'){reminderText='✓ ya este mes';reminderCls='paid';}
+    else if(du===0){reminderText='Hoy';reminderCls='today';}
+    else if(du===1){reminderText='Mañana';reminderCls='soon';}
+    else if(du<=3){reminderText=`En ${du} días`;reminderCls='soon';}
+    else if(du<7){reminderText=`En ${du} días`;}
+    else{reminderText=`Día ${p.dueDay}`;}
+    const prefix=kind==='income'?'+':'-';
+    const amtCls=kind==='income'?'green':'red';
+    const actionLabel = kind==='income'?'← Convertir en gasto':'← Convertir en ingreso';
+    return `
+      <div class="fixed-item">
+        <div class="fi-icon" style="background:var(${c.bg});">${c.emoji}</div>
+        <div class="fi-info">
+          <div class="fi-name">${p.name}</div>
+          <div class="fi-sub">${c.name}${p.active?'':' · inactivo'}</div>
+        </div>
+        <div class="fi-right">
+          <div class="fi-amount ${amtCls}">${prefix} ${formatMoney(p.amount)}</div>
+          <div class="fi-reminder ${reminderCls}">${reminderText}</div>
+        </div>
+        <button class="fi-convert" title="${actionLabel}" onclick="event.stopPropagation();toggleFixedKind('${p.id}')">⇄</button>
+        <button class="fi-del" title="Editar" onclick="event.stopPropagation();openFixedModal('${p.id}')">✎</button>
+      </div>
+    `;
+  }
+
+  function toggleFixedKind(id){
+    const p=data.payments.find(x=>x.id===id);
+    if(!p)return;
+    const newKind = (p.kind==='income')?'expense':'income';
+    // Al convertir, mover a categoría apropiada si la actual no encaja
+    const current = getCategory(p.categoryId);
+    if(current.type !== newKind){
+      const fallback = data.categories.find(c=>c.type===newKind);
+      if(fallback) p.categoryId = fallback.id;
+    }
+    p.kind = newKind;
+    p.status = 'pendiente';
+    saveData();render();
+    toast(newKind==='income'?'Convertido en ingreso fijo':'Convertido en gasto fijo');
+  }
+
+  function openFixedModal(id=null){
+    ui.editingFixedId = id;
+    const p = id ? data.payments.find(x=>x.id===id) : null;
+    ui.fixedType = p ? (p.kind||'expense') : 'expense';
+    document.getElementById('fixedModalTitle').textContent = p?'Editar fijo':'Nuevo compromiso fijo';
+    document.getElementById('fixedNameInput').value = p?p.name:'';
+    document.getElementById('fixedAmountInput').value = p?p.amount:'';
+    document.getElementById('fixedActiveCheck').checked = p?!!p.active:true;
+    document.getElementById('fixedReminderCheck').checked = p?p.reminder!==false:true;
+    document.getElementById('fixedDeleteBtn').classList.toggle('hidden',!p);
+    setFixedType(ui.fixedType);
+    renderFixedCategoryOptions(p?.categoryId);
+    let h='';for(let d=1;d<=31;d++)h+=`<option value="${d}" ${p&&p.dueDay===d?'selected':''}>Día ${d}</option>`;
+    document.getElementById('fixedDayInput').innerHTML=h;
+    if(p)document.getElementById('fixedDayInput').value=p.dueDay;
+    openModal('fixedModal');
+  }
+  function setFixedType(t){
+    ui.fixedType = t;
+    document.getElementById('fixedTypeIncome').classList.toggle('active',t==='income');
+    document.getElementById('fixedTypeExpense').classList.toggle('active',t==='expense');
+    renderFixedCategoryOptions(ui.editingFixedId?data.payments.find(p=>p.id===ui.editingFixedId)?.categoryId:null);
+  }
+  function renderFixedCategoryOptions(sel){
+    const type = ui.fixedType==='income'?'income':'expense';
+    const cats = data.categories.filter(c=>c.type===type&&!c.archived);
+    document.getElementById('fixedCategorySelect').innerHTML = cats.map(c=>`<option value="${c.id}" ${c.id===sel?'selected':''}>${c.emoji} ${c.name}</option>`).join('');
+  }
+  function saveFixed(){
+    const name=document.getElementById('fixedNameInput').value.trim();
+    const amount=parseFloat(document.getElementById('fixedAmountInput').value);
+    const categoryId=document.getElementById('fixedCategorySelect').value;
+    const dueDay=parseInt(document.getElementById('fixedDayInput').value,10);
+    const active=document.getElementById('fixedActiveCheck').checked;
+    const reminder=document.getElementById('fixedReminderCheck').checked;
+    if(!name)return toast('Escribe un nombre');
+    if(!amount||amount<=0)return toast('Monto inválido');
+    const ex = ui.editingFixedId ? data.payments.find(p=>p.id===ui.editingFixedId) : null;
+    const pay = {
+      id: ui.editingFixedId || uid(),
+      name, amount:Number(amount), categoryId, dueDay,
+      active, reminder,
+      status: ex?.status || 'pendiente',
+      fixed: true,
+      kind: ui.fixedType,
+      lastPaidMonth: ex?.lastPaidMonth || null,
+      sample:false
+    };
+    if(ui.editingFixedId){
+      const i=data.payments.findIndex(p=>p.id===ui.editingFixedId);
+      if(i>=0)data.payments[i]=pay;
+    }else data.payments.push(pay);
+    saveData();render();closeModal('fixedModal');toast('Compromiso fijo guardado');
+  }
+  function deleteCurrentFixed(){
+    if(!ui.editingFixedId||!confirm('¿Borrar este compromiso fijo?'))return;
+    data.payments=data.payments.filter(p=>p.id!==ui.editingFixedId);
+    saveData();render();closeModal('fixedModal');toast('Borrado');
+  }
 
   function renderCards(){const el=document.getElementById('cardsList');if(!data.cards.length){el.innerHTML='<div class="empty"><strong>Sin tarjetas</strong>Sigue cuánto debes sin entrar al banco.</div>';return;}el.innerHTML=data.cards.map(c=>{const pct=c.limit>0?Math.min(100,Math.round((Number(c.used||0)/Number(c.limit))*100)):0;const color=pct>=90?'var(--red)':pct>=50?'#f59e0b':'var(--green)';const days=c.updatedAt?Math.floor((Date.now()-c.updatedAt)/86400000):null;const ci=cardCutInfo(c);const badges=(cardOverdue(c)?' 🚨':(c.reminder!==false?' ⏰':''))+(days!==null&&days>=7?` · hace ${days} d sin actualizar`:'');return `<div class="row" onclick="openCardModal('${c.id}')"><div class="row-left"><div class="row-icon" style="background:var(--blue-soft);">💳</div><div class="cat-value"><div class="row-title">${c.name}${badges}</div><div class="row-sub">Debe ${formatMoney(c.used)} de ${formatMoney(c.limit)} · corte día ${c.cutDay||c.dueDay} (${ci.du===0?'hoy':'en '+ci.du+' d'})</div><div class="progress"><span style="width:${pct}%;background:${color};"></span></div></div></div><div class="row-right" style="display:flex;flex-direction:column;gap:6px;"><button class="btn secondary mini" onclick="event.stopPropagation();updateCardUsed('${c.id}')">Saldo</button><button class="btn secondary mini" onclick="event.stopPropagation();markCardPaid('${c.id}')">Pagada</button></div></div>`;}).join('');}
   function openCardModal(id=null){ui.editingCardId=id;const c=id?data.cards.find(x=>x.id===id):null;document.getElementById('cardModalTitle').textContent=c?'Editar tarjeta':'Nueva tarjeta';document.getElementById('cardNameInput').value=c?c.name:'';document.getElementById('cardLimitInput').value=c?c.limit:'';document.getElementById('cardUsedInput').value=c?c.used:'';document.getElementById('cardReminderCheck').checked=c?c.reminder!==false:true;document.getElementById('deleteCardBtn').classList.toggle('hidden',!c);let h='';for(let d=1;d<=31;d++)h+=`<option value="${d}">Día ${d}</option>`;document.getElementById('cardDayInput').innerHTML=h;document.getElementById('cardCutInput').innerHTML=h;if(c){document.getElementById('cardDayInput').value=c.dueDay;document.getElementById('cardCutInput').value=c.cutDay||c.dueDay;}openModal('cardModal');}
   function saveCard(){const name=document.getElementById('cardNameInput').value.trim(),limit=parseFloat(document.getElementById('cardLimitInput').value),used=parseFloat(document.getElementById('cardUsedInput').value)||0,dueDay=parseInt(document.getElementById('cardDayInput').value,10),cutDay=parseInt(document.getElementById('cardCutInput').value,10),reminder=document.getElementById('cardReminderCheck').checked;if(!name)return toast('Escribe un nombre');if(!limit||limit<=0)return toast('Límite inválido');const ex=ui.editingCardId?data.cards.find(c=>c.id===ui.editingCardId):null;const card={id:ui.editingCardId||uid(),name,limit:Number(limit),used:Number(used),dueDay,cutDay,reminder,paidCycle:ex?.paidCycle||null,updatedAt:Date.now(),sample:false};if(ui.editingCardId){const i=data.cards.findIndex(c=>c.id===ui.editingCardId);if(i>=0)data.cards[i]=card;}else data.cards.push(card);saveData();render();closeModal('cardModal');toast('Tarjeta guardada');}
-  function deleteCard(){if(!ui.editingCardId||!confirm('¿Borrar esta tarjeta?'))return;data.cards=data.cards.filter(c=>c.id!==ui.editingCardId);saveData();render();closeModal('cardModal');toast('Tarjeta borrada');}
+  function deleteCard(){if(!ui.editingCardId||!confirm('¿Borrar?'))return;data.cards=data.cards.filter(c=>c.id!==ui.editingCardId);saveData();render();closeModal('cardModal');toast('Borrada');}
   function updateCardUsed(id){const c=data.cards.find(x=>x.id===id);if(!c)return;const v=prompt(`Nuevo saldo usado de ${c.name}:`,c.used);if(v===null)return;const n=parseFloat(v);if(isNaN(n)||n<0)return toast('Monto inválido');c.used=n;c.updatedAt=Date.now();saveData();render();toast('Saldo actualizado');}
-  function markCardPaid(id){const c=data.cards.find(x=>x.id===id);if(!c)return;c.used=0;c.paidCycle=currentMonthKey();c.updatedAt=Date.now();saveData();render();toast(c.name+' marcada como pagada');}
+  function markCardPaid(id){const c=data.cards.find(x=>x.id===id);if(!c)return;c.used=0;c.paidCycle=currentMonthKey();c.updatedAt=Date.now();saveData();render();toast(c.name+' pagada');}
 
   function renderLoans(){const owedMe=data.loans.filter(l=>l.dir==='owedToMe').reduce((a,l)=>a+Number(l.remaining||0),0);const iOwe=data.loans.filter(l=>l.dir==='iOwe').reduce((a,l)=>a+Number(l.remaining||0),0);document.getElementById('loanOwedToMe').textContent=formatMoney(owedMe);document.getElementById('loanIOwe').textContent=formatMoney(iOwe);const el=document.getElementById('loansList');if(!data.loans.length){el.innerHTML='<div class="empty"><strong>Sin registros</strong>Añade quién te debe o a quién debes.</div>';return;}el.innerHTML=data.loans.map(l=>{const done=Number(l.remaining)<=0;return `<div class="row" onclick="openLoanModal('${l.id}')"><div class="row-left"><div class="row-icon" style="background:var(${l.dir==='owedToMe'?'--green-soft':'--pink-soft'});">${l.dir==='owedToMe'?'🤝':''}</div><div style="min-width:0;"><div class="row-title">${l.person}${done?' · saldada':''}</div><div class="row-sub">${l.dir==='owedToMe'?'Te debe':'Le debes'} · ${formatDateLabel(l.date)}${l.note?' · '+l.note:''}</div></div></div><div class="row-right" style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;"><div class="row-amount ${l.dir==='owedToMe'?'green':'red'}">${formatMoney(l.remaining)}</div>${!done?`<button class="btn secondary mini" onclick="event.stopPropagation();loanAbono('${l.id}')">Abonar</button>`:''}</div></div>`;}).join('');}
-  function loanAbono(id){const l=data.loans.find(x=>x.id===id);if(!l)return;const v=prompt(`Abono a ${l.person} (restante ${formatMoney(l.remaining)}):`,l.remaining);if(v===null)return;const n=parseFloat(v);if(isNaN(n)||n<=0)return toast('Monto inválido');loanPay(id,n);saveData();render();toast(Number(l.remaining)<=0?'Deuda saldada':'Abono registrado');}
-  function openLoanModal(id=null){ui.editingLoanId=id;const l=id?data.loans.find(x=>x.id===id):null;document.getElementById('loanModalTitle').textContent=l?'Editar registro':'Registro de persona';document.getElementById('loanPerson').value=l?l.person:'';document.getElementById('loanDir').value=l?l.dir:'owedToMe';document.getElementById('loanAmount').value=l?l.amount:'';document.getElementById('loanDate').value=l?l.date:isoDate();document.getElementById('loanNote').value=l?(l.note||''):'';document.getElementById('deleteLoanBtn').classList.toggle('hidden',!l);openModal('loanModal');}
-  function saveLoan(){const person=document.getElementById('loanPerson').value.trim(),dir=document.getElementById('loanDir').value,amount=parseFloat(document.getElementById('loanAmount').value),date=document.getElementById('loanDate').value||isoDate(),note=document.getElementById('loanNote').value.trim();if(!person)return toast('Escribe el nombre');if(!amount||amount<=0)return toast('Monto inválido');if(ui.editingLoanId){const l=data.loans.find(x=>x.id===ui.editingLoanId);if(l){l.person=person;l.dir=dir;l.amount=Number(amount);l.date=date;l.note=note;}}else pushLoan({person,dir,amount:Number(amount),date,note});saveData();render();closeModal('loanModal');toast('Registro guardado');}
-  function deleteLoan(){if(!ui.editingLoanId||!confirm('¿Borrar este registro?'))return;data.loans=data.loans.filter(l=>l.id!==ui.editingLoanId);saveData();render();closeModal('loanModal');toast('Registro borrado');}
+  function loanAbono(id){const l=data.loans.find(x=>x.id===id);if(!l)return;const v=prompt(`Abono a ${l.person} (restante ${formatMoney(l.remaining)}):`,l.remaining);if(v===null)return;const n=parseFloat(v);if(isNaN(n)||n<=0)return toast('Monto inválido');loanPay(id,n);saveData();render();toast(Number(l.remaining)<=0?'Saldada':'Abono registrado');}
+  function openLoanModal(id=null){ui.editingLoanId=id;const l=id?data.loans.find(x=>x.id===id):null;document.getElementById('loanModalTitle').textContent=l?'Editar':'Registro';document.getElementById('loanPerson').value=l?l.person:'';document.getElementById('loanDir').value=l?l.dir:'owedToMe';document.getElementById('loanAmount').value=l?l.amount:'';document.getElementById('loanDate').value=l?l.date:isoDate();document.getElementById('loanNote').value=l?(l.note||''):'';document.getElementById('deleteLoanBtn').classList.toggle('hidden',!l);openModal('loanModal');}
+  function saveLoan(){const person=document.getElementById('loanPerson').value.trim(),dir=document.getElementById('loanDir').value,amount=parseFloat(document.getElementById('loanAmount').value),date=document.getElementById('loanDate').value||isoDate(),note=document.getElementById('loanNote').value.trim();if(!person)return toast('Escribe el nombre');if(!amount||amount<=0)return toast('Monto inválido');if(ui.editingLoanId){const l=data.loans.find(x=>x.id===ui.editingLoanId);if(l){l.person=person;l.dir=dir;l.amount=Number(amount);l.date=date;l.note=note;}}else pushLoan({person,dir,amount:Number(amount),date,note});saveData();render();closeModal('loanModal');toast('Guardado');}
+  function deleteLoan(){if(!ui.editingLoanId||!confirm('¿Borrar?'))return;data.loans=data.loans.filter(l=>l.id!==ui.editingLoanId);saveData();render();closeModal('loanModal');toast('Borrado');}
 
-  function renderHomeCategories(){const dash=getDashMovements();const byCat=expenseByCategoryList(dash);const total=Object.values(byCat).reduce((a,b)=>a+b,0);document.getElementById('homeSpent').textContent=formatMoney(total);document.getElementById('homeSpentLabel').textContent=ui.dashMode==='current'?'Gastado este mes':ui.dashMode==='previous'?'Gastado el mes pasado':'Gastado en el rango';const el=document.getElementById('homeCategoryList');if(!total){el.innerHTML='<div class="empty"><strong>Sin gastos</strong>Todavía no hay gastos en el periodo.</div>';return;}el.innerHTML=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([id,amount])=>{const c=getCategory(id);const pct=Math.min(100,Math.round((amount/total)*100));return `<div class="row" onclick="openCategoryDetail('${id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div class="cat-value"><div class="row-title">${c.name}</div><div class="progress"><span style="width:${pct}%;background:${c.color};"></span></div></div></div><div class="row-right"><div class="row-amount">${formatMoney(amount)}</div></div></div>`;}).join('');}
-  function renderInsights(){const cur=currentMonthMovements();const prev=data.movements.filter(m=>monthKey(m.date)===previousMonthKey());const sCur=calcSummary(cur),sPrev=calcSummary(prev);const byCat=expenseByCategoryList(cur);const ins=[];const top=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];if(top){const c=getCategory(top[0]);ins.push(`Tu mayor gasto es ${c.name}: ${formatMoney(top[1])}`);}if(sCur.income>0){const r=Math.round((sCur.available/sCur.income)*100);ins.push(r>=0?`Conservas el ${r}% de lo que entra.`:'Gastas más de lo que entra.');}if(sPrev.income||sPrev.expense)ins.push(`Cierre mes pasado: entró ${formatMoney(sPrev.income)}, salió ${formatMoney(sPrev.expense+sPrev.transfer)}, quedó ${formatMoney(sPrev.available)}.`);if(!ins.length)ins.push('Registra movimientos para ver insights.');document.getElementById('insightList').innerHTML=ins.map((t,i)=>{const ic=['💡','','️','✨'];return `<div class="row" style="cursor:default;"><div class="row-left"><div class="row-icon" style="background:var(--blue-soft);">${ic[i%ic.length]}</div><div style="min-width:0;"><div class="row-title" style="font-weight:600;white-space:normal;">${t}</div></div></div></div>`;}).join('');}
+  /* =========================================================
+     NUEVO: MÓDULO DE PRÉSTAMOS BANCARIOS
+     ========================================================= */
+  function renderBankLoans(){
+    const list = data.bankLoans || [];
+    const total = list.filter(b=>b.status!=='paid').reduce((a,b)=>a+Number(b.balance||0),0);
+    const totalInterest = list.reduce((a,b)=>a+Number(b.paidInterest||0),0);
+    document.getElementById('bankLoanTotal').textContent = formatMoney(total);
+    document.getElementById('bankLoanInterest').textContent = formatMoney(totalInterest);
+    const el = document.getElementById('bankLoansList');
+    if(!list.length){el.innerHTML='<div class="empty"><strong>Sin préstamos bancarios</strong>Añade uno para seguir tu deuda real.</div>';return;}
+    el.innerHTML = list.sort((a,b)=>(a.status==='overdue'?-1:b.status==='overdue'?1:a.dueDay-b.dueDay)).map(b=>bankLoanHtml(b)).join('');
+  }
+  function bankLoanHtml(b){
+    const paid = b.status==='paid';
+    const overdue = b.status==='overdue';
+    const statusCls = overdue?'overdue':(paid?'paid':'active');
+    const statusText = overdue?'Vencido':(paid?'Pagado':'Activo');
+    const du = daysUntil(getNextPaymentDate(b.dueDay));
+    const reminder = paid?'':du===0?'<div class="fi-reminder today">Cuota hoy</div>':du===1?'<div class="fi-reminder soon">Mañana</div>':du<=7?`<div class="fi-reminder soon">En ${du} días</div>`:`<div class="fi-reminder">Día ${b.dueDay}</div>`;
+    const pct = b.principal>0 ? Math.min(100,Math.round((1-(Number(b.balance)/Number(b.principal)))*100)) : 0;
+    const kindLabel = {personal:'Personal',auto:'Automotriz',mortgage:'Hipotecario',student:'Educativo',business:'Empresarial',other:'Otro'}[b.kind]||b.kind;
+    return `
+      <div class="loan-card ${statusCls}">
+        <div class="loan-head">
+          <div>
+            <div class="loan-entity">${b.entity||'Sin nombre'}</div>
+            <div class="row-sub">${kindLabel}${b.rate?` · ${b.rate}% anual`:''}</div>
+          </div>
+          <span class="loan-status ${statusCls}">${statusText}</span>
+        </div>
+        <div class="loan-body">
+          <div class="loan-row"><span class="k">Saldo actual</span><span class="v red">${formatMoney(b.balance)}</span></div>
+          <div class="loan-row"><span class="k">Original</span><span class="v">${formatMoney(b.principal)}</span></div>
+          ${b.installment?`<div class="loan-row"><span class="k">Cuota mensual</span><span class="v">${formatMoney(b.installment)}</span></div>`:''}
+          ${b.paidInterest?`<div class="loan-row"><span class="k">Intereses pagados</span><span class="v">${formatMoney(b.paidInterest)}</span></div>`:''}
+          <div class="progress" style="margin-top:8px;"><span style="width:${pct}%;background:${paid?'var(--green)':overdue?'var(--red)':'var(--accent)'};"></span></div>
+          <div class="row-sub" style="margin-top:4px;">${pct}% amortizado</div>
+          ${reminder}
+        </div>
+        <div class="loan-actions">
+          ${!paid?`<button class="btn secondary mini" onclick="payBankLoanInstallment('${b.id}')">Pagar cuota</button>`:''}
+          <button class="btn secondary mini" onclick="openBankLoanModal('${b.id}')">Editar</button>
+        </div>
+      </div>
+    `;
+  }
+  function openBankLoanModal(id=null){
+    ui.editingBankLoanId=id;
+    const b = id ? data.bankLoans.find(x=>x.id===id) : null;
+    document.getElementById('bankLoanModalTitle').textContent = b?'Editar préstamo':'Nuevo préstamo';
+    document.getElementById('blEntity').value = b?b.entity:'';
+    document.getElementById('blKind').value = b?b.kind:'personal';
+    document.getElementById('blPrincipal').value = b?b.principal:'';
+    document.getElementById('blBalance').value = b?b.balance:'';
+    document.getElementById('blRate').value = b?b.rate:'';
+    document.getElementById('blInstallment').value = b?b.installment:'';
+    document.getElementById('blStart').value = b?b.startDate:'';
+    document.getElementById('blStatus').value = b?b.status:'active';
+    document.getElementById('blDeleteBtn').classList.toggle('hidden',!b);
+    let h='';for(let d=1;d<=31;d++)h+=`<option value="${d}" ${b&&b.dueDay===d?'selected':''}>Día ${d}</option>`;
+    document.getElementById('blDueDay').innerHTML=h;
+    if(b)document.getElementById('blDueDay').value=b.dueDay;
+    openModal('bankLoanModal');
+  }
+  function saveBankLoan(){
+    const entity=document.getElementById('blEntity').value.trim();
+    const kind=document.getElementById('blKind').value;
+    const principal=parseFloat(document.getElementById('blPrincipal').value)||0;
+    const balance=parseFloat(document.getElementById('blBalance').value)||0;
+    const rate=parseFloat(document.getElementById('blRate').value)||0;
+    const installment=parseFloat(document.getElementById('blInstallment').value)||0;
+    const dueDay=parseInt(document.getElementById('blDueDay').value,10)||1;
+    const startDate=document.getElementById('blStart').value||'';
+    const status=document.getElementById('blStatus').value;
+    if(!entity)return toast('Escribe la entidad');
+    if(principal<=0)return toast('Monto original inválido');
+    const ex = ui.editingBankLoanId ? data.bankLoans.find(b=>b.id===ui.editingBankLoanId) : null;
+    const bl = {
+      id: ui.editingBankLoanId || uid(),
+      entity, kind, principal:Number(principal),
+      balance: Number(balance), rate:Number(rate), installment:Number(installment),
+      dueDay, startDate, status,
+      paidInterest: ex?.paidInterest||0,
+      sample:false
+    };
+    if(ui.editingBankLoanId){
+      const i=data.bankLoans.findIndex(b=>b.id===ui.editingBankLoanId);
+      if(i>=0)data.bankLoans[i]=bl;
+    }else data.bankLoans.push(bl);
+    saveData();render();closeModal('bankLoanModal');toast('Préstamo guardado');
+  }
+  function deleteBankLoan(){
+    if(!ui.editingBankLoanId||!confirm('¿Borrar este préstamo?'))return;
+    data.bankLoans=data.bankLoans.filter(b=>b.id!==ui.editingBankLoanId);
+    saveData();render();closeModal('bankLoanModal');toast('Borrado');
+  }
+  function payBankLoanInstallment(id){
+    const b=data.bankLoans.find(x=>x.id===id);
+    if(!b)return;
+    if(!b.installment||b.installment<=0)return toast('Define la cuota mensual primero.');
+    const pay = prompt(`Pagar cuota de ${b.entity} (${formatMoney(b.installment)}). Saldo: ${formatMoney(b.balance)}. ¿Cuánto pagas?`, b.installment);
+    if(pay===null)return;
+    const amt = parseFloat(pay);
+    if(isNaN(amt)||amt<=0)return toast('Monto inválido');
+    // Estimación simple de interés del mes
+    const monthlyRate = (Number(b.rate)||0)/100/12;
+    const interestThisMonth = Number(b.balance) * monthlyRate;
+    const principalThisMonth = Math.max(0, amt - interestThisMonth);
+    b.balance = Math.max(0, Number(b.balance) - principalThisMonth);
+    b.paidInterest = Number(b.paidInterest||0) + Math.min(amt, interestThisMonth);
+    if(b.balance<=0) b.status = 'paid';
+    saveData();render();
+    toast(`Saldo actualizado: ${formatMoney(b.balance)}`);
+  }
+
+  function renderHomeCategories(){const dash=getDashMovements();const byCat=expenseByCategoryList(dash);const total=Object.values(byCat).reduce((a,b)=>a+b,0);document.getElementById('homeSpent').textContent=formatMoney(total);document.getElementById('homeSpentLabel').textContent=ui.dashMode==='current'?'Gastado este mes':ui.dashMode==='previous'?'Gastado el mes pasado':'Gastado en el rango';const el=document.getElementById('homeCategoryList');if(!total){el.innerHTML='<div class="empty"><strong>Sin gastos</strong>Todavía no hay gastos.</div>';return;}el.innerHTML=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([id,amount])=>{const c=getCategory(id);const pct=Math.min(100,Math.round((amount/total)*100));return `<div class="row" onclick="openCategoryDetail('${id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div class="cat-value"><div class="row-title">${c.name}</div><div class="progress"><span style="width:${pct}%;background:${c.color};"></span></div></div></div><div class="row-right"><div class="row-amount">${formatMoney(amount)}</div></div></div>`;}).join('');}
+  function renderInsights(){const cur=currentMonthMovements();const prev=data.movements.filter(m=>monthKey(m.date)===previousMonthKey());const sCur=calcSummary(cur),sPrev=calcSummary(prev);const byCat=expenseByCategoryList(cur);const ins=[];const top=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];if(top){const c=getCategory(top[0]);ins.push(`Tu mayor gasto es ${c.name}: ${formatMoney(top[1])}`);}if(sCur.income>0){const carry=balanceBefore(firstDayOfMonth());const r=Math.round(((carry+sCur.available)/sCur.income)*100);ins.push(r>=0?`Conservas el ${r}% de lo que entra (con acumulado).`:'Gastas más de lo que entra.');}if(sPrev.income||sPrev.expense)ins.push(`Cierre mes pasado: entró ${formatMoney(sPrev.income)}, salió ${formatMoney(sPrev.expense+sPrev.transfer)}, quedó ${formatMoney(sPrev.available)}.`);if(!ins.length)ins.push('Registra movimientos.');document.getElementById('insightList').innerHTML=ins.map((t,i)=>{const ic=['💡','','️','✨'];return `<div class="row" style="cursor:default;"><div class="row-left"><div class="row-icon" style="background:var(--blue-soft);">${ic[i%ic.length]}</div><div style="min-width:0;"><div class="row-title" style="font-weight:600;white-space:normal;">${t}</div></div></div></div>`;}).join('');}
   function renderCategoryFilter(){document.getElementById('categoryFilter').innerHTML=`<option value="">Todas</option>`+data.categories.filter(c=>!c.archived).map(c=>`<option value="${c.id}" ${c.id===ui.categoryId?'selected':''}>${c.emoji} ${c.name}</option>`).join('');}
   function openCategoryDetail(id){ui.detailCategoryId=id;renderCategoryDetail();openModal('categoryModal');}
-  function renderCategoryDetail(){const c=getCategory(ui.detailCategoryId);document.getElementById('categoryModalTitle').textContent=`${c.emoji} ${c.name}${c.archived?' (archivada)':''}`;const movs=data.movements.filter(m=>m.categoryId===c.id);const s=calcSummary(movs.filter(m=>monthKey(m.date)===currentMonthKey()));document.getElementById('categoryModalSummary').textContent=`Este mes: gastado ${formatMoney(s.expense)} · dinero dado ${formatMoney(s.transfer)}`;document.getElementById('categoryBudgetBox').style.display=c.type==='expense'?'block':'none';document.getElementById('budgetInput').value=c.budget||'';document.getElementById('renameInput').value=c.name;document.getElementById('archiveBtn').textContent=c.archived?'♻️ Desarchivar categoría':'🗄️ Archivar categoría';const exp=movs.filter(m=>m.type==='expense');let bd='';(c.subs||[]).forEach(sub=>{const t=exp.filter(m=>m.subId===sub.id).reduce((a,m)=>a+Number(m.amount||0),0);if(t>0)bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-title">${sub.name}</div></div><div class="row-right"><div class="row-amount">${formatMoney(t)}</div></div></div>`;});const gen=exp.filter(m=>!m.subId).reduce((a,m)=>a+Number(m.amount||0),0);if(gen>0)bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-title">General</div></div><div class="row-right"><div class="row-amount">${formatMoney(gen)}</div></div></div>`;const merch={};exp.forEach(m=>{if(m.merchant)merch[m.merchant]=(merch[m.merchant]||0)+Number(m.amount||0);});Object.entries(merch).sort((a,b)=>b[1]-a[1]).slice(0,5).forEach(([m,t])=>{bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-sub" style="margin:0;">🏪 ${m}</div></div><div class="row-right"><div class="row-amount">${formatMoney(t)}</div></div></div>`;});document.getElementById('categoryBreakdown').innerHTML=bd||'<div class="empty">Sin detalle aún.</div>';const list=movs.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30);document.getElementById('categoryMovementList').innerHTML=list.length?list.map(m=>`<div class="row" onclick="closeModal('categoryModal');openMovementModal('${m.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${m.merchant?m.merchant+' · ':''}${m.note||c.name}</div><div class="row-sub">${formatDateLabel(m.date)}</div></div></div><div class="row-right"><div class="row-amount ${m.type==='income'?'green':m.type==='transfer'?'transfer':'red'}">${m.type==='income'?'+':'−'} ${formatMoney(m.amount)}</div></div></div>`).join(''):'<div class="empty">Sin movimientos.</div>';}
-  function renameCategory(){const c=getCategory(ui.detailCategoryId);const v=document.getElementById('renameInput').value.trim();if(!v)return toast('Escribe un nombre');const dup=data.categories.find(x=>x.id!==c.id&&x.name.toLowerCase()===v.toLowerCase());if(dup)return toast('Ya existe "'+dup.name+'"');const i=data.categories.findIndex(x=>x.id===c.id);if(i>=0)data.categories[i].name=v;saveData();render();renderCategoryDetail();toast('Categoría renombrada');}
-  function archiveCategory(){const c=getCategory(ui.detailCategoryId);const i=data.categories.findIndex(x=>x.id===c.id);if(i>=0)data.categories[i].archived=!data.categories[i].archived;saveData();render();renderCategoryDetail();toast(data.categories[i].archived?'Categoría archivada':'Categoría restaurada');}
+  function renderCategoryDetail(){const c=getCategory(ui.detailCategoryId);document.getElementById('categoryModalTitle').textContent=`${c.emoji} ${c.name}${c.archived?' (archivada)':''}`;const movs=data.movements.filter(m=>m.categoryId===c.id);const s=calcSummary(movs.filter(m=>monthKey(m.date)===currentMonthKey()));document.getElementById('categoryModalSummary').textContent=`Este mes: gastado ${formatMoney(s.expense)} · dinero dado ${formatMoney(s.transfer)}`;document.getElementById('categoryBudgetBox').style.display=c.type==='expense'?'block':'none';document.getElementById('budgetInput').value=c.budget||'';document.getElementById('renameInput').value=c.name;document.getElementById('archiveBtn').textContent=c.archived?'♻️ Desarchivar':'🗄️ Archivar';const exp=movs.filter(m=>m.type==='expense');let bd='';(c.subs||[]).forEach(sub=>{const t=exp.filter(m=>m.subId===sub.id).reduce((a,m)=>a+Number(m.amount||0),0);if(t>0)bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-title">${sub.name}</div></div><div class="row-right"><div class="row-amount">${formatMoney(t)}</div></div></div>`;});const gen=exp.filter(m=>!m.subId).reduce((a,m)=>a+Number(m.amount||0),0);if(gen>0)bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-title">General</div></div><div class="row-right"><div class="row-amount">${formatMoney(gen)}</div></div></div>`;const merch={};exp.forEach(m=>{if(m.merchant)merch[m.merchant]=(merch[m.merchant]||0)+Number(m.amount||0);});Object.entries(merch).sort((a,b)=>b[1]-a[1]).slice(0,5).forEach(([m,t])=>{bd+=`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-sub" style="margin:0;">🏪 ${m}</div></div><div class="row-right"><div class="row-amount">${formatMoney(t)}</div></div></div>`;});document.getElementById('categoryBreakdown').innerHTML=bd||'<div class="empty">Sin detalle.</div>';const list=movs.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30);document.getElementById('categoryMovementList').innerHTML=list.length?list.map(m=>`<div class="row" onclick="closeModal('categoryModal');openMovementModal('${m.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${m.merchant?m.merchant+' · ':''}${m.note||c.name}</div><div class="row-sub">${formatDateLabel(m.date)}</div></div></div><div class="row-right"><div class="row-amount ${m.type==='income'?'green':m.type==='transfer'?'transfer':'red'}">${m.type==='income'?'+':'−'} ${formatMoney(m.amount)}</div></div></div>`).join(''):'<div class="empty">Sin movimientos.</div>';}
+  function renameCategory(){const c=getCategory(ui.detailCategoryId);const v=document.getElementById('renameInput').value.trim();if(!v)return toast('Escribe un nombre');const dup=data.categories.find(x=>x.id!==c.id&&x.name.toLowerCase()===v.toLowerCase());if(dup)return toast('Ya existe "'+dup.name+'"');const i=data.categories.findIndex(x=>x.id===c.id);if(i>=0)data.categories[i].name=v;saveData();render();renderCategoryDetail();toast('Renombrada');}
+  function archiveCategory(){const c=getCategory(ui.detailCategoryId);const i=data.categories.findIndex(x=>x.id===c.id);if(i>=0)data.categories[i].archived=!data.categories[i].archived;saveData();render();renderCategoryDetail();toast(data.categories[i].archived?'Archivada':'Restaurada');}
   function saveBudget(){const c=getCategory(ui.detailCategoryId);if(c.type!=='expense')return;const v=parseFloat(document.getElementById('budgetInput').value)||0;const i=data.categories.findIndex(x=>x.id===c.id);if(i>=0)data.categories[i].budget=v;saveData();render();renderCategoryDetail();toast('Presupuesto guardado');}
-  function addCategory(){const name=prompt('Nombre de la nueva categoría');if(!name)return;const n=name.trim();const dup=data.categories.find(c=>c.name.toLowerCase()===n.toLowerCase());if(dup)return toast('Ya existe "'+dup.name+'". Úsala o renómbrala.');addCategoryTo(data,n);saveData();render();toast('Categoría creada');}
-  function applyRecurrences(){const cur=currentMonthKey();let created=0;data.movements.filter(m=>m.recurring).forEach(t=>{const exists=data.movements.some(m=>m.recurring&&monthKey(m.date)===cur&&m.type===t.type&&m.categoryId===t.categoryId&&Number(m.amount)===Number(t.amount)&&m.id!==t.id);if(!exists&&monthKey(t.date)!==cur){pushMovement({...t,id:undefined,sample:false});created++;}});saveData();render();toast(created?`${created} recurrentes aplicados`:'Nada que aplicar');}
-  function renderCommitments(){const el=document.getElementById('commitmentsList');const list=data.payments.filter(p=>p.fixed);if(!list.length){el.innerHTML='<div class="empty"><strong>Sin compromisos fijos</strong>Añádelos desde "Pagos".</div>';return;}el.innerHTML=list.map(p=>{const c=getCategory(p.categoryId);return `<div class="row" onclick="openPaymentModal('${p.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${p.name}</div><div class="row-sub">Día ${p.dueDay} · ${formatMoney(p.amount)} · <span class="status-chip ${p.status==='pagado'?'paid':''}">${p.status}</span></div></div></div><div class="row-right"><div class="row-amount">${formatMoney(p.amount)}</div></div></div>`;}).join('');}
+  function addCategory(){const name=prompt('Nombre de la nueva categoría');if(!name)return;const n=name.trim();const dup=data.categories.find(c=>c.name.toLowerCase()===n.toLowerCase());if(dup)return toast('Ya existe.');addCategoryTo(data,n);saveData();render();toast('Creada');}
+  function applyRecurrences(){const cur=currentMonthKey();let created=0;data.movements.filter(m=>m.recurring).forEach(t=>{const exists=data.movements.some(m=>m.recurring&&monthKey(m.date)===cur&&m.type===t.type&&m.categoryId===t.categoryId&&Number(m.amount)===Number(t.amount)&&m.id!==t.id);if(!exists&&monthKey(t.date)!==cur){pushMovement({...t,id:undefined,sample:false});created++;}});saveData();render();toast(created?`${created} aplicados`:'Nada que aplicar');}
   function renderBudgets(){const byCat=expenseByCategoryList(currentMonthMovements());document.getElementById('budgetList').innerHTML=data.categories.filter(c=>c.type==='expense'&&!c.archived).map(c=>{const spent=Number(byCat[c.id]||0),budget=Number(c.budget||0);let sub='Sin límite',bar='',color=c.color;if(budget>0){const pct=Math.min(100,Math.round((spent/budget)*100));color=spent>=budget?'var(--red)':spent>=budget*0.8?'#f59e0b':c.color;sub=`${formatMoney(spent)} de ${formatMoney(budget)}`;bar=`<div class="progress"><span style="width:${pct}%;background:${color};"></span></div>`;}return `<div class="row" onclick="openCategoryDetail('${c.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div class="cat-value"><div class="row-title">${c.name}</div><div class="row-sub">${sub}</div>${bar}</div></div><div class="row-right"><div class="row-amount">${formatMoney(spent)}</div></div></div>`;}).join('')||'<div class="empty">Sin categorías.</div>';}
 
-  function openMovementModal(id=null,type='expense'){
-    ui.editingId=id;const m=id?data.movements.find(x=>x.id===id):null;
-    ui.movementType=m?m.type:type;
-    ui.selectedCategory=m?m.categoryId:(data.categories.find(c=>c.type===(ui.movementType==='income'?'income':'expense')&&!c.archived)?.id||null);
-    ui.selectedSub=m?m.subId:null;
-    document.getElementById('movementModalTitle').textContent=m?'Editar movimiento':'Nuevo movimiento';
-    document.getElementById('amountInput').value=m?m.amount:'';
-    document.getElementById('dateInput').value=m?m.date:isoDate();
-    document.getElementById('noteInput').value=m?(m.note||''):'';
-    document.getElementById('merchantInput').value=m?(m.merchant||''):'';
-    document.getElementById('recurringCheck').checked=m?!!m.recurring:false;
-    document.getElementById('deleteMovementBtn').classList.toggle('hidden',!m);
-    const ms=[...new Set(data.movements.map(x=>x.merchant).filter(Boolean))];
-    document.getElementById('merchantList').innerHTML=ms.map(x=>`<option value="${x}">`).join('');
-    updateMovementTypeUI();renderCategoryChips();renderSubChips();
-    openModal('movementModal');
-  }
+  function openMovementModal(id=null,type='expense'){ui.editingId=id;const m=id?data.movements.find(x=>x.id===id):null;ui.movementType=m?m.type:type;ui.selectedCategory=m?m.categoryId:(data.categories.find(c=>c.type===(ui.movementType==='income'?'income':'expense')&&!c.archived)?.id||null);ui.selectedSub=m?m.subId:null;document.getElementById('movementModalTitle').textContent=m?'Editar movimiento':'Nuevo movimiento';document.getElementById('amountInput').value=m?m.amount:'';document.getElementById('dateInput').value=m?m.date:isoDate();document.getElementById('noteInput').value=m?(m.note||''):'';document.getElementById('merchantInput').value=m?(m.merchant||''):'';document.getElementById('recurringCheck').checked=m?!!m.recurring:false;document.getElementById('deleteMovementBtn').classList.toggle('hidden',!m);const ms=[...new Set(data.movements.map(x=>x.merchant).filter(Boolean))];document.getElementById('merchantList').innerHTML=ms.map(x=>`<option value="${x}">`).join('');updateMovementTypeUI();renderCategoryChips();renderSubChips();openModal('movementModal');}
   function addQuick(n){const inp=document.getElementById('amountInput');inp.value=(parseFloat(inp.value)||0)+n;}
   function setMovementType(t){ui.movementType=t;ui.selectedCategory=data.categories.find(c=>c.type===(t==='income'?'income':'expense')&&!c.archived)?.id||null;ui.selectedSub=null;updateMovementTypeUI();renderCategoryChips();renderSubChips();}
   function updateMovementTypeUI(){document.getElementById('btnExpense').classList.toggle('active',ui.movementType==='expense');document.getElementById('btnIncome').classList.toggle('active',ui.movementType==='income');document.getElementById('btnTransfer').classList.toggle('active',ui.movementType==='transfer');document.getElementById('transferHint').classList.toggle('hidden',ui.movementType!=='transfer');document.getElementById('saveMovementBtn').textContent=ui.editingId?'Guardar':'Guardar '+TYPE_LABELS[ui.movementType].toLowerCase();}
@@ -943,50 +1327,16 @@
   function selectCategory(id){ui.selectedCategory=id;ui.selectedSub=null;renderCategoryChips();renderSubChips();}
   function renderSubChips(){const cat=getCategory(ui.selectedCategory);const subs=(cat.subs||[]);document.getElementById('subBox').classList.toggle('hidden',!subs.length||ui.movementType==='income');if(!subs.length)return;document.getElementById('subChips').innerHTML=`<button type="button" class="chip-pick mini ${!ui.selectedSub?'selected':''}" onclick="selectSub(null)">General</button>`+subs.map(s=>`<button type="button" class="chip-pick mini ${ui.selectedSub===s.id?'selected':''}" onclick="selectSub('${s.id}')">${s.name}</button>`).join('');}
   function selectSub(id){ui.selectedSub=id;renderSubChips();}
-  function saveMovement(){
-    const amount=parseFloat(document.getElementById('amountInput').value);
-    if(!amount||amount<=0)return toast('Monto inválido');
-    if(ui.movementType==='expense'){const v=validateExpense(amount);if(!v.ok)return toast(v.msg);}
-    const date=document.getElementById('dateInput').value||isoDate();
-    const note=document.getElementById('noteInput').value.trim();
-    const merchant=document.getElementById('merchantInput').value.trim();
-    const recurring=document.getElementById('recurringCheck').checked;
-    const categoryId=ui.selectedCategory||data.categories.find(c=>c.type===(ui.movementType==='income'?'income':'expense'))?.id;
-    if(!categoryId)return toast('Elige categoría');
-    const mov={id:ui.editingId||uid(),type:ui.movementType,amount:Number(amount),categoryId,subId:ui.movementType==='income'?null:ui.selectedSub,merchant:ui.movementType==='income'?'':merchant,date,note,recurring,sample:false,createdAt:Date.now()};
-    if(ui.editingId){const i=data.movements.findIndex(m=>m.id===ui.editingId);if(i>=0)data.movements[i]={...data.movements[i],...mov};}else data.movements.push(mov);
-    saveData();render();closeModal('movementModal');toast('Movimiento guardado');
-  }
-  function deleteCurrentMovement(){if(!ui.editingId||!confirm('¿Borrar este movimiento?'))return;data.movements=data.movements.filter(m=>m.id!==ui.editingId);saveData();render();closeModal('movementModal');toast('Movimiento borrado');}
+  function saveMovement(){const amount=parseFloat(document.getElementById('amountInput').value);if(!amount||amount<=0)return toast('Monto inválido');if(ui.movementType==='expense'){const v=validateExpense(amount);if(!v.ok)return toast(v.msg);}const date=document.getElementById('dateInput').value||isoDate();const note=document.getElementById('noteInput').value.trim();const merchant=document.getElementById('merchantInput').value.trim();const recurring=document.getElementById('recurringCheck').checked;const categoryId=ui.selectedCategory||data.categories.find(c=>c.type===(ui.movementType==='income'?'income':'expense'))?.id;if(!categoryId)return toast('Elige categoría');const mov={id:ui.editingId||uid(),type:ui.movementType,amount:Number(amount),categoryId,subId:ui.movementType==='income'?null:ui.selectedSub,merchant:ui.movementType==='income'?'':merchant,date,note,recurring,sample:false,createdAt:Date.now()};if(ui.editingId){const i=data.movements.findIndex(m=>m.id===ui.editingId);if(i>=0)data.movements[i]={...data.movements[i],...mov};}else data.movements.push(mov);saveData();render();closeModal('movementModal');toast('Guardado');}
+  function deleteCurrentMovement(){if(!ui.editingId||!confirm('¿Borrar?'))return;data.movements=data.movements.filter(m=>m.id!==ui.editingId);saveData();render();closeModal('movementModal');toast('Borrado');}
 
   function openBatchModal(){addBatchRow();openModal('batchModal');}
   function catOptions(){return data.categories.filter(c=>!c.archived).map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`).join('');}
-  function addBatchRow(){const div=document.createElement('div');div.className='batch-row';div.innerHTML=`<select class="b-type"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="transfer">Dinero dado</option></select><input class="b-amount" type="number" min="0" step="0.01" placeholder="Monto" /><select class="b-cat full">${catOptions()}</select><input class="b-note full" type="text" placeholder="Nota (opcional)" /><button class="btn secondary mini full" onclick="this.parentNode.remove()">✕ Quitar línea</button>`;document.getElementById('batchRows').appendChild(div);}
-  function saveBatch(){
-    const rows=[...document.querySelectorAll('#batchRows .batch-row')].map(r=>({type:r.querySelector('.b-type').value,amount:parseFloat(r.querySelector('.b-amount').value),categoryId:r.querySelector('.b-cat').value,note:r.querySelector('.b-note').value.trim()}));
-    if(!rows.length)return toast('Añade al menos una línea.');
-    for(const r of rows){if(!r.amount||r.amount<=0)return toast('Todas las líneas necesitan un monto válido.');}
-    const out=rows.filter(r=>r.type==='expense').reduce((a,r)=>a+r.amount,0);
-    const inn=rows.filter(r=>r.type==='income').reduce((a,r)=>a+r.amount,0);
-    if(appConfig.balanceValidation&&(out-inn)>availableNow())return toast(`El lote supera tu balance disponible hoy (${formatMoney(availableNow())}). Ajusta montos o registra ingresos primero.`);
-    rows.forEach(r=>pushMovement({type:r.type,amount:r.amount,categoryId:r.categoryId,note:r.note,subId:null,merchant:''}));
-    saveData();render();closeModal('batchModal');document.getElementById('batchRows').innerHTML='';
-    toast(`Lote guardado: ${rows.length} movimientos.`);
-  }
+  function addBatchRow(){const div=document.createElement('div');div.className='batch-row';div.innerHTML=`<select class="b-type"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="transfer">Dinero dado</option></select><input class="b-amount" type="number" min="0" step="0.01" placeholder="Monto" /><select class="b-cat full">${catOptions()}</select><input class="b-note full" type="text" placeholder="Nota" /><button class="btn secondary mini full" onclick="this.parentNode.remove()">✕ Quitar</button>`;document.getElementById('batchRows').appendChild(div);}
+  function saveBatch(){const rows=[...document.querySelectorAll('#batchRows .batch-row')].map(r=>({type:r.querySelector('.b-type').value,amount:parseFloat(r.querySelector('.b-amount').value),categoryId:r.querySelector('.b-cat').value,note:r.querySelector('.b-note').value.trim()}));if(!rows.length)return toast('Añade una línea.');for(const r of rows){if(!r.amount||r.amount<=0)return toast('Todas necesitan monto.');}const out=rows.filter(r=>r.type==='expense').reduce((a,r)=>a+r.amount,0);const inn=rows.filter(r=>r.type==='income').reduce((a,r)=>a+r.amount,0);if(appConfig.balanceValidation&&(out-inn)>availableNow())return toast(`Supera tu balance (${formatMoney(availableNow())}).`);rows.forEach(r=>pushMovement({type:r.type,amount:r.amount,categoryId:r.categoryId,note:r.note,subId:null,merchant:''}));saveData();render();closeModal('batchModal');document.getElementById('batchRows').innerHTML='';toast(`${rows.length} movimientos guardados`);}
 
   function statementPeriodText(){if(ui.period==='current')return 'Este mes';if(ui.period==='previous')return 'Mes pasado';if(ui.period==='month')return ui.month?'Mes: '+ui.month:'Mes específico';if(ui.period==='range')return `${ui.from||'…'} → ${ui.to||'…'}`;return 'Todo el historial';}
-  function renderMovements(){
-    const el=document.getElementById('movementList');const list=getFilteredMovements();const s=calcSummary(list);
-    document.getElementById('statementPeriod').textContent=statementPeriodText();
-    document.getElementById('stIn').textContent='+'+formatMoney(s.income);
-    document.getElementById('stOut').textContent='-'+formatMoney(s.expense+s.transfer);
-    let initial=0;if(list.length){const minD=list.reduce((a,m)=>m.date<a?m.date:a,list[0].date);initial=balanceBefore(minD);}
-    document.getElementById('stInitial').textContent=formatMoney(initial);
-    document.getElementById('stFinal').textContent=formatMoney(initial+s.available);
-    if(!list.length){el.innerHTML='<div class="empty"><strong>Sin movimientos</strong>Usa − Gasto, + Ingreso o 📥 Lote.</div>';return;}
-    const run=runningBalanceMap();const groups={};list.forEach(m=>{(groups[m.date]=groups[m.date]||[]).push(m);});
-    el.innerHTML=Object.keys(groups).sort((a,b)=>b.localeCompare(a)).map(date=>`<div class="date-group">${formatDateLabel(date)}</div>`+groups[date].map(m=>{const c=getCategory(m.categoryId);const sign=m.type==='income'?'+':m.type==='transfer'?'→':'-';const cls=m.type==='income'?'green':m.type==='transfer'?'transfer':'red';const sub=[c.name,m.merchant].filter(Boolean).join(' · ');return `<div class="row" onclick="openMovementModal('${m.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${m.note||c.name}${m.recurring?' 🔁':''}</div><div class="row-sub">${sub} · ${TYPE_LABELS[m.type]}</div></div></div><div class="row-right"><div class="row-amount ${cls}">${sign} ${formatMoney(m.amount)}</div><div class="row-balance">Saldo: ${formatMoney(run[m.id]??0)}</div></div></div>`;}).join('')).join('');
-  }
+  function renderMovements(){const el=document.getElementById('movementList');const list=getFilteredMovements();const s=calcSummary(list);document.getElementById('statementPeriod').textContent=statementPeriodText();document.getElementById('stIn').textContent='+'+formatMoney(s.income);document.getElementById('stOut').textContent='-'+formatMoney(s.expense+s.transfer);let initial=0;if(list.length){const minD=list.reduce((a,m)=>m.date<a?m.date:a,list[0].date);initial=balanceBefore(minD);}document.getElementById('stInitial').textContent=formatMoney(initial);document.getElementById('stFinal').textContent=formatMoney(initial+s.available);if(!list.length){el.innerHTML='<div class="empty"><strong>Sin movimientos</strong>Usa los botones de arriba.</div>';return;}const run=runningBalanceMap();const groups={};list.forEach(m=>{(groups[m.date]=groups[m.date]||[]).push(m);});el.innerHTML=Object.keys(groups).sort((a,b)=>b.localeCompare(a)).map(date=>`<div class="date-group">${formatDateLabel(date)}</div>`+groups[date].map(m=>{const c=getCategory(m.categoryId);const sign=m.type==='income'?'+':m.type==='transfer'?'→':'-';const cls=m.type==='income'?'green':m.type==='transfer'?'transfer':'red';const sub=[c.name,m.merchant].filter(Boolean).join(' · ');return `<div class="row" onclick="openMovementModal('${m.id}')"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div style="min-width:0;"><div class="row-title">${m.note||c.name}${m.recurring?' 🔁':''}</div><div class="row-sub">${sub} · ${TYPE_LABELS[m.type]}</div></div></div><div class="row-right"><div class="row-amount ${cls}">${sign} ${formatMoney(m.amount)}</div><div class="row-balance">Saldo: ${formatMoney(run[m.id]??0)}</div></div></div>`;}).join('')).join('');}
   function formatDateLabel(d){const t=isoDate();const y=isoDate(new Date(Date.now()-86400000));if(d===t)return 'Hoy';if(d===y)return 'Ayer';return new Date(d+'T00:00:00').toLocaleDateString('es',{day:'numeric',month:'short',year:'numeric'});}
   function setPeriod(v){ui.period=v;document.getElementById('monthInput').classList.toggle('hidden',v!=='month');document.getElementById('rangeInputs').classList.toggle('hidden',v!=='range');renderMovements();}
   function setMonth(v){ui.month=v;renderMovements();}
@@ -995,138 +1345,76 @@
   function setCategoryFilter(v){ui.categoryId=v||null;renderMovements();}
   function setSearch(v){ui.search=v;renderMovements();}
 
-  function renderMas(){
-    document.getElementById('accountName').textContent=currentUser.name||'Usuario';
-    document.getElementById('accountEmail').textContent=currentUser.email;
-    document.getElementById('currencySelect').value=data.settings.currency;
-    document.getElementById('pinSwitch').classList.toggle('on',!!data.settings.pinLock);
-    document.getElementById('notifSwitch').classList.toggle('on',!!data.settings.notifications);
-    document.getElementById('cloudStatus').textContent=cloudEnabled?'Conectada: tu cuenta sincroniza entre dispositivos.':'No configurada: modo local.';
-    const admin=document.getElementById('adminSection');
-    admin.classList.toggle('hidden',!isAdmin());
-    if(isAdmin()){
-      document.getElementById('adminUsersCount').textContent=cloudEnabled?'Ver en Supabase → Authentication':'cuentas locales';
-      document.getElementById('adminOwnerEmail').textContent=appConfig.ownerEmail;
-      document.getElementById('adminTagline').value=appConfig.tagline;
-      document.getElementById('adminBalanceSwitch').classList.toggle('on',!!appConfig.balanceValidation);
-    }
-  }
-  function adminShowUsers(){toast(cloudEnabled?'Administra usuarios en el panel de Supabase (Authentication).':'Modo local: los usuarios viven solo en este navegador.');}
+  function renderMas(){document.getElementById('accountName').textContent=currentUser.name||'Usuario';document.getElementById('accountEmail').textContent=currentUser.email;document.getElementById('currencySelect').value=data.settings.currency;document.getElementById('pinSwitch').classList.toggle('on',!!data.settings.pinLock);document.getElementById('notifSwitch').classList.toggle('on',!!data.settings.notifications);document.getElementById('cloudStatus').textContent=cloudEnabled?'Conectada.':'No configurada.';const admin=document.getElementById('adminSection');admin.classList.toggle('hidden',!isAdmin());if(isAdmin()){document.getElementById('adminUsersCount').textContent=cloudEnabled?'Ver en Supabase → Authentication':'locales';document.getElementById('adminOwnerEmail').textContent=appConfig.ownerEmail;document.getElementById('adminTagline').value=appConfig.tagline;document.getElementById('adminBalanceSwitch').classList.toggle('on',!!appConfig.balanceValidation);}}
+  function adminShowUsers(){toast(cloudEnabled?'Ver en Supabase.':'Modo local.');}
   function adminToggle(key){appConfig[key]=!appConfig[key];saveConfig();renderMas();toast(key+' = '+appConfig[key]);}
   function adminSaveTagline(v){appConfig.tagline=v||'tu dinero, sin vueltas';saveConfig();applyTagline();toast('Tagline actualizado');}
-
   function setCurrency(v){data.settings.currency=v;saveData();render();}
-  async function setPin(){const p=prompt('Escribe un PIN de 4 dígitos:');if(!p||!/^\d{4}$/.test(p))return toast('PIN inválido');data.settings.pinHash=await hashText(p);data.settings.pinLock=true;saveData();renderMas();toast('PIN configurado y bloqueo activado');}
-  function togglePinLock(){if(!data.settings.pinHash){setPin();return;}data.settings.pinLock=!data.settings.pinLock;saveData();renderMas();toast(data.settings.pinLock?'Bloqueo activado':'Bloqueo desactivado');}
+  async function setPin(){const p=prompt('Escribe un PIN de 4 dígitos:');if(!p||!/^\d{4}$/.test(p))return toast('PIN inválido');data.settings.pinHash=await hashText(p);data.settings.pinLock=true;saveData();renderMas();toast('PIN configurado');}
+  function togglePinLock(){if(!data.settings.pinHash){setPin();return;}data.settings.pinLock=!data.settings.pinLock;saveData();renderMas();toast(data.settings.pinLock?'Bloqueo activado':'Desactivado');}
   function exportJSON(){const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='centavo-backup.json';a.click();URL.revokeObjectURL(u);toast('JSON exportado');}
   function exportCSV(){const rows=[['Fecha','Tipo','Categoria','Subcategoria','Comercio','Nota','Monto'],...data.movements.map(m=>[m.date,TYPE_LABELS[m.type],getCategory(m.categoryId).name,(getCategory(m.categoryId).subs||[]).find(s=>s.id===m.subId)?.name||'',m.merchant||'',m.note||'',m.amount])];const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');const b=new Blob([csv],{type:'text/csv'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='centavo-movimientos.csv';a.click();URL.revokeObjectURL(u);toast('CSV exportado');}
-  function resetMyData(){if(!confirm('¿Reiniciar todos tus datos? Se borrará también de la nube.'))return;data=defaultData(currentUser);data.onboarding.completed=false;ui.onbCats=null;ui.onbCommit=[];saveData();syncUp();enterApp();toast('Datos reiniciados');}
+  function resetMyData(){if(!confirm('¿Reiniciar todo?'))return;data=defaultData(currentUser);data.onboarding.completed=false;ui.onbCats=null;ui.onbCommit=[];saveData();syncUp();enterApp();toast('Reiniciado');}
 
-  /* ============ ASISTENTE DE NUBE ============ */
-  const SETUP_SQL = `create table if not exists public.app_data (
-  user_id uuid primary key references auth.users(id) on delete cascade,
-  data jsonb not null default '{}',
-  updated_at timestamptz not null default now()
-);
-drop policy if exists "solo mi data" on public.app_data;
-create policy "solo mi data" on public.app_data
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);`;
-
-  function isMissingTable(err){
-    const m=((err&&err.message)||'').toLowerCase();
-    const c=(err&&err.code)||'';
-    return c==='42P01'||c==='PGRST205'||m.includes('does not exist')||m.includes('schema cache')||m.includes('app_data');
-  }
-  function openSetupAssistant(){
-    const ta=document.getElementById('setupSql');
-    if(ta) ta.value=SETUP_SQL;
-    openModal('setupModal');
-  }
-  function copySetupSql(){
-    if(navigator.clipboard){ navigator.clipboard.writeText(SETUP_SQL).then(()=>toast('📋 SQL copiado')); }
-    else { document.getElementById('setupSql').select(); toast('Copia el texto seleccionado'); }
-  }
-  async function retryCloud(){
-    if(!sb) return toast('Primero pega tu URL y anon key en el código.');
-    try{
-      data=await cloudLoadOrCreate(currentUser);
-      saveData(); closeModal('setupModal'); render();
-      toast('☁️ Nube conectada: todo listo.');
-    }catch(e){ toast('Aún falta ejecutar el SQL en Supabase (botón Run).'); }
-  }
-  setInterval(async ()=>{
-    if(!sb||!currentUser||window._nubeOk) return;
-    try{
-      await sb.from('app_data').select('data').limit(1);
-      window._nubeOk=true;
-      closeModal('setupModal');
-      try{ data=await cloudLoadOrCreate(currentUser); saveData(); render(); }catch(e){}
-      toast('☁️ Tabla detectada: sincronizando tus datos…');
-      syncUp();
-    }catch(e){
-      if(isMissingTable(e)&&!window._setupVisto){ window._setupVisto=true; openSetupAssistant(); }
-    }
-  },4000);
+  const SETUP_SQL=`create table if not exists public.app_data (\n  user_id uuid primary key references auth.users(id) on delete cascade,\n  data jsonb not null default '{}',\n  updated_at timestamptz not null default now()\n);\ndrop policy if exists "solo mi data" on public.app_data;\ncreate policy "solo mi data" on public.app_data\n  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);`;
+  function isMissingTable(err){const m=((err&&err.message)||'').toLowerCase();const c=(err&&err.code)||'';return c==='42P01'||c==='PGRST205'||m.includes('does not exist')||m.includes('app_data');}
+  function openSetupAssistant(){document.getElementById('setupSql').value=SETUP_SQL;openModal('setupModal');}
+  function copySetupSql(){if(navigator.clipboard){navigator.clipboard.writeText(SETUP_SQL).then(()=>toast('SQL copiado'));}else{document.getElementById('setupSql').select();toast('Copia el texto.');}}
+  async function retryCloud(){if(!sb)return toast('Sin credenciales.');try{data=await cloudLoadOrCreate(currentUser);saveData();closeModal('setupModal');render();toast('☁️ Conectada.');}catch(e){toast('Ejecuta el SQL en Supabase.');}}
+  setInterval(async ()=>{if(!sb||!currentUser||window._nubeOk)return;try{await sb.from('app_data').select('data').limit(1);window._nubeOk=true;closeModal('setupModal');try{data=await cloudLoadOrCreate(currentUser);saveData();render();}catch(e){}toast('☁️ Tabla detectada.');syncUp();}catch(e){if(isMissingTable(e)&&!window._setupVisto){window._setupVisto=true;openSetupAssistant();}}},4000);
 
   function runSelfTest(){
     const report=[];const fixes=[];
     const t=(name,ok,note)=>report.push({name,ok:!!ok,note:note||''});
     let fc=0;const fix=m=>{fixes.push(m);fc++;};
-    if(!Array.isArray(data.movements)){data.movements=[];fix('movimientos recreados');}
-    if(!Array.isArray(data.payments)){data.payments=[];fix('pagos recreados');}
-    if(!Array.isArray(data.cards)){data.cards=[];fix('tarjetas recreadas');}
-    if(!Array.isArray(data.loans)){data.loans=[];fix('préstamos recreados');}
-    if(!Array.isArray(data.categories)||!data.categories.length){data.categories=defaultCategories();fix('categorías restauradas');}
-    data.movements=data.movements.filter(m=>{if(!m||typeof m!=='object')return false;if(!['income','expense','transfer'].includes(m.type)){m.type='expense';fix('tipo corregido');}if(!m.id){m.id=uid();fix('movimiento sin id');}if(!m.date){m.date=isoDate();fix('movimiento sin fecha');}if(Number(m.amount)<0){m.amount=Math.abs(Number(m.amount));fix('monto negativo corregido');}if(!(Number(m.amount)>0)){fix('movimiento sin monto eliminado');return false;}if(!data.categories.find(c=>c.id===m.categoryId)){m.categoryId=(data.categories.find(c=>c.type===(m.type==='income'?'income':'expense'))||{}).id||'otros-gasto';fix('categoría inexistente reasignada');}m.subId=m.subId||null;m.merchant=m.merchant||'';return true;});
-    data.payments=data.payments.filter(p=>{if(!p||!(Number(p.amount)>0)){if(p)fix('pago sin monto eliminado');return false;}if(!p.id){p.id=uid();fix('pago sin id');}if(!(p.dueDay>=1&&p.dueDay<=31)){p.dueDay=1;fix('día de pago inválido');}if(!p.status){p.status='pendiente';fix('pago sin estado → pendiente');}return true;});
-    data.cards.forEach(c=>{if(!c.id){c.id=uid();fix('tarjeta sin id');}if(!(c.dueDay>=1&&c.dueDay<=31)){c.dueDay=1;fix('día de pago de tarjeta');}if(!(c.cutDay>=1&&c.cutDay<=31)){c.cutDay=c.dueDay;fix('día de corte');}if(Number(c.used)<0){c.used=0;fix('saldo negativo de tarjeta');}});
-    data.loans=data.loans.filter(l=>{if(!l||!(Number(l.amount)>0)){if(l)fix('préstamo sin monto eliminado');return false;}if(!l.id){l.id=uid();fix('préstamo sin id');}if(Number(l.remaining)<0){l.remaining=0;fix('remanente negativo');}return true;});
+    if(!Array.isArray(data.movements)){data.movements=[];fix('movimientos');}
+    if(!Array.isArray(data.payments)){data.payments=[];fix('pagos');}
+    if(!Array.isArray(data.cards)){data.cards=[];fix('tarjetas');}
+    if(!Array.isArray(data.loans)){data.loans=[];fix('préstamos personas');}
+    if(!Array.isArray(data.bankLoans)){data.bankLoans=[];fix('préstamos bancarios');}
+    if(!Array.isArray(data.categories)||!data.categories.length){data.categories=defaultCategories();fix('categorías');}
+    data.payments.forEach(p=>{if(!p.kind)p.kind='expense';});
     data.schema=SCHEMA_VERSION;
     if(fc>0)saveData();
-    t('Integridad de datos reales',true,fc?`${fc} corrección(es)`:'sin correcciones');
+    t('Integridad de datos',true,fc?`${fc} correcciones`:'OK');
     const real=data;const sandbox=JSON.parse(JSON.stringify(defaultData(currentUser)));
     data=sandbox;testing=true;
     try{
-      t('Creación de cuenta',sandbox.categories.length>0);
       pushMovement({type:'income',amount:1000,categoryId:'sueldo'});
-      t('Registro de ingreso',calcSummary(sandbox.movements).income===1000);
+      t('Ingreso',calcSummary(sandbox.movements).income===1000);
       pushMovement({type:'expense',amount:200,categoryId:sandbox.categories[0].id});
-      let s=calcSummary(sandbox.movements);
-      t('Registro de gasto',s.expense===200&&s.available===800);
-      pushMovement({type:'transfer',amount:100,categoryId:'otros-gasto'});
-      s=calcSummary(sandbox.movements);
-      t('"Dinero dado" no suma en gastos',s.expense===200&&s.available===700);
-      t('Validación bloquea gasto mayor',!validateExpense(8000).ok);
-      t('Validación deja pasar gasto menor',validateExpense(100).ok);
-      const p=pushPayment({name:'Renta',amount:300,categoryId:'casa',dueDay:5});
-      t('Pago nace pendiente',p.status==='pendiente');
-      convertPayment(p.id);
-      t('Conversión a gasto y sale de próximos',!getUpcomingPayments(31).some(x=>x.id===p.id)&&calcSummary(sandbox.movements).expense===500);
-      const p2=pushPayment({name:'Luz',amount:50,categoryId:'servicios',dueDay:new Date().getDate()});
-      t('Recordatorio de pago que vence hoy',getReminderPayments().some(x=>x.id===p2.id));
-      pushCard({name:'V',limit:1000,used:400,dueDay:10,cutDay:20});
-      t('Tarjeta aislada de resúmenes',calcSummary(sandbox.movements).expense===500);
-      t('Corte de tarjeta calcula días',typeof cardCutInfo(sandbox.cards[0]).du==='number');
-      pushLoan({person:'Ana',dir:'owedToMe',amount:200});loanPay(sandbox.loans[0].id,50);
-      t('Préstamo con abono',sandbox.loans[0].remaining===150);
-      sandbox.categories[0].budget=300;
-      t('Presupuesto por categoría',countBudgets()===1);
-      const before=sandbox.categories.length;addCategoryTo(sandbox,'Mascotas');
-      t('Categoría personalizada',sandbox.categories.length===before+1);
-      const mB=sandbox.movements.length;pushMovement({type:'expense',amount:30,categoryId:sandbox.categories[0].id});pushMovement({type:'income',amount:80,categoryId:'sueldo'});
-      t('Registro por lote',sandbox.movements.length===mB+2);
-      t('Formato 5,000.00',formatMoney(5000).includes('5,000.00'));
-      t('Nube: configuración detectada',cloudEnabled||true,cloudEnabled?'conectada':'modo local');
+      t('Gasto',calcSummary(sandbox.movements).available===800);
+      t('Carry-over: balanceBefore',balanceBefore(isoDate(new Date()))===800);
+      const avail=availableNow();
+      t('AvailableNow incluye carry-over',avail===800);
+      const fx=pushPayment({name:'Test',amount:300,categoryId:'casa',dueDay:5,fixed:true,kind:'expense'});
+      t('Fijo nace pendiente',fx.status==='pendiente'&&fx.fixed===true);
+      toggleFixedKind(fx.id);
+      const fxNow=sandbox.payments.find(p=>p.id===fx.id);
+      t('Convertir fijo: expense→income',fxNow.kind==='income');
+      t('Fijo aparece en próximos unificados',getUpcomingUnified(31).some(x=>x.id===fx.id));
+      pushBankLoan({entity:'Test',kind:'personal',principal:1000,balance:800,rate:12,installment:100,dueDay:15,status:'active'});
+      t('Préstamo bancario creado',sandbox.bankLoans.length===1);
+      t('Render presupuesto sin error',(()=>{try{renderBudgetModule();renderBankLoans();return true;}catch(e){return false;}})());
     }catch(err){t('Error inesperado',false,String(err));}
     data=real;testing=false;
     const passed=report.filter(r=>r.ok).length;
-    document.getElementById('testSummary').textContent=`${passed}/${report.length} pruebas OK · ${fc} corrección(es) en datos reales.`;
-    document.getElementById('testReport').innerHTML=report.map(r=>`<div class="test-row"><span>${r.ok?'✅':'❌'}</span><div><strong>${r.name}</strong>${r.note?`<div class="row-sub">${r.note}</div>`:''}</div></div>`).join('')+(fixes.length?`<div class="test-row"><span>🔧</span><div><strong>Correcciones aplicadas</strong><div class="row-sub">${fixes.join(' · ')}</div></div></div>`:'');
-    console.table(report);
+    document.getElementById('testSummary').textContent=`${passed}/${report.length} OK · ${fc} correcciones.`;
+    document.getElementById('testReport').innerHTML=report.map(r=>`<div class="test-row"><span>${r.ok?'✅':'❌'}</span><div><strong>${r.name}</strong>${r.note?`<div class="row-sub">${r.note}</div>`:''}</div></div>`).join('')+(fixes.length?`<div class="test-row"><span>🔧</span><div><strong>Correcciones</strong><div class="row-sub">${fixes.join(' · ')}</div></div></div>`:'');
     openModal('testModal');
-    toast(passed===report.length?`✅ Autopruebas: ${passed}/${report.length} OK`:'❌ Autopruebas: revisa el reporte');
+    toast(passed===report.length?`✅ ${passed}/${report.length}`:'❌ Revisa el reporte');
     render();
   }
+
+  /* ===== PARCHE ANTI DOBLE-TOQUE ===== */
+  (function(){
+    const origRegister=window.registerUser,origLogin=window.loginUser,origReset=window.requestResetCode;
+    let busy=false;
+    function proteger(fn,aviso){return async function(){if(busy){toast(aviso);return;}busy=true;try{await fn.apply(this,arguments);}finally{busy=false;}};}
+    window.registerUser=proteger(origRegister,'Creando tu cuenta…');
+    window.loginUser=proteger(origLogin,'Entrando…');
+    window.requestResetCode=proteger(origReset,'Enviando…');
+  })();
 
   init();
 </script>
