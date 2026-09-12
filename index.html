@@ -94,7 +94,7 @@ body.light .btn.primary{background:#0B1526;color:#fff;}
 .san-info{background:var(--blue-soft);border-radius:16px;padding:12px;font-size:12.5px;color:var(--blue);line-height:1.5;margin-top:12px;}
 .joint-card{background:var(--card2);border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px;}
 .joint-code{font-family:monospace;font-size:16px;font-weight:800;letter-spacing:.1em;background:var(--pill);border-radius:12px;padding:8px 12px;display:inline-block;}
-.members{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.members{display:gap:6px;flex-wrap:wrap;margin-top:8px;}
 .member{font-size:11px;font-weight:700;background:var(--pill);border-radius:999px;padding:5px 10px;color:var(--muted);}
 .bottom-nav{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:8px 6px;box-shadow:var(--shadow);z-index:20;}
 .nav-btn{flex:1;min-width:0;border:none;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;font-family:Inter,sans-serif;font-size:10px;font-weight:700;}
@@ -129,6 +129,7 @@ input,select{width:100%;background:var(--pill);color:var(--ink);border:1px solid
   <!-- AUTH -->
   <div id="screen-auth" class="screen view active"><div style="flex:1;display:flex;align-items:center;padding:20px;"><div class="card" style="width:100%;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"><div class="logo">M</div><div><h1 style="margin:0;font-size:24px;font-weight:800;">Menudo</h1><div style="color:var(--muted);font-size:12px;">tu dinero, sin vueltas</div></div></div>
+    <div id="authError" class="hidden" style="background:var(--red-soft);color:var(--red);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;margin-bottom:12px;"></div>
     <div class="auth-tabs"><button id="authTabLogin" class="auth-tab active" onclick="setAuthMode('login')">Entrar</button><button id="authTabRegister" class="auth-tab" onclick="setAuthMode('register')">Crear cuenta</button></div>
     <div id="authLogin">
       <label>Correo</label><input id="loginEmail" type="email" placeholder="tu@correo.com"/>
@@ -151,7 +152,6 @@ input,select{width:100%;background:var(--pill);color:var(--ink);border:1px solid
       <div class="top-right"><span class="chip" id="planChip">Todo incluido</span><button class="bell" onclick="switchTab('mas')">⚙️</button></div>
     </header>
     <div class="scroll">
-
       <section id="tab-inicio" class="tab-view">
         <div class="card card-hero">
           <div class="card-label">Balance disponible</div>
@@ -162,7 +162,7 @@ input,select{width:100%;background:var(--pill);color:var(--ink);border:1px solid
             <div class="mini-card"><div class="t red" id="expenseValue">-$0.00</div><div class="s">Gastos</div></div>
           </div>
         </div>
-        <div class="card" id="cardDebtCard">
+        <div class="card">
           <div class="card-label">Deuda total en tarjetas</div>
           <div class="card-big" id="cardDebtTotal">$0.00</div>
           <div class="card-sub" id="cardDebtUS"></div>
@@ -223,17 +223,14 @@ input,select{width:100%;background:var(--pill);color:var(--ink);border:1px solid
         </div>
         <div id="sanView" class="hidden">
           <div class="card card-hero">
-            <div class="san-head">
-              <div class="san-pig">🐷</div>
-              <div style="flex:1;"><div class="san-saved green" id="sanSaved">$0</div><div class="san-goal">ahorrado · meta <span id="sanGoal">$0</span></div></div>
-            </div>
+            <div class="san-head"><div class="san-pig">🐷</div><div style="flex:1;"><div class="san-saved green" id="sanSaved">$0</div><div class="san-goal">ahorrado · meta <span id="sanGoal">$0</span></div></div></div>
             <div class="progress"><span id="sanBar" style="width:0%"></span></div>
             <div class="san-meta" style="margin-top:6px;"><span id="sanLeft">Faltan 0 números</span><span id="sanPct">0%</span></div>
           </div>
           <div class="card">
             <div class="section-title" style="margin-top:0;">Toca un número para ahorrarlo</div>
             <div class="san-grid" id="sanGrid"></div>
-            <div class="san-info">💡 <strong>Tip:</strong> al completar el cartón tendrás <span id="sanBankTip">$0</span>, suficiente para abrir una cuenta de ahorro.</div>
+            <div class="san-info">💡 Al completar el cartón tendrás <span id="sanBankTip">$0</span>, suficiente para abrir una cuenta de ahorro.</div>
             <div style="display:flex;gap:8px;margin-top:10px;">
               <select id="sanRange" onchange="setSanRange(this.value)" style="flex:1;"><option value="50">1–50</option><option value="100" selected>1–100</option></select>
               <button class="btn secondary mini" onclick="resetSan()">Reiniciar</button>
@@ -367,12 +364,11 @@ input,select{width:100%;background:var(--pill);color:var(--ink);border:1px solid
 <div id="toast" class="toast"></div>
 
 <script>
-/* ====== CONSTANTES REACTIVADAS (corrección de autenticación) ====== */
+/* ====== SUPERBASE (CORREGIDO) ====== */
 const SUPABASE_URL='https://kkkyteytkspgfvzcioyt.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_Qh5VkHGdqxoF1qCtAdLFQQ_Nu-AD_gb';
 const sb=(window.supabase&&SUPABASE_URL&&SUPABASE_ANON_KEY)?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 
-/* ====== AUTH: nube + local + migración de cuentas viejas + multi-candado ====== */
 const LOCAL_USERS='menudo-users-final';
 const LEGACY_USER_KEYS=['menudo-users-v3','centavo-local-users-v17','centavo-local-users-v16','centavo-local-users-v15'];
 const SESSION_KEY='menudo-session-final';
@@ -393,6 +389,7 @@ function isoDate(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+
 function fmt2(n){return Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function money(n){return `${data?.settings?.currency||'$'}${fmt2(n)}`;}
 function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2600);}
+function authError(m){const el=document.getElementById('authError');el.textContent=m;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),5000);}
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
@@ -407,29 +404,72 @@ const CATS=[
  {id:'otros',name:'Otros',emoji:'📦',bg:'--pill'}
 ];
 function cat(id){return CATS.find(c=>c.id===id)||CATS[7];}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function defaultData(){return{settings:{currency:'$',theme:'dark'},movements:[],fixeds:[],cards:[],bankLoans:[],piggyBanks:[{name:'Mi alcancía',balance:0,transactions:[]}],san:{range:100,selected:[]},joint:null};}
 function save(){localStorage.setItem(DATA_KEY+(currentUser?('-'+currentUser.email):''),JSON.stringify(data)); if(data.joint) saveJoint();}
 function load(email){const r=localStorage.getItem(DATA_KEY+(email?('-'+email):''));return r?JSON.parse(r):defaultData();}
 
+/* ====== NUBE: usa el UUID del usuario (CORREGIDO) y cae a local si falla ====== */
+async function cloudLoadOrCreate(u){
+  try{
+    const {data:row,error}=await sb.from('app_data').select('data').eq('user_id',u.id).maybeSingle();
+    if(error) throw error;
+    if(row&&row.data) return row.data;
+    const d=defaultData();
+    await sb.from('app_data').insert({user_id:u.id,data:d});
+    return d;
+  }catch(e){ return load(u.email); }
+}
+
 function setAuthMode(m){document.getElementById('authTabLogin').classList.toggle('active',m==='login');document.getElementById('authTabRegister').classList.toggle('active',m==='register');document.getElementById('authLogin').classList.toggle('hidden',m!=='login');document.getElementById('authRegister').classList.toggle('hidden',m!=='register');}
 
-function registerUser(){const name=document.getElementById('registerName').value.trim();const email=document.getElementById('registerEmail').value.trim().toLowerCase();const pw=document.getElementById('registerPassword').value;
-  if(!name||!email||pw.length<4)return toast('Completa los campos.');
-  if(sb){ sb.auth.signUp({email,password:pw,options:{data:{name}}}).then(({error})=>{ if(error)return toast('Error nube: '+error.message); const us=migrateLocalUsers(); if(!us.some(x=>x.email===email))us.push({name,email,pw:null,hash:null}); localStorage.setItem(LOCAL_USERS,JSON.stringify(us)); toast('Cuenta creada. Confirma tu correo si te llega.'); }); return; }
-  const us=migrateLocalUsers(); if(us.some(u=>u.email===email))return toast('Correo ya existe.'); us.push({name,email,pw,hash:null}); localStorage.setItem(LOCAL_USERS,JSON.stringify(us)); localStorage.setItem(SESSION_KEY,email); currentUser={name,email}; data=load(email); enterApp();}
+/* ====== REGISTRO (CORREGIDO: maneja sesión y confirmación) ====== */
+async function registerUser(){
+  const name=document.getElementById('registerName').value.trim();
+  const email=document.getElementById('registerEmail').value.trim().toLowerCase();
+  const pw=document.getElementById('registerPassword').value;
+  if(!name||!email||pw.length<4)return authError('Completa nombre, correo y contraseña (mín. 4).');
+  if(sb){
+    const {data:res,error}=await sb.auth.signUp({email,password:pw,options:{data:{name}}});
+    if(error) return authError('No se pudo crear: '+error.message);
+    const us=migrateLocalUsers(); if(!us.some(x=>x.email===email))us.push({name,email,pw:null,hash:null}); localStorage.setItem(LOCAL_USERS,JSON.stringify(us));
+    if(res && res.session){
+      currentUser={id:res.user.id,name:name,email:email};
+      data=await cloudLoadOrCreate(currentUser);
+      localStorage.setItem(SESSION_KEY,email);
+      enterApp();
+    } else {
+      authError('Cuenta creada. Revisa tu correo para confirmarla y luego entra.');
+    }
+    return;
+  }
+  const us=migrateLocalUsers(); if(us.some(u=>u.email===email))return authError('Correo ya existe.');
+  us.push({name,email,pw,hash:null}); localStorage.setItem(LOCAL_USERS,JSON.stringify(us));
+  localStorage.setItem(SESSION_KEY,email); currentUser={name,email}; data=load(email); enterApp();
+}
 
-async function loginUser(){const email=document.getElementById('loginEmail').value.trim().toLowerCase();const pw=document.getElementById('loginPasswordInput').value;
-  if(sb){ const {data:res,error}=await sb.auth.signInWithPassword({email,password:pw});
-    if(!error){ currentUser={name:(res.user.user_metadata&&res.user.user_metadata.name)||email,email}; data=await cloudLoadOrCreate(currentUser); localStorage.setItem(SESSION_KEY,email); enterApp(); return; } }
+/* ====== LOGIN (CORREGIDO: nube con UUID, luego local) ====== */
+async function loginUser(){
+  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pw=document.getElementById('loginPasswordInput').value;
+  if(sb){
+    const {data:res,error}=await sb.auth.signInWithPassword({email,password:pw});
+    if(!error && res && res.user){
+      currentUser={id:res.user.id,name:(res.user.user_metadata&&res.user.user_metadata.name)||email,email:email};
+      data=await cloudLoadOrCreate(currentUser);
+      localStorage.setItem(SESSION_KEY,email);
+      enterApp(); return;
+    }
+  }
   const us=migrateLocalUsers(); const u=us.find(x=>x.email===email);
-  if(!u)return toast('Cuenta no encontrada ni en la nube ni en este dispositivo.');
+  if(!u)return authError('Cuenta no encontrada ni en la nube ni aquí.');
   if(await verifyLocal(u,pw)){ currentUser=u; localStorage.setItem(SESSION_KEY,email); data=load(email); enterApp(); }
-  else toast('Contraseña incorrecta.');}
+  else authError('Contraseña incorrecta.');
+}
 
 function logout(){ if(sb)sb.auth.signOut(); localStorage.removeItem(SESSION_KEY); currentUser=null; data=null; showScreen('auth'); }
 function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+n).classList.add('active');}
-async function cloudLoadOrCreate(u){const{data:row,error}=await sb.from('app_data').select('data').eq('user_id',u.email).maybeSingle();if(error)throw error;if(row&&row.data)return row.data;const d=defaultData();await sb.from('app_data').insert({user_id:u.email,data:d});return d;}
 function enterApp(){showScreen('app'); applyTheme(); render(); switchTab('inicio'); if(data.joint) attachJoint();}
 
 function applyTheme(){const t=data.settings.theme||'dark';document.body.classList.toggle('light',t==='light');document.body.classList.toggle('dark',t!=='light');const s=document.getElementById('themeSelect');if(s)s.value=t;}
@@ -457,7 +497,6 @@ function renderHome(){
  const by=expenseByCat();
  document.getElementById('homeCategoryList').innerHTML=Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([id,amt])=>{const c=cat(id);return `<div class="row"><div class="row-left"><div class="row-icon" style="background:var(${c.bg});">${c.emoji}</div><div class="row-title">${c.name}</div></div><div class="row-right"><div class="row-amount">${money(amt)}</div></div></div>`;}).join('')||'<div class="card-sub">Sin gastos.</div>';
 }
-function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function alertCard(kind,icon,title,sub,btnLabel,btnAction){return `<div class="alert-card ${kind}"><div class="aic" style="background:var(--${kind==='warn'?'amber-soft':'blue-soft'});">${icon}</div><div class="amid"><div class="at">${esc(title)}</div><div class="as">${esc(sub)}</div></div><button class="abtn" onclick="${btnAction}">${btnLabel}</button></div>`;}
 function calc(l){return l.reduce((a,m)=>{const n=Number(m.amount||0); if(m.type==='income')a.income+=n; else a.expense+=n; a.available=a.income-a.expense; return a;},{income:0,expense:0,available:0});}
 function expenseByCat(){return data.movements.filter(m=>m.type==='expense').reduce((a,m)=>{a[m.categoryId]=(a[m.categoryId]||0)+Number(m.amount||0);return a;},{});}
@@ -532,7 +571,17 @@ function openJointMove(type){ui.jointMoveType=type;document.getElementById('join
 function saveJointMove(){if(!data.joint)return;const amt=parseFloat(document.getElementById('jointMoveAmount').value);if(!amt||amt<=0)return toast('Monto inválido');const note=document.getElementById('jointMoveNote').value.trim();data.joint.movements.push({id:uid(),type:ui.jointMoveType,amount:amt,note,author:currentUser.email,date:isoDate()});save();saveJoint();renderJoint();closeModal('jointMoveModal');toast('Guardado y sincronizado.');}
 function toggleJointSan(n){if(!data.joint)return;const js=data.joint.san;const i=js.selected.indexOf(n);if(i>=0)js.selected.splice(i,1);else js.selected.push(n);save();saveJoint();renderJoint();}
 
-(function init(){
+/* ====== ARRANQUE: restaura sesión de nube o local ====== */
+(async function init(){
+ if(sb){
+   const {data:{session}}=await sb.auth.getSession();
+   if(session && session.user){
+     currentUser={id:session.user.id,name:(session.user.user_metadata&&session.user.user_metadata.name)||session.user.email,email:session.user.email};
+     data=await cloudLoadOrCreate(currentUser);
+     localStorage.setItem(SESSION_KEY,currentUser.email);
+     enterApp(); return;
+   }
+ }
  const sess=localStorage.getItem(SESSION_KEY);
  if(sess){ const u=migrateLocalUsers().find(x=>x.email===sess);
    if(u){ currentUser=u; data=load(sess); enterApp(); return; } }
