@@ -255,7 +255,7 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
 @media (max-width:360px){.topbar{padding:16px 14px 10px;}.scroll{padding-left:14px;padding-right:14px;}.hero{padding:18px;}.actions{gap:8px;}.btn{font-size:12.5px;padding:14px 8px;}.nav-btn{font-size:9px;}}
 @media print{body{background:#fff!important;}body *{visibility:hidden;}#statementModal,#statementModal *{visibility:visible;}#statementModal{position:absolute;left:0;top:0;width:100%;display:block;background:#fff;}#statementModal .modal-sheet{max-height:none;overflow:visible;border-radius:0;box-shadow:none;color:#000;background:#fff;}#statementModal .no-print{display:none!important;}}
 
-/* --- ESTILOS NUEVOS (San y Conjunta) --- */
+/* --- ESTILOS (San y Conjunta) --- */
 .san-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; margin: 16px 0; }
 .san-cell { aspect-ratio: 1; display: grid; place-items: center; background: var(--pill); border: 1px solid var(--line); border-radius: 12px; font-size: 14px; font-weight: 800; color: var(--ink); cursor: pointer; transition: all 0.2s; }
 .san-cell:active { transform: scale(0.9); }
@@ -432,7 +432,7 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
       
       <!-- CUENTA CONJUNTA MULTIPLE -->
       <section id="tab-conjunta" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">Cuentas Compartidas</h2></div>
+        <div class="statement-head"><h2 class="section-title" style="margin:0;">Cuentas Compartidas</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
         <div class="piggy-tabs" id="sharedTabs"></div>
         
         <div id="sharedContent" class="hidden">
@@ -443,7 +443,7 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
             </div>
             <div class="label" id="sharedTitleLabel">Saldo Conjunto</div>
             <div class="value" id="sharedBalance">$0.00</div>
-            <div class="meta" style="color:var(--ink-soft); margin-top:8px;">Registro manual local</div>
+            <div class="meta" style="color:var(--ink-soft); margin-top:8px;">Sincronizado en la nube ☁️</div>
           </div>
           <div class="actions">
             <button class="btn secondary" onclick="openSharedAction('in', 'me')">＋ Yo aporté</button>
@@ -459,7 +459,7 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
 
       <!-- EL SAN MULTIPLE -->
       <section id="tab-san" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">Mis Sanes</h2></div>
+        <div class="statement-head"><h2 class="section-title" style="margin:0;">Mis Sanes</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
         <div class="piggy-tabs" id="sanTabs"></div>
 
         <div id="sanContent" class="hidden">
@@ -504,7 +504,7 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
               <option value="midnight">Azul Medianoche</option><option value="emerald">Esmeralda</option><option value="violet">Violeta</option><option value="amber">Ámbar</option><option value="oled">OLED Oro</option><option value="light">Claro</option>
             </select>
           </div>
-          <div class="setting-row"><div class="label-group"><strong>Nube</strong><span id="cloudStatus"></span></div><button class="btn secondary mini" onclick="syncNow()">Sincronizar</button></div>
+          <div class="setting-row"><div class="label-group"><strong>Nube y Compartidos</strong><span id="cloudStatus"></span></div><button class="btn secondary mini" onclick="syncNow()">Sincronizar</button></div>
           <div class="setting-row"><div class="label-group"><strong>Notificaciones</strong></div><div id="notifSwitch" class="switch" onclick="toggleNotifications()"></div></div>
           <div class="setting-row"><div class="label-group"><strong>Moneda</strong></div><select id="currencySelect" style="width:auto;padding:9px 12px;" onchange="setCurrency(this.value)"><option value="$">$</option><option value="RD$">RD$</option><option value="US$">US$</option><option value="€">€</option><option value="£">£</option><option value="S/">S/</option><option value="MX$">MX$</option></select></div>
         </div>
@@ -520,13 +520,6 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
           <div class="setting-row"><div class="label-group"><strong>Exportar JSON / CSV</strong></div><div style="display:flex;gap:6px;"><button class="btn secondary mini" onclick="exportJSON()">JSON</button><button class="btn secondary mini" onclick="exportCSV()">CSV</button></div></div>
           <div class="setting-row"><div class="label-group"><strong>🧪 Autopruebas</strong><span>Diagnóstico y corrección</span></div><button class="btn secondary mini" onclick="runSelfTest()">Ejecutar</button></div>
           <div class="setting-row"><div class="label-group"><strong>Reiniciar mis datos</strong><span>Requiere PIN o contraseña</span></div><button class="btn secondary mini" onclick="resetMyDataWithAuth()">Reiniciar</button></div>
-        </div>
-        <div id="adminSection" class="hidden"><h2 class="section-title" style="margin-top:24px;">🛠️ Administración</h2>
-          <div class="list-card">
-            <div class="setting-row"><div class="label-group"><strong>Validación de balance</strong></div><div id="adminBalanceSwitch" class="switch" onclick="adminToggle('balanceValidation')"></div></div>
-            <div class="setting-row"><div class="label-group"><strong>Tagline</strong></div><input id="adminTagline" style="width:140px;padding:9px 12px;" onchange="adminSaveTagline(this.value)"/></div>
-            <div class="setting-row"><div class="label-group"><strong>Correo del dueño</strong><span id="adminOwnerEmail"></span></div></div>
-          </div>
         </div>
       </section>
     </div>
@@ -756,8 +749,8 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
 
 <div id="setupModal" class="modal"><div class="modal-sheet">
   <div class="modal-top"><h3>☁️ Activar sincronización</h3><button class="close-btn" onclick="closeModal('setupModal')">✕</button></div>
-  <p class="help-text">Falta crear la tabla en Supabase (una sola vez):</p>
-  <textarea id="setupSql" readonly style="height:150px;font-size:11px;font-family:monospace;"></textarea>
+  <p class="help-text">Para tener la app completa en la nube (incluyendo Sanes y Cuentas Compartidas), asegúrate de que existen estas tablas:</p>
+  <textarea id="setupSql" readonly style="height:150px;font-size:11px;font-family:monospace; margin-bottom:8px;"></textarea>
   <div style="display:flex;gap:8px;margin-top:10px;"><button class="btn secondary" onclick="copySetupSql()">📋 Copiar SQL</button><button class="btn primary" onclick="retryCloud()">🔄 Reintentar</button></div>
 </div></div>
 
@@ -766,7 +759,8 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
   <div class="modal-top"><h3>Nueva Cuenta Compartida</h3><button class="close-btn" onclick="closeModal('newSharedModal')">✕</button></div>
   <label>Nombre del proyecto o cuenta</label><input id="nsName" type="text" placeholder="Ej. Ahorro Casa"/>
   <label>Nombre de tu pareja / socio</label><input id="nsPartner" type="text" placeholder="Ej. Ana"/>
-  <button class="btn primary block" style="margin-top:14px;" onclick="confirmNewShared()">Crear cuenta</button>
+  <label>Correo de tu pareja (para sincronizar)</label><input id="nsPartnerEmail" type="email" placeholder="ana@correo.com"/>
+  <button class="btn primary block" style="margin-top:14px;" onclick="confirmNewShared()">Crear cuenta compartida</button>
 </div></div>
 
 <!-- ACCION CUENTA COMPARTIDA -->
@@ -785,11 +779,13 @@ input,select,textarea{width:100%;background:var(--pill);color:var(--ink);border:
   <label>Tipo</label>
   <select id="nSanType" onchange="document.getElementById('nSanPartnerDiv').classList.toggle('hidden', this.value==='personal')">
     <option value="personal">Personal (Solo yo)</option>
-    <option value="compartido">Compartido (Con otra persona)</option>
+    <option value="compartido">Compartido (Sincronizado con otra persona)</option>
   </select>
   <div id="nSanPartnerDiv" class="hidden">
     <label>Nombre de la otra persona</label>
     <input id="nSanPartner" type="text" placeholder="Ej. Carlos"/>
+    <label>Correo de la otra persona (para sincronizar)</label>
+    <input id="nSanPartnerEmail" type="email" placeholder="carlos@correo.com"/>
   </div>
   <label>¿Hasta qué número llegará?</label><input id="nSanMax" type="number" value="100"/>
   <button class="btn primary block" style="margin-top:14px;" onclick="confirmNewSan()">Crear San</button>
@@ -805,6 +801,30 @@ const cloudEnabled=!!(window.supabase&&SUPABASE_URL&&SUPABASE_ANON_KEY);
 const sb=cloudEnabled?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const CONFIG_KEY='centavo-config-v17', SCHEMA_VERSION=17;
 let appConfig=loadConfig(), testing=false;
+
+const SETUP_SQL = `-- 1. Tabla de datos personales
+CREATE TABLE IF NOT EXISTS public.app_data (
+  user_id uuid references auth.users primary key,
+  data jsonb not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+ALTER TABLE public.app_data ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Propios datos" ON public.app_data FOR ALL USING (auth.uid() = user_id);
+
+-- 2. Tabla Cuentas y Sanes Compartidos
+CREATE TABLE IF NOT EXISTS public.shared_records (
+  id text primary key,
+  owner_id uuid references auth.users not null,
+  partner_email text not null,
+  type text not null,
+  payload jsonb not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+ALTER TABLE public.shared_records ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Acceso a compartidos" ON public.shared_records FOR ALL USING (
+  auth.uid() = owner_id OR auth.jwt() ->> 'email' = partner_email
+);`;
+
 function loadConfig(){const def={ownerEmail:DEFAULT_OWNER_EMAIL,tagline:'tu dinero, sin vueltas',balanceValidation:true,theme:'midnight'};try{return{...def,...(JSON.parse(localStorage.getItem(CONFIG_KEY)||'{}'))};}catch{return def;}}
 function saveConfig(){localStorage.setItem(CONFIG_KEY,JSON.stringify(appConfig));}
 const DATA_PREFIX='centavo-data-v17:', THEME_KEY='centavo-theme-v17';
@@ -863,10 +883,76 @@ function migrate(p){p.schema=p.schema||1;
  p.schema=SCHEMA_VERSION;return p;}
 function normalize(p,u){if((p.schema||1)<SCHEMA_VERSION)p=migrate(p);return{...defaultData(u),...p,settings:{...defaultData(u).settings,...(p.settings||{})}};}
 function localLoad(u){try{const r=localStorage.getItem(DATA_PREFIX+u.id);if(!r)return defaultData(u);return normalize(JSON.parse(r),u);}catch{return defaultData(u);}}
-async function cloudLoadOrCreate(u){const{data:row,error}=await sb.from('app_data').select('data').eq('user_id',u.id).maybeSingle();if(error)throw error;if(row&&row.data)return normalize(row.data,u);const d=defaultData(u);await sb.from('app_data').insert({user_id:u.id,data:d});return d;}
+
+// --- NUEVA LÓGICA DE NUBE (INCLUYE COMPARTIDOS) ---
+async function cloudLoadOrCreate(u){
+  const {data:row, error} = await sb.from('app_data').select('data').eq('user_id',u.id).maybeSingle();
+  if(error) throw error;
+  let d = defaultData(u);
+  if(row && row.data) d = normalize(row.data, u);
+  else await sb.from('app_data').insert({user_id:u.id, data:d});
+
+  // Cargar datos compartidos de la nube
+  const { data: records } = await sb.from('shared_records').select('*');
+  if (records) {
+    const cloudShared = records.filter(r => r.type === 'sharedAccount').map(r => r.payload);
+    const cloudSans = records.filter(r => r.type === 'san').map(r => r.payload);
+    // Conservamos localmente lo que no tiene partnerEmail configurado (borradores o pruebas)
+    const localShared = d.sharedAccounts.filter(s => !s.partnerEmail);
+    d.sharedAccounts = [...localShared, ...cloudShared];
+    const localSans = d.sans.filter(s => s.type !== 'compartido' || !s.partnerEmail);
+    d.sans = [...localSans, ...cloudSans];
+  }
+  return d;
+}
+
 function saveData(){if(testing||!currentUser||!data)return;localStorage.setItem(DATA_PREFIX+currentUser.id,JSON.stringify(data));if(sb){clearTimeout(saveTimer);saveTimer=setTimeout(syncUp,800);}}
-async function syncUp(){if(!sb||!currentUser)return;const{error}=await sb.from('app_data').upsert({user_id:currentUser.id,data,updated_at:new Date().toISOString()});if(error)toast('☁️ Sin sincronizar ahora.');}
-async function syncNow(){if(!sb)return toast('Nube no configurada.');await syncUp();data=await cloudLoadOrCreate(currentUser);saveData();render();toast('☁️ Sincronizado.');}
+
+async function syncUp(){
+  if(!sb||!currentUser)return;
+  // Sincronizar datos personales
+  const {error} = await sb.from('app_data').upsert({user_id:currentUser.id, data, updated_at:new Date().toISOString()});
+  if(error) return toast('☁️ Error app_data');
+
+  // Sincronizar entidades compartidas
+  const ops = [];
+  data.sharedAccounts.forEach(s => {
+    if(s.partnerEmail && s.ownerId) {
+       ops.push(sb.from('shared_records').upsert({
+          id: s.id, owner_id: s.ownerId, partner_email: s.partnerEmail.toLowerCase(), type: 'sharedAccount', payload: s, updated_at: new Date().toISOString()
+       }));
+    }
+  });
+  data.sans.forEach(s => {
+    if(s.type === 'compartido' && s.partnerEmail && s.ownerId) {
+       ops.push(sb.from('shared_records').upsert({
+          id: s.id, owner_id: s.ownerId, partner_email: s.partnerEmail.toLowerCase(), type: 'san', payload: s, updated_at: new Date().toISOString()
+       }));
+    }
+  });
+  if (ops.length > 0) {
+    const results = await Promise.all(ops);
+    const failed = results.some(r => r.error);
+    if(failed) toast('☁️ Error en compartidos.');
+  }
+}
+
+async function syncNow(){
+  if(!sb) return toast('Nube no configurada.');
+  toast('Sincronizando...', 1000);
+  await syncUp(); // Sube lo nuestro
+  data = await cloudLoadOrCreate(currentUser); // Baja lo de la otra persona
+  localStorage.setItem(DATA_PREFIX+currentUser.id,JSON.stringify(data));
+  render();
+  toast('☁️ Actualizado.');
+}
+
+function copySetupSql() {
+  navigator.clipboard.writeText(SETUP_SQL);
+  toast('SQL copiado');
+}
+// ----------------------------------------------------
+
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 async function hashText(t){if(!t)return '';try{if(crypto?.subtle){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}}catch{}let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h)+t.charCodeAt(i);return 'simple_'+Math.abs(h).toString(36);}
 function isoDate(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
@@ -960,6 +1046,7 @@ function addSampleData(){const now=new Date();let t=Date.now();
  if(data.piggyBanks.length>0){data.piggyBanks[0].balance=2500;data.piggyBanks[0].goal=1000;data.piggyBanks[0].transactions=[{id:uid(),date:d(2),type:'in',amount:1500,note:'Ahorro inicial'},{id:uid(),date:d(4),type:'in',amount:1000,note:'Ahorro extra'}];}}
 function clearSample(){data.movements=data.movements.filter(m=>!m.sample);data.fixeds=data.fixeds.filter(p=>!p.sample);data.cards=data.cards.filter(c=>!c.sample);data.loans=data.loans.filter(l=>!l.sample);data.bankLoans=data.bankLoans.filter(b=>!b.sample);data.meta.sample=false;saveData();render();toast('Datos de ejemplo borrados');}
 async function init(){applyTheme();applyTagline();
+ if(document.getElementById('setupSql')) document.getElementById('setupSql').value = SETUP_SQL;
  document.getElementById('privacyNote').textContent=cloudEnabled?'☁️ Se sincroniza entre dispositivos.':'🔒 Tus datos viven solo en este dispositivo.';
  if(cloudEnabled){document.getElementById('loginMethodTabs').style.gridTemplateColumns='1fr';document.getElementById('loginMethodPin').classList.add('hidden');}
  setInterval(()=>{if(currentUser&&data)renderSummary();},60000);
@@ -1094,14 +1181,11 @@ function confirmLoanPay(){const b=data.bankLoans.find(x=>x.id===ui.loanPayId);if
  saveData();render();closeModal('loanPayModal');toast(`Guardado con éxito: capital ${formatMoney(capital)} + interés ${formatMoney(interest)}`);}
 function openLoanStatement(id){ui.loanStmtId=id;renderLoanStatement();openModal('loanStatementModal');}
 function renderLoanStatement(){const b=data.bankLoans.find(x=>x.id===ui.loanStmtId);if(!b)return;const pays=[...(b.payments||[])].sort((a,b2)=>b2.date.localeCompare(a.date));const totCap=pays.reduce((a,p)=>a+Number(p.capital||0),0);const totInt=pays.reduce((a,p)=>a+Number(p.interest||0),0);document.getElementById('loanStatementSummary').innerHTML=`${b.entity} · Saldo actual: <strong class="red">${formatMoney(b.balance)}</strong> · Capital abonado: <strong>${formatMoney(totCap)}</strong> · Intereses: <strong>${formatMoney(totInt)}</strong>`;document.getElementById('loanStatementList').innerHTML=pays.length?pays.map(p=>`<div class="row"><div class="row-left"><div class="row-icon" style="background:var(--blue-soft);">🏦</div><div style="min-width:0;"><div class="row-title">Cuota pagada</div><div class="row-sub">${formatDateLabel(p.date)} · capital ${formatMoney(p.capital)} + interés ${formatMoney(p.interest)}</div></div></div><div class="row-right"><div class="row-amount">${formatMoney(p.total)}</div></div></div>`).join(''):'<div class="empty"><strong>Sin pagos registrados</strong></div>';}
-
-// LA FUNCION QUE FALTABA PARA ACTIVAR LOS CRÉDITOS
 function renderCredits(){
   renderCreditBank();
   renderCreditPersonal();
   renderCreditCards();
 }
-
 function renderCreditBank(){const list=data.bankLoans||[];document.getElementById('bankLoanTotal').textContent=formatMoney(list.filter(b=>b.status!=='paid').reduce((a,b)=>a+Number(b.balance||0),0));document.getElementById('bankLoanInterest').textContent=formatMoney(list.reduce((a,b)=>a+Number(b.paidInterest||0),0));const el=document.getElementById('bankLoansList');if(!list.length){el.innerHTML='<div class="empty"><strong>Sin préstamos bancarios</strong></div>';return;}el.innerHTML=list.map(b=>{const paid=b.status==='paid',over=b.status==='overdue';const cls=over?'overdue':(paid?'paid':'active');const st=over?'Vencido':(paid?'Pagado':'Activo');const pct=b.principal>0?Math.min(100,Math.round((1-Number(b.balance)/Number(b.principal))*100)):0;const du=daysUntil(getNextPaymentDate(b.dueDay));const rem=paid?'':(du===0?'<div class="fi-reminder today" style="margin-top:6px">Cuota hoy</div>':du<=7?`<div class="fi-reminder soon" style="margin-top:6px">En ${du} días</div>`:`<div class="fi-reminder" style="margin-top:6px">Día ${b.dueDay}</div>`);return `<div class="loan-card ${cls}"><div class="loan-head"><div><div class="loan-entity">${esc(b.entity)||'Sin nombre'}</div><div class="row-sub">${{personal:'Personal',auto:'Automotriz',mortgage:'Hipotecario',student:'Educativo',business:'Empresarial',other:'Otro'}[b.kind]||b.kind}</div></div><span class="loan-status ${cls}">${st}</span></div><div class="loan-body"><div class="loan-row"><span class="k">Saldo actual</span><span class="v red">${formatMoney(b.balance)}</span></div><div class="loan-row"><span class="k">Original</span><span class="v">${formatMoney(b.principal)}</span></div><div class="loan-row"><span class="k">Vencimiento</span><span class="v">${b.maturityDate?formatDateLabel(b.maturityDate):'—'}</span></div><div class="loan-row"><span class="k">Cuota (cap+int)</span><span class="v">${formatMoney(b.installment)} (${formatMoney(b.installmentCapital)}+${formatMoney(b.installmentInterest)})</span></div><div class="loan-row"><span class="k">Intereses pagados</span><span class="v">${formatMoney(b.paidInterest)}</span></div><div class="progress" style="margin-top:8px;"><span style="width:${pct}%;background:${paid?'var(--green)':over?'var(--red)':'var(--accent)'};"></span></div><div class="row-sub" style="margin-top:4px;">${pct}% amortizado</div>${rem}</div><div class="loan-actions">${!paid?`<button class="btn secondary mini" onclick="openLoanPayModal('${b.id}')">Pagar cuota</button>`:''}<button class="btn secondary mini" onclick="openLoanStatement('${b.id}')">Estado</button><button class="btn secondary mini" onclick="openBankLoanModal('${b.id}')">Editar</button></div></div>`;}).join('');}
 function renderCreditPersonal(){const owed=data.loans.filter(l=>l.dir==='owedToMe').reduce((a,l)=>a+Number(l.remaining||0),0);const owe=data.loans.filter(l=>l.dir==='iOwe').reduce((a,l)=>a+Number(l.remaining||0),0);document.getElementById('loanOwedToMe').textContent=formatMoney(owed);document.getElementById('loanIOwe').textContent=formatMoney(owe);const el=document.getElementById('loansList');if(!data.loans.length){el.innerHTML='<div class="empty"><strong>Sin préstamos personales</strong></div>';return;}el.innerHTML=data.loans.map(l=>{const done=Number(l.remaining)<=0;return `<div class="row" onclick="openLoanModal('${l.id}')"><div class="row-left"><div class="row-icon" style="background:var(${l.dir==='owedToMe'?'--green-soft':'--pink-soft'});">🤝</div><div style="min-width:0;"><div class="row-title">${esc(l.person)}${done?' · saldado':''}</div><div class="row-sub">${l.dir==='owedToMe'?'Te debe':'Le debes'} · ${formatDateLabel(l.date)}</div></div></div><div class="row-right"><div class="row-amount ${l.dir==='owedToMe'?'green':'red'}">${formatMoney(l.remaining)}</div>${!done?`<div class="row-actions"><button class="btn secondary icon" onclick="event.stopPropagation();loanAbono('${l.id}')">💵</button></div>`:''}</div></div>`;}).join('');}
 function renderCreditCards(){const el=document.getElementById('cardsList');if(!data.cards.length){el.innerHTML='<div class="empty"><strong>Sin tarjetas</strong></div>';return;}el.innerHTML=data.cards.map(c=>{const showRD=c.currency!=='US$',showUS=c.currency!=='RD$';const pctRD=c.limitRD>0?Math.min(100,Math.round(Number(c.usedRD||0)/Number(c.limitRD)*100)):0;const pctUS=c.limitUS>0?Math.min(100,Math.round(Number(c.usedUS||0)/Number(c.limitUS)*100)):0;const ci=cardCutInfo(c);const curChip=c.currency==='dual'?'RD$+US$':c.currency;return `<div class="card-tile"><div class="card-tile-head"><div><div class="card-tile-name">${esc(c.name)}<span class="cur-chip">${curChip}</span></div><div class="card-tile-sub">Corte día ${c.cutDay}</div></div><button class="btn secondary mini" onclick="openCardModal('${c.id}')">✎ Editar</button></div><div class="card-tile-info">${showRD?`<div class="card-info-cell"><div class="k">Consumido RD$</div><div class="v red">${fmt2(c.usedRD)}</div><div class="k" style="margin-top:4px">Límite</div><div class="v">${fmt2(c.limitRD)}</div></div>`:''}${showUS?`<div class="card-info-cell"><div class="k">Consumido US$</div><div class="v red">${fmt2(c.usedUS)}</div><div class="k" style="margin-top:4px">Límite</div><div class="v">${fmt2(c.limitUS)}</div></div>`:''}<div class="card-info-cell"><div class="k">Saldo pendiente último corte</div><div class="v">${showRD?fmt2(c.lastCutRD||0):''}${showRD&&showUS&&Number(c.lastCutRD)>0&&Number(c.lastCutUS)>0?' + ':''}${showUS?fmt2(c.lastCutUS||0):''}</div></div><div class="card-info-cell"><div class="k">Fecha límite de pago</div><div class="v ${c.payLimitDate&&new Date(c.payLimitDate)<new Date()?'red':''}">${c.payLimitDate?formatDateLabel(c.payLimitDate):'—'}</div></div></div>${showRD?`<div class="progress" style="margin-top:8px;"><span style="width:${pctRD}%;background:${pctRD>=90?'var(--red)':pctRD>=50?'#f59e0b':'var(--green)'};"></span></div>`:''}${showUS?`<div class="progress" style="margin-top:4px;"><span style="width:${pctUS}%;background:${pctUS>=90?'var(--red)':pctUS>=50?'#f59e0b':'var(--green)'};"></span></div>`:''}<div class="card-tile-actions"><button class="btn secondary" onclick="ui.editingCardId='${c.id}';openCardTx('consume')">Consumido</button><button class="btn primary" onclick="ui.editingCardId='${c.id}';openCardTx('pay')">Pagado</button><button class="btn secondary" onclick="openCardStatement('${c.id}')">Estado</button></div></div>`;}).join('');}
@@ -1144,7 +1228,7 @@ function renameCategoryInline(id){const c=data.categories.find(x=>x.id===id);if(
 function toggleArchive(id){const c=data.categories.find(x=>x.id===id);if(!c)return;c.archived=!c.archived;saveData();render();renderCategoryManager();toast(c.archived?'Archivada':'Restaurada');}
 function addCategoryFromManager(){const inp=document.getElementById('newCatName');const n=inp.value.trim();if(!n)return toast('Nombre');if(data.categories.find(c=>c.name.toLowerCase()===n.toLowerCase()))return toast('Ya existe');data.categories.push({id:'cat-'+uid(),name:n,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',subs:[]});inp.value='';saveData();render();renderCategoryManager();toast('Creada');}
 
-/* ===== CUENTA CONJUNTA MULTIPLE ===== */
+/* ===== CUENTA CONJUNTA MULTIPLE (Sincronizada) ===== */
 function getActiveShared(){if(!data.sharedAccounts.length)return null;if(!ui.activeSharedId||!data.sharedAccounts.find(s=>s.id===ui.activeSharedId))ui.activeSharedId=data.sharedAccounts[0].id;return data.sharedAccounts.find(s=>s.id===ui.activeSharedId);}
 function renderConjunta() {
   const s = getActiveShared();
@@ -1173,8 +1257,16 @@ function renderConjunta() {
 function confirmNewShared() {
   const name = document.getElementById('nsName').value.trim();
   const partner = document.getElementById('nsPartner').value.trim();
+  const partnerEmail = document.getElementById('nsPartnerEmail').value.trim().toLowerCase();
+  
   if(!name || !partner) return toast('Completa los nombres');
-  const nw = {id:uid(), name, partnerName: partner, balance: 0, transactions: []};
+  if(!partnerEmail) return toast('Correo es necesario para sincronizar');
+  
+  const nw = {
+    id: uid(), name, partnerName: partner, partnerEmail,
+    ownerId: currentUser?.id, balance: 0, transactions: []
+  };
+  
   data.sharedAccounts.push(nw);
   ui.activeSharedId = nw.id; saveData(); renderConjunta(); closeModal('newSharedModal'); toast('Cuenta compartida creada');
 }
@@ -1198,11 +1290,16 @@ function confirmSharedAction() {
 }
 function deleteCurrentShared() {
   if(!confirm('¿Seguro que quieres borrar esta cuenta compartida?')) return;
-  data.sharedAccounts = data.sharedAccounts.filter(s=>s.id!==ui.activeSharedId);
-  ui.activeSharedId = null; saveData(); renderConjunta(); toast('Cuenta borrada');
+  const s = getActiveShared();
+  data.sharedAccounts = data.sharedAccounts.filter(x=>x.id!==ui.activeSharedId);
+  ui.activeSharedId = null;
+  if(s && s.partnerEmail && sb) {
+      sb.from('shared_records').delete().eq('id', s.id).then();
+  }
+  saveData(); renderConjunta(); toast('Cuenta borrada');
 }
 
-/* ===== EL SAN MULTIPLE ===== */
+/* ===== EL SAN MULTIPLE (Sincronizado) ===== */
 function getActiveSan(){if(!data.sans.length)return null;if(!ui.activeSanId||!data.sans.find(s=>s.id===ui.activeSanId))ui.activeSanId=data.sans[0].id;return data.sans.find(s=>s.id===ui.activeSanId);}
 function setSanAporteManual(by) {
     ui.sanManualAporte = by;
@@ -1257,12 +1354,20 @@ function confirmNewSan() {
   const name = document.getElementById('nSanName').value.trim();
   const type = document.getElementById('nSanType').value;
   const partner = document.getElementById('nSanPartner').value.trim();
+  const partnerEmail = document.getElementById('nSanPartnerEmail').value.trim().toLowerCase();
   const max = parseInt(document.getElementById('nSanMax').value) || 100;
   
   if(!name) return toast('Escribe un nombre');
-  if(type === 'compartido' && !partner) return toast('Nombre de la pareja es requerido');
+  if(type === 'compartido' && (!partner || !partnerEmail)) return toast('Nombre y correo de la pareja son requeridos');
   
-  const nw = {id:uid(), name, type, max, partnerName: type==='compartido'?partner:'', numbers: []};
+  const nw = {
+    id: uid(), name, type, max,
+    partnerName: type==='compartido'?partner:'',
+    partnerEmail: type==='compartido'?partnerEmail:'',
+    ownerId: type==='compartido'?currentUser?.id:null,
+    numbers: []
+  };
+  
   data.sans.push(nw);
   ui.activeSanId = nw.id; saveData(); renderSan(); closeModal('newSanModal'); toast('San creado');
 }
@@ -1280,8 +1385,13 @@ function pickSanNumber(num) {
 }
 function deleteCurrentSan() {
   if(!confirm('¿Seguro que quieres borrar este San?')) return;
-  data.sans = data.sans.filter(s=>s.id!==ui.activeSanId);
-  ui.activeSanId = null; saveData(); renderSan(); toast('San borrado');
+  const s = getActiveSan();
+  data.sans = data.sans.filter(x=>x.id!==ui.activeSanId);
+  ui.activeSanId = null;
+  if(s && s.partnerEmail && sb) {
+      sb.from('shared_records').delete().eq('id', s.id).then();
+  }
+  saveData(); renderSan(); toast('San borrado');
 }
 
 // Inicializar la app
