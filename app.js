@@ -121,7 +121,7 @@ function renderLock(){document.getElementById('lockUserName').textContent=curren
 async function unlockPin(){if((await hashText(document.getElementById('lockPinInput').value))===(data.settings.pinHash||'')){toast('Desbloqueado');enterApp();}else toast('PIN incorrecto');}
 async function lockUsePassword(){if(typeof sb !== 'undefined' && sb){await sb.auth.signOut();currentUser=null;data=null;setAuthMode('login');showScreen('auth');}else logout();}
 function ensureOnbState(){if(!ui.onbCats)ui.onbCats=JSON.parse(JSON.stringify(defaultCategories().filter(c=>c.type==='expense')));if(!ui.onbCommit)ui.onbCommit=[];}
-function renderOnboarding(){ensureOnbState();for(let i=1;i<=5;i++){document.getElementById('onbStep'+i).classList.toggle('hidden',ui.onbStep!==i);document.getElementById('dot'+i).classList.toggle('active',ui.onbStep===i);}document.getElementById('onbNext').classList.toggle('hidden',ui.onbStep===5);if(ui.onbStep===3)renderOnbCats();if(ui.onbStep===4)renderOnbCommit();}
+function renderOnboarding(){ensureOnbState();for(let i=1;i<=5;i++){document.getElementById('onbStep1').classList.toggle('hidden',ui.onbStep!==i);document.getElementById('dot'+i)?.classList.toggle('active',ui.onbStep===i);}document.getElementById('onbNext').classList.toggle('hidden',ui.onbStep===5);if(ui.onbStep===3)renderOnbCats();if(ui.onbStep===4)renderOnbCommit();}
 function nextOnboarding(){if(ui.onbStep<5){ui.onbStep++;renderOnboarding();}}
 function renderOnbCats(){document.getElementById('onbCatChips').innerHTML=ui.onbCats.map(c=>`<button type="button" class="chip-pick mini" onclick="removeOnbCat('${c.id}')">${c.emoji} ${c.name} ✕</button>`).join('');}
 function addOnbCat(){const inp=document.getElementById('onbCatInput');const n=inp.value.trim();if(!n)return;if(ui.onbCats.some(c=>c.name.toLowerCase()===n.toLowerCase()))return toast('Ya existe.');ui.onbCats.push({id:'cat-'+uid(),name:n,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',subs:[]});inp.value='';renderOnbCats();}
@@ -201,7 +201,26 @@ function renderHomeCategories(){const byCat=homeCategoryMap();const total=Object
 function renderInsights(){const cur=currentMonthMovements();const prev=previousMonthMovements();const sC=calcSummary(cur),sP=calcSummary(prev);const byCat=expenseByCategoryList(cur);const ins=[];const top=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];if(top)ins.push(`Tu mayor gasto es ${getCategory(top[0]).name}: ${formatMoney(top[1])}`);if(sC.income>0){const r=Math.round(((balanceBefore(firstDayOfMonth())+sC.available)/sC.income)*100);ins.push(r>=0?`Conservas el ${r}% de lo que entra.`:'Gastas más de lo que entra.');}if(sP.expense)ins.push(`Mes pasado salió ${formatMoney(sP.expense+sP.transfer)}.`);if(!ins.length)ins.push('Registra movimientos.');document.getElementById('insightList').innerHTML=ins.map(t=>`<div class="row" style="cursor:default;"><div class="row-left"><div class="row-icon" style="background:var(--blue-soft);">💡</div><div style="min-width:0;"><div class="row-title" style="font-weight:600;white-space:normal;">${t}</div></div></div></div>`).join('');}
 function renderCompareChart(){const cur=expenseByCategoryList(currentMonthMovements());const prev=expenseByCategoryList(previousMonthMovements());const allCats=[...new Set([...Object.keys(cur),...Object.keys(prev)])];const entries=allCats.map(id=>({id,name:getCategory(id).name,curr:Number(cur[id]||0),prev:Number(prev[id]||0)})).filter(e=>e.curr>0||e.prev>0).sort((a,b)=>(b.curr+b.prev)-(a.curr+a.prev));const maxVal=Math.max(1,...entries.flatMap(e=>[e.curr,e.prev]));const el=document.getElementById('compareChart');if(!entries.length){el.innerHTML='<div class="empty"><strong>Sin datos para comparar</strong></div>';return;}el.innerHTML=entries.slice(0,6).map(e=>{const pctPrev=(e.prev/maxVal*100).toFixed(1);const pctCurr=(e.curr/maxVal*100).toFixed(1);const diff=e.curr-e.prev;const diffClass=diff>0?'red':(diff<0?'green':'');const diffLabel=diff>0?`+${formatMoney(diff)}`:(diff<0?`−${formatMoney(Math.abs(diff))}`:'=');return `<div class="compare-row"><div class="compare-row-label"><span class="name">${e.name}</span><span class="amounts"><span class="${diffClass}">${diffLabel}</span></span></div><div class="compare-bars"><div class="compare-bar prev"><span style="width:${pctPrev}%"></span></div><div class="compare-bar curr"><span style="width:${pctCurr}%"></span></div></div></div>`;}).join('');}
 function renderCategoryFilter(){document.getElementById('categoryFilter').innerHTML=`<option value="">Todas</option>`+data.categories.filter(c=>!c.archived).map(c=>`<option value="${c.id}" ${c.id===ui.categoryId?'selected':''}>${c.emoji} ${c.name}</option>`).join('');}
-function renderBudgetModule(){const f=data.fixeds;const inc=f.filter(p=>p.kind==='income');const exp=f.filter(p=>p.kind==='expense');const incoming=inc.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);const outgoing=exp.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);const carry=balanceBefore(firstDayOfMonth());const cur=calcSummary(currentMonthMovements()).available;const avail=carry+cur+incoming-outgoing;document.getElementById('budgetAvailable').textContent=formatMoney(avail);document.getElementById('budgetAvailable').className='value '+(avail>=0?'green':'red');document.getElementById('budgetIncoming').textContent='+'+formatMoney(incoming);document.getElementById('budgetIncoming').className='green';document.getElementById('budgetOutgoing').textContent='-'+formatMoney(outgoing);document.getElementById('budgetOutgoing').className='red';document.getElementById('fixedIncomeList').innerHTML=inc.length?inc.map(p=>fixedRow2(p,'income')).join(''):'<div class="empty"><strong>Sin ingresos fijos</strong></div>';document.getElementById('fixedExpenseList').innerHTML=exp.length?exp.map(p=>fixedRow2(p,'expense')).join(''):'<div class="empty"><strong>Sin gastos fijos</strong></div>';renderCatTotals();}
+function renderBudgetModule(){
+  const f=data.fixeds;
+  const inc=f.filter(p=>p.kind==='income'&&p.active!==false);
+  const exp=f.filter(p=>p.kind==='expense'&&p.active!==false);
+  const incoming=inc.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);
+  const outgoing=exp.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);
+  
+  // Cálculo estricto de presupuesto fijo disponible
+  const avail=incoming-outgoing;
+  
+  document.getElementById('budgetAvailable').textContent=formatMoney(avail);
+  document.getElementById('budgetAvailable').className='value '+(avail>=0?'green':'red');
+  document.getElementById('budgetIncoming').textContent='+'+formatMoney(incoming);
+  document.getElementById('budgetIncoming').className='green';
+  document.getElementById('budgetOutgoing').textContent='-'+formatMoney(outgoing);
+  document.getElementById('budgetOutgoing').className='red';
+  document.getElementById('fixedIncomeList').innerHTML=inc.length?inc.map(p=>fixedRow2(p,'income')).join(''):'<div class="empty"><strong>Sin ingresos fijos</strong></div>';
+  document.getElementById('fixedExpenseList').innerHTML=exp.length?exp.map(p=>fixedRow2(p,'expense')).join(''):'<div class="empty"><strong>Sin gastos fijos</strong></div>';
+  renderCatTotals();
+}
 function fixedRow2(p,kind){const c=getCategory(p.categoryId);const isInc=kind==='income';const amtCls=isInc?'green':'salmon';const sign=isInc?'+':'-';const days=(p.days||[]).join(', ');
  return `<div class="frow2"><div class="frow2-icon" style="background:${hexA(c)}">${c.emoji}</div><div class="frow2-mid"><div class="frow2-name">${esc(p.name)}</div><div class="frow2-sub">${esc(c.name)}</div></div><div class="frow2-right"><div class="frow2-amt ${amtCls}">${sign}${formatMoney(p.amount)}</div><div class="frow2-day">Día ${days}</div></div><button class="frow2-menu" onclick="openFixedAction('${p.id}')">⋮</button></div>`;}
 function openFixedAction(id){ui.fixedActionId=id;const p=data.fixeds.find(x=>x.id===id);document.getElementById('fixedActionTitle').textContent=p?esc(p.name):'Acciones';openModal('fixedActionModal');}
@@ -457,13 +476,28 @@ function renderConjunta() {
   document.getElementById('sharedBalance').textContent = formatMoney(s.balance);
   document.getElementById('sharedAvatarLabel').textContent = (s.partnerName||'O').charAt(0).toUpperCase();
   document.getElementById('sharedPartnerBtnLabel').textContent = esc(s.partnerName);
+  document.getElementById('sharedPartnerTotalLabel').textContent = esc(s.partnerName) + ' aportó';
 
   const txs = [...(s.transactions||[])].sort((a,b)=>b.date.localeCompare(a.date));
+  let myTotal = 0, partnerTotal = 0;
+
   document.getElementById('sharedStatement').innerHTML = txs.length ? txs.map(t => {
+    const isMe = (t.by === 'me' || t.by === currentUser?.email);
     const isIn = t.type === 'in';
-    const bg = t.by === 'me' ? 'var(--green)' : 'var(--accent)';
-    return `<div class="row"><div class="row-left"><div class="row-icon" style="background:${bg}; color:#fff; font-size:11px; font-weight:800;">${t.by==='me'?'Tú':esc(s.partnerName).substring(0,3)}</div><div style="min-width:0;"><div class="row-title">${esc(t.note)||(isIn?'Aporte':'Retiro')}</div><div class="row-sub">${formatDateLabel(t.date)}</div></div></div><div class="row-right"><div class="row-amount ${isIn?'green':'red'}">${isIn?'+':'-'}${formatMoney(t.amount)}</div></div></div>`;
+    
+    // Calcular totales independientemente de la base de datos usando el correo
+    if (isIn) {
+        if(isMe) myTotal += Number(t.amount); else partnerTotal += Number(t.amount);
+    } else {
+        if(isMe) myTotal -= Number(t.amount); else partnerTotal -= Number(t.amount);
+    }
+
+    const bg = isMe ? 'var(--green)' : 'var(--accent)';
+    return `<div class="row"><div class="row-left"><div class="row-icon" style="background:${bg}; color:#fff; font-size:11px; font-weight:800;">${isMe?'Tú':esc(s.partnerName).substring(0,3)}</div><div style="min-width:0;"><div class="row-title">${esc(t.note)||(isIn?'Aporte':'Retiro')}</div><div class="row-sub">${formatDateLabel(t.date)}</div></div></div><div class="row-right"><div class="row-amount ${isIn?'green':'red'}">${isIn?'+':'-'}${formatMoney(t.amount)}</div></div></div>`;
   }).join('') : '<div class="empty">Sin aportes todavía.</div>';
+
+  document.getElementById('sharedTotalMe').textContent = formatMoney(myTotal);
+  document.getElementById('sharedTotalPartner').textContent = formatMoney(partnerTotal);
 }
 function confirmNewShared() {
   const name = document.getElementById('nsName').value.trim();
@@ -495,8 +529,13 @@ function confirmSharedAction() {
   const s = getActiveShared();
   if(!s) return;
   if(ui.sharedActionType === 'out' && amt > s.balance) return toast('Saldo insuficiente');
+  
   s.balance += ui.sharedActionType === 'in' ? amt : -amt;
-  s.transactions.push({id:uid(), type: ui.sharedActionType, amount: amt, note: document.getElementById('saNote').value.trim(), date: document.getElementById('saDate').value||isoDate(), by: ui.sharedActionBy});
+  
+  // Guardamos el email de la persona para que la nube distinga perfectamente la perspectiva sin tocar Supabase
+  const actionByEmail = ui.sharedActionBy === 'partner' ? s.partnerEmail : (currentUser?.email || 'me');
+  
+  s.transactions.push({id:uid(), type: ui.sharedActionType, amount: amt, note: document.getElementById('saNote').value.trim(), date: document.getElementById('saDate').value||isoDate(), by: actionByEmail});
   saveData(); renderConjunta(); closeModal('sharedActionModal'); toast('Registrado correctamente');
 }
 function deleteCurrentShared() {
@@ -510,7 +549,7 @@ function deleteCurrentShared() {
   saveData(); renderConjunta(); toast('Cuenta borrada');
 }
 
-/* ===== EL SAN MULTIPLE (Sincronizado) ===== */
+/* ===== SAN MULTIPLE (Sincronizado) ===== */
 function getActiveSan(){if(!data.sans.length)return null;if(!ui.activeSanId||!data.sans.find(s=>s.id===ui.activeSanId))ui.activeSanId=data.sans[0].id;return data.sans.find(s=>s.id===ui.activeSanId);}
 function setSanAporteManual(by) {
     ui.sanManualAporte = by;
@@ -535,10 +574,12 @@ function renderSan() {
   document.getElementById('sanPartnerAvatars').classList.toggle('hidden', !isShared);
   document.getElementById('sanLegendCompartido').classList.toggle('hidden', !isShared);
   document.getElementById('sanActionsShared').classList.toggle('hidden', !isShared);
+  document.getElementById('sanTotalsCompartido').classList.toggle('hidden', !isShared);
   
   if(isShared) {
     document.getElementById('sanPartnerInit').textContent = (s.partnerName||'O').charAt(0).toUpperCase();
     document.getElementById('sanPartnerActionLabel').textContent = esc(s.partnerName);
+    document.getElementById('sanPartnerTotalLabel').textContent = esc(s.partnerName) + ' aportó';
     document.getElementById('sanLabel1').textContent = `Faltan`;
     document.getElementById('sanCount').textContent = s.max - (s.numbers||[]).length;
     
@@ -550,8 +591,17 @@ function renderSan() {
     document.getElementById('sanHelperText').textContent = "Toca un número para marcarlo como completado.";
   }
 
-  const saved = (s.numbers||[]).reduce((acc, n) => acc + (n.amount||0), 0);
+  let myTotal = 0, partnerTotal = 0;
+  const saved = (s.numbers||[]).reduce((acc, n) => {
+      const isMe = (n.by === 'me' || n.by === currentUser?.email);
+      if (isMe) myTotal += (n.amount||0);
+      else partnerTotal += (n.amount||0);
+      return acc + (n.amount||0);
+  }, 0);
+
   document.getElementById('sanSaved').textContent = formatMoney(saved);
+  document.getElementById('sanTotalMe').textContent = formatMoney(myTotal);
+  document.getElementById('sanTotalPartner').textContent = formatMoney(partnerTotal);
 
   let gridHtml = '';
   for(let i=1; i<=s.max; i++) {
@@ -559,7 +609,8 @@ function renderSan() {
       const isDone = !!numData;
       let cellClass = 'san-cell';
       if(isDone) {
-          cellClass += numData.by === 'partner' ? ' partner-done' : ' done';
+          const isMe = (numData.by === 'me' || numData.by === currentUser?.email);
+          cellClass += isMe ? ' done' : ' partner-done';
       }
       gridHtml += `<div class="${cellClass}" onclick="toggleSanNumber(${i})">${i}</div>`;
   }
@@ -570,15 +621,20 @@ function toggleSanNumber(num) {
   const s = getActiveSan();
   if(!s) return;
   const exIdx = (s.numbers||[]).findIndex(x=>x.num===num);
+  
   if(exIdx >= 0) {
       s.numbers.splice(exIdx, 1);
   } else {
-      const amt = prompt(`Monto del aporte para el número ${num}:`, "100");
-      if(amt===null) return;
-      const val = parseFloat(amt);
-      if(isNaN(val)||val<=0) return toast('Inválido');
+      // El monto ahora es automático e idéntico al número clickeado
+      const val = num;
+      
+      let actionByEmail = 'me';
+      if (s.type === 'compartido') {
+          actionByEmail = ui.sanManualAporte === 'partner' ? s.partnerEmail : (currentUser?.email || 'me');
+      }
+      
       s.numbers = s.numbers || [];
-      s.numbers.push({num, amount:val, date:isoDate(), by: s.type==='compartido' ? ui.sanManualAporte : 'me'});
+      s.numbers.push({num, amount:val, date:isoDate(), by: actionByEmail});
   }
   saveData(); renderSan();
 }
