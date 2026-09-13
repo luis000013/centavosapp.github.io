@@ -112,9 +112,9 @@
         <div class="statement-head"><h2 class="section-title" style="margin:0;">Presupuesto mensual</h2><button class="btn primary mini" onclick="openFixedModal()">+ Fijo</button></div>
         <p class="section-sub">Un mismo gasto puede ocurrir en varios días del mes.</p>
         <div class="budget-available-block">
-          <div class="label">Disponible después de gastos</div>
+          <div class="label">Presupuesto fijo disponible</div>
           <div class="value" id="budgetAvailable">$0.00</div>
-          <div class="meta"><span id="budgetIncoming">+$0.00</span> a recibir · <span id="budgetOutgoing">-$0.00</span> a pagar</div>
+          <div class="meta"><span id="budgetIncoming">+$0.00</span> fijos · <span id="budgetOutgoing">-$0.00</span> fijos</div>
         </div>
         <h3 style="margin:18px 0 8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);">Ingresos fijos</h3>
         <div class="list-card"><div id="fixedIncomeList"></div></div>
@@ -181,6 +181,12 @@
             <div class="value" id="sharedBalance">$0.00</div>
             <div class="meta" style="color:var(--ink-soft); margin-top:8px;">Sincronizado en la nube ☁️</div>
           </div>
+          
+          <div class="shared-totals" style="display:flex; justify-content:space-around; margin: 12px 0; background: var(--bg-soft); padding: 10px; border-radius: 12px;">
+              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)">Tú aportaste</div><div id="sharedTotalMe" style="font-weight:bold; color:var(--green)">$0.00</div></div>
+              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)" id="sharedPartnerTotalLabel">Pareja aportó</div><div id="sharedTotalPartner" style="font-weight:bold; color:var(--accent)">$0.00</div></div>
+          </div>
+
           <div class="actions">
             <button class="btn secondary" onclick="openSharedAction('in', 'me')">＋ Yo aporté</button>
             <button class="btn primary" onclick="openSharedAction('in', 'partner')">＋ <span id="sharedPartnerBtnLabel">Pareja</span> aportó</button>
@@ -193,9 +199,9 @@
         <div id="sharedEmpty" class="empty">Crea una cuenta compartida arriba.</div>
       </section>
 
-      <!-- EL SAN MULTIPLE -->
+      <!-- SAN MULTIPLE -->
       <section id="tab-san" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">Mis Sanes</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
+        <div class="statement-head"><h2 class="section-title" style="margin:0;">San</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
         <div class="piggy-tabs" id="sanTabs"></div>
 
         <div id="sanContent" class="hidden">
@@ -212,6 +218,11 @@
           <div class="san-summary">
             <div class="san-summary-box"><div class="label" id="sanLabel1">Completados</div><div class="value green" id="sanCount">0</div></div>
             <div class="san-summary-box"><div class="label" id="sanLabel2">Ahorrado</div><div class="value" id="sanSaved">$0</div></div>
+          </div>
+
+          <div id="sanTotalsCompartido" class="shared-totals hidden" style="display:flex; justify-content:space-around; margin-bottom: 12px; background: var(--bg-soft); padding: 10px; border-radius: 12px;">
+              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)">Tú aportaste</div><div id="sanTotalMe" style="font-weight:bold; color:var(--green)">$0.00</div></div>
+              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)" id="sanPartnerTotalLabel">Pareja aportó</div><div id="sanTotalPartner" style="font-weight:bold; color:var(--accent)">$0.00</div></div>
           </div>
           
           <div id="sanActionsShared" class="actions hidden" style="margin-bottom:8px;">
@@ -266,7 +277,7 @@
       <button class="nav-btn" data-tab="creditos" onclick="switchTab('creditos')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span><span>Créditos</span></button>
       <button class="nav-btn" data-tab="alcancia" onclick="switchTab('alcancia')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-3.3 3.6-6 8-6s8 2.7 8 6c0 1.9-1.1 3.6-2.8 4.7V20h-2.4v-1.3a10 10 0 0 1-3.2 0V20H7.2v-3.3C5.1 15.6 4 13.9 4 12Z"/><path d="M12 6c0-1.7 1.3-3 3-3-.4.9-.3 1.8.2 2.6"/><path d="M20 11h1.5v3H20"/><circle cx="15" cy="11" r=".7" fill="currentColor" stroke="none"/></svg></span><span>Alcancía</span></button>
       <button class="nav-btn" data-tab="conjunta" onclick="switchTab('conjunta')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Conjunta</span></button>
-      <button class="nav-btn" data-tab="san" onclick="switchTab('san')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span><span>El San</span></button>
+      <button class="nav-btn" data-tab="san" onclick="switchTab('san')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span><span>San</span></button>
       <button class="nav-btn" data-tab="mas" onclick="switchTab('mas')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0-1.55 1Z"/></svg></span><span>Ajustes</span></button>
     </nav>
   </div>
@@ -506,8 +517,8 @@
   <label>Nombre del San</label><input id="nSanName" type="text" placeholder="Ej. San Diciembre"/>
   <label>Tipo</label>
   <select id="nSanType" onchange="document.getElementById('nSanPartnerDiv').classList.toggle('hidden', this.value==='personal')">
-    <option value="personal">Personal (Solo yo)</option>
-    <option value="compartido">Compartido (Sincronizado con otra persona)</option>
+    <option value="personal">San normal</option>
+    <option value="compartido">San compartido</option>
   </select>
   <div id="nSanPartnerDiv" class="hidden">
     <label>Nombre de la otra persona</label>
