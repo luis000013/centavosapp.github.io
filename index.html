@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<!-- ENLACE A LOS ESTILOS VISUALES -->
 <link rel="stylesheet" href="styles.css"/>
 </head>
 <body class="dark theme-midnight">
@@ -149,59 +148,66 @@
         </div>
       </section>
 
-      <!-- ALCANCIA -->
+      <!-- ALCANCIA (Unificada) -->
       <section id="tab-alcancia" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">🐷 Alcancía</h2></div>
-        <div class="piggy-tabs" id="piggyTabs"></div>
-        <div class="piggy-hero"><div class="piggy-emoji">🐷</div><div class="piggy-label">Saldo actual · <span id="piggyNameLabel">Mi alcancía</span></div><div class="piggy-amount" id="piggyBalance">$0.00</div></div>
-        <div class="piggy-actions"><button class="btn success" onclick="openPiggyAction('in')">＋ Echar</button><button class="btn danger" onclick="openPiggyAction('out')">− Sacar</button></div>
-        <div class="goal-block">
-          <div class="goal-header"><div class="goal-title">🎯 Meta de ahorro del mes</div><button class="goal-edit" onclick="openPiggyGoalModal()">Editar</button></div>
-          <div class="goal-amounts"><div class="goal-current" id="goalCurrent">$0.00</div><div class="goal-target">de <span id="goalTarget">$0.00</span></div></div>
-          <div class="goal-bar"><span id="goalBar" style="width:0%"></span></div>
-          <div class="goal-percent" id="goalPercent">0%</div>
-        </div>
-        <h2 class="section-title">Estado de cuenta</h2>
-        <div class="list-card"><div id="piggyStatement"></div></div>
-        <button class="btn danger block" style="margin-top:8px;" onclick="deleteCurrentPiggy()">Eliminar esta alcancía</button>
-      </section>
-      
-      <!-- CUENTA CONJUNTA MULTIPLE -->
-      <section id="tab-conjunta" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">Cuentas Compartidas</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
-        <div class="piggy-tabs" id="sharedTabs"></div>
+        <div class="statement-head"><h2 class="section-title" style="margin:0;">🐷 Alcancía</h2><button class="btn secondary mini" onclick="if(typeof syncNow === 'function') syncNow(); else render();" title="Refrescar vista">🔄</button></div>
         
-        <div id="sharedContent" class="hidden">
-          <div class="budget-available-block" style="margin-top:0;">
-            <div class="avatar-group">
-              <div class="avatar user-a">Tú</div>
-              <div class="avatar user-b" id="sharedAvatarLabel">O</div>
-            </div>
-            <div class="label" id="sharedTitleLabel">Saldo Conjunto</div>
-            <div class="value" id="sharedBalance">$0.00</div>
-            <div class="meta" style="color:var(--ink-soft); margin-top:8px;">Sincronizado en la nube ☁️</div>
-          </div>
-          
-          <div class="shared-totals" style="display:flex; justify-content:space-around; margin: 12px 0; background: var(--bg-soft); padding: 10px; border-radius: 12px;">
-              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)">Tú aportaste</div><div id="sharedTotalMe" style="font-weight:bold; color:var(--green)">$0.00</div></div>
-              <div style="text-align:center"><div style="font-size:11px; color:var(--muted)" id="sharedPartnerTotalLabel">Pareja aportó</div><div id="sharedTotalPartner" style="font-weight:bold; color:var(--accent)">$0.00</div></div>
-          </div>
-
-          <div class="actions">
-            <button class="btn secondary" onclick="openSharedAction('in', 'me')">＋ Yo aporté</button>
-            <button class="btn primary" onclick="openSharedAction('in', 'partner')">＋ <span id="sharedPartnerBtnLabel">Pareja</span> aportó</button>
-          </div>
-          <button class="btn danger block" style="margin-bottom:12px;" onclick="openSharedAction('out', 'me')">− Retirar fondos</button>
-          <h2 class="section-title">Historial Compartido</h2>
-          <div class="list-card"><div id="sharedStatement"></div></div>
-          <button class="btn danger block" style="margin-top:14px; background:transparent; border:1px solid var(--red); color:var(--red);" onclick="deleteCurrentShared()">Eliminar esta cuenta</button>
+        <div class="auth-tabs" style="margin-bottom:12px;">
+          <button id="tabAlcPersonal" class="auth-tab active" onclick="setAlcanciaTab('personal')">Personal</button>
+          <button id="tabAlcCompartida" class="auth-tab" onclick="setAlcanciaTab('compartida')">Compartida</button>
         </div>
-        <div id="sharedEmpty" class="empty">Crea una cuenta compartida arriba.</div>
+        
+        <!-- SUBLAYOUT: PERSONAL -->
+        <div id="alcanciaPersonal">
+          <div class="piggy-tabs" id="piggyTabs"></div>
+          <div class="piggy-hero"><div class="piggy-emoji">🐷</div><div class="piggy-label">Saldo actual · <span id="piggyNameLabel">Mi alcancía</span></div><div class="piggy-amount" id="piggyBalance">$0.00</div></div>
+          <div class="piggy-actions"><button class="btn success" onclick="openPiggyAction('in')">＋ Echar</button><button class="btn danger" onclick="openPiggyAction('out')">− Sacar</button></div>
+          <div class="goal-block">
+            <div class="goal-header"><div class="goal-title">🎯 Meta de ahorro del mes</div><button class="goal-edit" onclick="openPiggyGoalModal()">Editar</button></div>
+            <div class="goal-amounts"><div class="goal-current" id="goalCurrent">$0.00</div><div class="goal-target">de <span id="goalTarget">$0.00</span></div></div>
+            <div class="goal-bar"><span id="goalBar" style="width:0%"></span></div>
+            <div class="goal-percent" id="goalPercent">0%</div>
+          </div>
+          <h2 class="section-title">Estado de cuenta</h2>
+          <div class="list-card"><div id="piggyStatement"></div></div>
+          <button class="btn danger block" style="margin-top:8px;" onclick="deleteCurrentPiggy()">Eliminar esta alcancía</button>
+        </div>
+
+        <!-- SUBLAYOUT: COMPARTIDA -->
+        <div id="alcanciaCompartida" class="hidden">
+          <div class="piggy-tabs" id="sharedTabs"></div>
+          
+          <div id="sharedContent" class="hidden">
+            <div class="budget-available-block" style="margin-top:0;">
+              <div class="avatar-group">
+                <div class="avatar user-a">Tú</div>
+                <div class="avatar user-b" id="sharedAvatarLabel">O</div>
+              </div>
+              <div class="label" id="sharedTitleLabel">Saldo Conjunto</div>
+              <div class="value" id="sharedBalance">$0.00</div>
+              <div class="meta" style="color:var(--ink-soft); margin-top:8px;">Tus fondos y los de tu pareja ☁️</div>
+            </div>
+            
+            <div class="shared-totals" style="display:flex; justify-content:space-around; margin: 12px 0; background: var(--bg-soft); padding: 10px; border-radius: 12px;">
+                <div style="text-align:center"><div style="font-size:11px; color:var(--muted)">Tú aportaste</div><div id="sharedTotalMe" style="font-weight:bold; color:var(--green)">$0.00</div></div>
+                <div style="text-align:center"><div style="font-size:11px; color:var(--muted)" id="sharedPartnerTotalLabel">Pareja aportó</div><div id="sharedTotalPartner" style="font-weight:bold; color:var(--accent)">$0.00</div></div>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" onclick="openSharedAction('in')">＋ Echar dinero</button>
+            </div>
+            <button class="btn danger block" style="margin-bottom:12px;" onclick="openSharedAction('out')">− Retirar fondos</button>
+            <h2 class="section-title">Historial Compartido</h2>
+            <div class="list-card"><div id="sharedStatement"></div></div>
+            <button class="btn danger block" style="margin-top:14px; background:transparent; border:1px solid var(--red); color:var(--red);" onclick="deleteCurrentShared()">Eliminar esta cuenta</button>
+          </div>
+          <div id="sharedEmpty" class="empty">Crea una cuenta compartida arriba.</div>
+        </div>
       </section>
 
       <!-- SAN MULTIPLE -->
       <section id="tab-san" class="tab-view" style="display:none;">
-        <div class="statement-head"><h2 class="section-title" style="margin:0;">San</h2><button class="btn secondary mini" onclick="syncNow()" title="Actualizar desde la nube">🔄</button></div>
+        <div class="statement-head"><h2 class="section-title" style="margin:0;">San</h2><button class="btn secondary mini" onclick="if(typeof syncNow === 'function') syncNow(); else render();" title="Refrescar vista">🔄</button></div>
         <div class="piggy-tabs" id="sanTabs"></div>
 
         <div id="sanContent" class="hidden">
@@ -225,11 +231,7 @@
               <div style="text-align:center"><div style="font-size:11px; color:var(--muted)" id="sanPartnerTotalLabel">Pareja aportó</div><div id="sanTotalPartner" style="font-weight:bold; color:var(--accent)">$0.00</div></div>
           </div>
           
-          <div id="sanActionsShared" class="actions hidden" style="margin-bottom:8px;">
-            <button id="btnSanAporteMe" class="btn secondary mini active" onclick="setSanAporteManual('me')" style="border-color:var(--green)">Tú aportas</button>
-            <button id="btnSanAportePartner" class="btn secondary mini" onclick="setSanAporteManual('partner')"><span id="sanPartnerActionLabel">Pareja</span> aporta</button>
-          </div>
-          <p class="help-text" style="text-align:center; margin-top:0;" id="sanHelperText">Toca un número para registrar tu aporte</p>
+          <p class="help-text" style="text-align:center; margin-top:0;" id="sanHelperText"></p>
 
           <div class="list-card"><div class="san-grid" id="sanGrid"></div></div>
           <button class="btn danger block" style="margin-top:14px; background:transparent; border:1px solid var(--red); color:var(--red);" onclick="deleteCurrentSan()">Eliminar este San</button>
@@ -251,7 +253,7 @@
               <option value="midnight">Azul Medianoche</option><option value="emerald">Esmeralda</option><option value="violet">Violeta</option><option value="amber">Ámbar</option><option value="oled">OLED Oro</option><option value="light">Claro</option>
             </select>
           </div>
-          <div class="setting-row"><div class="label-group"><strong>Nube y Compartidos</strong><span id="cloudStatus"></span></div><button class="btn secondary mini" onclick="syncNow()">Sincronizar</button></div>
+          <div class="setting-row"><div class="label-group"><strong>Nube y Compartidos</strong><span id="cloudStatus"></span></div><button class="btn secondary mini" onclick="if(typeof syncNow === 'function') syncNow(); else toast('Modo local');">Sincronizar</button></div>
           <div class="setting-row"><div class="label-group"><strong>Notificaciones</strong></div><div id="notifSwitch" class="switch" onclick="toggleNotifications()"></div></div>
           <div class="setting-row"><div class="label-group"><strong>Moneda</strong></div><select id="currencySelect" style="width:auto;padding:9px 12px;" onchange="setCurrency(this.value)"><option value="$">$</option><option value="RD$">RD$</option><option value="US$">US$</option><option value="€">€</option><option value="£">£</option><option value="S/">S/</option><option value="MX$">MX$</option></select></div>
         </div>
@@ -276,7 +278,6 @@
       <button class="nav-btn" data-tab="presupuesto" onclick="switchTab('presupuesto')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M5 20v-6"/><path d="M12 20V8"/><path d="M19 20V4"/></svg></span><span>Presup.</span></button>
       <button class="nav-btn" data-tab="creditos" onclick="switchTab('creditos')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span><span>Créditos</span></button>
       <button class="nav-btn" data-tab="alcancia" onclick="switchTab('alcancia')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-3.3 3.6-6 8-6s8 2.7 8 6c0 1.9-1.1 3.6-2.8 4.7V20h-2.4v-1.3a10 10 0 0 1-3.2 0V20H7.2v-3.3C5.1 15.6 4 13.9 4 12Z"/><path d="M12 6c0-1.7 1.3-3 3-3-.4.9-.3 1.8.2 2.6"/><path d="M20 11h1.5v3H20"/><circle cx="15" cy="11" r=".7" fill="currentColor" stroke="none"/></svg></span><span>Alcancía</span></button>
-      <button class="nav-btn" data-tab="conjunta" onclick="switchTab('conjunta')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Conjunta</span></button>
       <button class="nav-btn" data-tab="san" onclick="switchTab('san')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg></span><span>San</span></button>
       <button class="nav-btn" data-tab="mas" onclick="switchTab('mas')"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0-1.55 1Z"/></svg></span><span>Ajustes</span></button>
     </nav>
@@ -504,7 +505,7 @@
 
 <!-- ACCION CUENTA COMPARTIDA -->
 <div id="sharedActionModal" class="modal"><div class="modal-sheet">
-  <div class="modal-top"><h3 id="sharedActionTitle">Aporte</h3><button class="close-btn" onclick="closeModal('sharedActionModal')">✕</button></div>
+  <div class="modal-top"><h3 id="sharedActionTitle">Aportar fondos</h3><button class="close-btn" onclick="closeModal('sharedActionModal')">✕</button></div>
   <label>Monto</label><div class="amount-row"><span>$</span><input id="saAmount" type="number" min="0" step="0.01"/></div>
   <label>Nota (opcional)</label><input id="saNote" type="text"/>
   <label>Fecha</label><input id="saDate" type="date"/>
