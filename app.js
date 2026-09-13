@@ -11,7 +11,7 @@ let ui={tab:'inicio',dashMode:'current',dashFrom:'',dashTo:'',period:'current',m
  editingId:null,editingCardId:null,editingLoanId:null,editingBankLoanId:null,convertFixedId:null,fixedKind:'expense',daysTarget:null,tempDays:[],fixedActionId:null,
  cardTxType:'consume',cardTxEditId:null,cardStmtId:null,loanStmtId:null,loanPayId:null,
  detailCategoryId:null,movementType:'expense',selectedCategory:null,selectedSub:null,loginMethod:'password',authMode:'login',onbStep:1,onbCats:null,onbCommit:[],creditTab:'bank',
- activePiggyId:null,piggyActionType:'in', activeSharedId:null, sharedActionType:'in', sharedActionBy:'me', activeSanId:null, sanManualAporte:'me'};
+ alcanciaTab:'personal', activePiggyId:null,piggyActionType:'in', activeSharedId:null, sharedActionType:'in', activeSanId:null};
 function isPro(){return true;}
 function isAdmin(){return !!currentUser&&currentUser.email.toLowerCase()===(appConfig.ownerEmail||'').toLowerCase();}
 function mapUser(u){return{id:u.id,email:u.email,name:(u.user_metadata&&u.user_metadata.name)||''};}
@@ -99,7 +99,7 @@ function applyTheme(){const th=appConfig.theme||'midnight';document.body.classLi
 function setTheme(v){appConfig.theme=v;saveConfig();applyTheme();toast('Tema aplicado');}
 function toggleTheme(){setTheme(appConfig.theme==='light'?'midnight':'light');}
 function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+n).classList.add('active');}
-function switchTab(t){ui.tab=t;document.querySelectorAll('.tab-view').forEach(s=>s.style.display='none');const el=document.getElementById('tab-'+t);if(el)el.style.display='block';document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));const sc=document.querySelector('#screen-app .scroll');if(sc)sc.scrollTop=0;if(t==='alcancia')renderAlcancia();if(t==='inicio')renderCompareChart();if(t==='creditos')renderCredits();if(t==='conjunta')renderConjunta();if(t==='san')renderSan();}
+function switchTab(t){ui.tab=t;document.querySelectorAll('.tab-view').forEach(s=>s.style.display='none');const el=document.getElementById('tab-'+t);if(el)el.style.display='block';document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));const sc=document.querySelector('#screen-app .scroll');if(sc)sc.scrollTop=0;if(t==='alcancia')renderAlcancia();if(t==='inicio')renderCompareChart();if(t==='creditos')renderCredits();if(t==='san')renderSan();}
 function toast(m,dur){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),dur||2600);}
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
@@ -170,7 +170,7 @@ async function init(){applyTheme();applyTagline();
 function enterApp(){if(!data.onboarding.completed){ui.onbStep=1;renderOnboarding();showScreen('onboarding');return;}showScreen('app');render();switchTab('inicio');notifyDueToday();}
 function toggleNotifications(){if(!data.settings.notifications&&('Notification' in window)){Notification.requestPermission().then(p=>{if(p!=='granted')return toast('Permiso denegado.');data.settings.notifications=true;saveData();renderMas();toast('Notificaciones activadas');});return;}data.settings.notifications=!data.settings.notifications;saveData();renderMas();}
 function notifyDueToday(){try{if(!data.settings.notifications||!('Notification' in window)||Notification.permission!=='granted')return;getUpcomingUnified(0).forEach(p=>new Notification('Menudo',{body:`Hoy: ${p.name} (${formatMoney(p.amount)})`}));data.cards.forEach(c=>{if(cardCutInfo(c).du===0)new Notification('Menudo',{body:`${c.name}: corte hoy`});});}catch{}}
-function render(){if(!currentUser||!data)return;applyCardFinancingInterest();renderSummary();renderBanner();renderAlerts();renderHomePayments();renderHomeCategories();renderInsights();renderCompareChart();renderCategoryFilter();renderMovements();renderBudgetModule();renderCredits();if(typeof renderMas === 'function') renderMas();renderConjunta();renderSan();document.getElementById('amountSymbol').textContent=data.settings.currency;}
+function render(){if(!currentUser||!data)return;applyCardFinancingInterest();renderSummary();renderBanner();renderAlerts();renderHomePayments();renderHomeCategories();renderInsights();renderCompareChart();renderCategoryFilter();renderMovements();renderBudgetModule();renderCredits();if(typeof renderMas === 'function') renderMas();renderAlcancia();renderSan();document.getElementById('amountSymbol').textContent=data.settings.currency;}
 function renderSummary(){const s=calcSummary(getDashMovements());const carry=balanceBefore(firstDayOfMonth());const disp=(ui.dashMode==='current')?(carry+s.available):s.available;document.getElementById('availableValue').textContent=formatMoney(disp);document.getElementById('incomeValue').textContent='+'+formatMoney(s.income);document.getElementById('expenseValue').textContent='-'+formatMoney(s.expense);const ex=document.getElementById('heroExtra');let txt='';if(ui.dashMode==='current'){if(carry!==0)txt+=(carry>0?`Acumulado mes anterior: ${formatMoney(carry)}. `:`Déficit anterior: ${formatMoney(carry)}. `);if(s.available>0)txt+=`Hoy puedes gastar ${formatMoney((carry+s.available)/daysLeftInMonth())} diario.`;}if(s.transfer>0)txt+=(txt?' · ':'')+`Dinero dado: ${formatMoney(s.transfer)}`;ex.textContent=txt;ex.classList.toggle('hidden',!txt);}
 function setDashPeriod(v){ui.dashMode=v;document.getElementById('dashRange').classList.toggle('hidden',v!=='range');renderSummary();renderHomeCategories();}
 function setDashRange(){ui.dashFrom=document.getElementById('dashFrom').value;ui.dashTo=document.getElementById('dashTo').value;renderSummary();renderHomeCategories();}
@@ -208,7 +208,6 @@ function renderBudgetModule(){
   const incoming=inc.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);
   const outgoing=exp.reduce((a,p)=>a+Number(p.amount||0)*(p.days.length||1),0);
   
-  // Cálculo estricto de presupuesto fijo disponible
   const avail=incoming-outgoing;
   
   document.getElementById('budgetAvailable').textContent=formatMoney(avail);
@@ -384,13 +383,30 @@ function renameCategoryInline(id){const c=data.categories.find(x=>x.id===id);if(
 function toggleArchive(id){const c=data.categories.find(x=>x.id===id);if(!c)return;c.archived=!c.archived;saveData();render();renderCategoryManager();toast(c.archived?'Archivada':'Restaurada');}
 function addCategoryFromManager(){const inp=document.getElementById('newCatName');const n=inp.value.trim();if(!n)return toast('Nombre');if(data.categories.find(c=>c.name.toLowerCase()===n.toLowerCase()))return toast('Ya existe');data.categories.push({id:'cat-'+uid(),name:n,emoji:'🏷️',type:'expense',bg:'--pill',color:'#64748b',subs:[]});inp.value='';saveData();render();renderCategoryManager();toast('Creada');}
 
-/* ===== MODULO ALCANCÍA ===== */
+/* ===== MODULO ALCANCÍA (Personal y Compartida) ===== */
+function setAlcanciaTab(t){
+  ui.alcanciaTab = t;
+  document.getElementById('tabAlcPersonal').classList.toggle('active', t === 'personal');
+  document.getElementById('tabAlcCompartida').classList.toggle('active', t === 'compartida');
+  document.getElementById('alcanciaPersonal').classList.toggle('hidden', t !== 'personal');
+  document.getElementById('alcanciaCompartida').classList.toggle('hidden', t !== 'compartida');
+  renderAlcancia();
+}
+
+function renderAlcancia() {
+  if (ui.alcanciaTab === 'personal') {
+      renderPiggyBanks();
+  } else {
+      renderConjunta();
+  }
+}
+
 function getActivePiggy(){
   if(!data.piggyBanks || !data.piggyBanks.length) return null;
   if(!ui.activePiggyId || !data.piggyBanks.find(p=>p.id===ui.activePiggyId)) ui.activePiggyId = data.piggyBanks[0].id;
   return data.piggyBanks.find(p=>p.id===ui.activePiggyId);
 }
-function renderAlcancia() {
+function renderPiggyBanks() {
   const p = getActivePiggy();
   document.getElementById('piggyTabs').innerHTML = (data.piggyBanks||[]).map(x=>`<button class="piggy-tab ${x.id===(p?p.id:'')?'active':''}" onclick="ui.activePiggyId='${x.id}';renderAlcancia()">${esc(x.name)}</button>`).join('') + `<button class="piggy-tab piggy-tab-add" onclick="openModal('newPiggyModal')">+ Nueva</button>`;
   
@@ -409,6 +425,7 @@ function renderAlcancia() {
     return `<div class="row"><div class="row-left"><div class="row-icon" style="background:${isIn?'var(--green-soft)':'var(--pink-soft)'};">${isIn?'+':'-'}</div><div style="min-width:0;"><div class="row-title">${esc(t.note)||(isIn?'Aporte':'Retiro')}</div><div class="row-sub">${formatDateLabel(t.date)}</div></div></div><div class="row-right"><div class="row-amount ${isIn?'green':'red'}">${isIn?'+':'-'}${formatMoney(t.amount)}</div></div></div>`;
   }).join('') : '<div class="empty">Sin movimientos.</div>';
 }
+
 function openPiggyAction(type){
   ui.piggyActionType = type;
   document.getElementById('piggyActionTitle').textContent = type === 'in' ? 'Echar dinero' : 'Sacar dinero';
@@ -462,7 +479,7 @@ function deleteCurrentPiggy(){
 function getActiveShared(){if(!data.sharedAccounts.length)return null;if(!ui.activeSharedId||!data.sharedAccounts.find(s=>s.id===ui.activeSharedId))ui.activeSharedId=data.sharedAccounts[0].id;return data.sharedAccounts.find(s=>s.id===ui.activeSharedId);}
 function renderConjunta() {
   const s = getActiveShared();
-  document.getElementById('sharedTabs').innerHTML = data.sharedAccounts.map(x=>`<button class="piggy-tab ${x.id===(s?s.id:'')?'active':''}" onclick="ui.activeSharedId='${x.id}';renderConjunta()">${esc(x.name)}</button>`).join('') + `<button class="piggy-tab piggy-tab-add" onclick="openModal('newSharedModal')">+ Nueva</button>`;
+  document.getElementById('sharedTabs').innerHTML = data.sharedAccounts.map(x=>`<button class="piggy-tab ${x.id===(s?s.id:'')?'active':''}" onclick="ui.activeSharedId='${x.id}';renderAlcancia()">${esc(x.name)}</button>`).join('') + `<button class="piggy-tab piggy-tab-add" onclick="openModal('newSharedModal')">+ Nueva</button>`;
   
   if(!s) {
     document.getElementById('sharedContent').classList.add('hidden');
@@ -475,7 +492,6 @@ function renderConjunta() {
   document.getElementById('sharedTitleLabel').textContent = esc(s.name);
   document.getElementById('sharedBalance').textContent = formatMoney(s.balance);
   document.getElementById('sharedAvatarLabel').textContent = (s.partnerName||'O').charAt(0).toUpperCase();
-  document.getElementById('sharedPartnerBtnLabel').textContent = esc(s.partnerName);
   document.getElementById('sharedPartnerTotalLabel').textContent = esc(s.partnerName) + ' aportó';
 
   const txs = [...(s.transactions||[])].sort((a,b)=>b.date.localeCompare(a.date));
@@ -513,13 +529,13 @@ function confirmNewShared() {
   };
   
   data.sharedAccounts.push(nw);
-  ui.activeSharedId = nw.id; saveData(); renderConjunta(); closeModal('newSharedModal'); toast('Registrado correctamente');
+  ui.activeSharedId = nw.id; saveData(); renderAlcancia(); closeModal('newSharedModal'); toast('Registrado correctamente');
 }
-function openSharedAction(type, by) {
-  ui.sharedActionType = type; ui.sharedActionBy = by;
+function openSharedAction(type) {
+  ui.sharedActionType = type;
   const s = getActiveShared();
   if(!s) return;
-  document.getElementById('sharedActionTitle').textContent = type==='in' ? `Aporte de ${by==='me'?'Mí':esc(s.partnerName)}` : 'Retirar fondos';
+  document.getElementById('sharedActionTitle').textContent = type==='in' ? `Aportar fondos` : 'Retirar fondos';
   document.getElementById('saAmount').value=''; document.getElementById('saNote').value=''; document.getElementById('saDate').value=isoDate();
   openModal('sharedActionModal');
 }
@@ -532,11 +548,11 @@ function confirmSharedAction() {
   
   s.balance += ui.sharedActionType === 'in' ? amt : -amt;
   
-  // Guardamos el email de la persona para que la nube distinga perfectamente la perspectiva sin tocar Supabase
-  const actionByEmail = ui.sharedActionBy === 'partner' ? s.partnerEmail : (currentUser?.email || 'me');
+  // Guardamos el email de la persona para que la nube distinga perfectamente
+  const actionByEmail = currentUser?.email || 'me';
   
   s.transactions.push({id:uid(), type: ui.sharedActionType, amount: amt, note: document.getElementById('saNote').value.trim(), date: document.getElementById('saDate').value||isoDate(), by: actionByEmail});
-  saveData(); renderConjunta(); closeModal('sharedActionModal'); toast('Registrado correctamente');
+  saveData(); renderAlcancia(); closeModal('sharedActionModal'); toast('Registrado correctamente');
 }
 function deleteCurrentShared() {
   if(!confirm('¿Seguro que quieres borrar esta cuenta compartida?')) return;
@@ -546,18 +562,11 @@ function deleteCurrentShared() {
   if(s && s.partnerEmail && typeof sb !== 'undefined' && sb) {
       sb.from('shared_records').delete().eq('id', s.id).then();
   }
-  saveData(); renderConjunta(); toast('Cuenta borrada');
+  saveData(); renderAlcancia(); toast('Cuenta borrada');
 }
 
 /* ===== SAN MULTIPLE (Sincronizado) ===== */
 function getActiveSan(){if(!data.sans.length)return null;if(!ui.activeSanId||!data.sans.find(s=>s.id===ui.activeSanId))ui.activeSanId=data.sans[0].id;return data.sans.find(s=>s.id===ui.activeSanId);}
-function setSanAporteManual(by) {
-    ui.sanManualAporte = by;
-    document.getElementById('btnSanAporteMe').style.borderColor = by === 'me' ? 'var(--green)' : 'var(--line)';
-    document.getElementById('btnSanAporteMe').classList.toggle('active', by === 'me');
-    document.getElementById('btnSanAportePartner').style.borderColor = by === 'partner' ? 'var(--accent)' : 'var(--line)';
-    document.getElementById('btnSanAportePartner').classList.toggle('active', by === 'partner');
-}
 function renderSan() {
   const s = getActiveSan();
   document.getElementById('sanTabs').innerHTML = data.sans.map(x=>`<button class="piggy-tab ${x.id===(s?s.id:'')?'active':''}" onclick="ui.activeSanId='${x.id}';renderSan()">${esc(x.name)}</button>`).join('') + `<button class="piggy-tab piggy-tab-add" onclick="openModal('newSanModal')">+ Nuevo</button>`;
@@ -573,18 +582,14 @@ function renderSan() {
   const isShared = s.type === 'compartido';
   document.getElementById('sanPartnerAvatars').classList.toggle('hidden', !isShared);
   document.getElementById('sanLegendCompartido').classList.toggle('hidden', !isShared);
-  document.getElementById('sanActionsShared').classList.toggle('hidden', !isShared);
   document.getElementById('sanTotalsCompartido').classList.toggle('hidden', !isShared);
   
   if(isShared) {
     document.getElementById('sanPartnerInit').textContent = (s.partnerName||'O').charAt(0).toUpperCase();
-    document.getElementById('sanPartnerActionLabel').textContent = esc(s.partnerName);
     document.getElementById('sanPartnerTotalLabel').textContent = esc(s.partnerName) + ' aportó';
     document.getElementById('sanLabel1').textContent = `Faltan`;
     document.getElementById('sanCount').textContent = s.max - (s.numbers||[]).length;
-    
-    if(!ui.sanManualAporte) ui.sanManualAporte = 'me';
-    document.getElementById('sanHelperText').textContent = "Selecciona de quién es el aporte arriba y toca un número.";
+    document.getElementById('sanHelperText').textContent = "Toca un número para aportar. Los aportes de tu pareja se sincronizan solos.";
   } else {
     document.getElementById('sanLabel1').textContent = `Números`;
     document.getElementById('sanCount').textContent = s.max;
@@ -623,16 +628,17 @@ function toggleSanNumber(num) {
   const exIdx = (s.numbers||[]).findIndex(x=>x.num===num);
   
   if(exIdx >= 0) {
+      const numData = s.numbers[exIdx];
+      const isMe = (numData.by === 'me' || numData.by === currentUser?.email);
+      if (s.type === 'compartido' && !isMe) {
+          return toast('No puedes alterar esto. El aporte lo realizó tu pareja.');
+      }
+      if(!confirm(`¿Deseas retirar/eliminar tu aporte del número ${num}?`)) return;
       s.numbers.splice(exIdx, 1);
   } else {
-      // El monto ahora es automático e idéntico al número clickeado
+      if(!confirm(`¿Confirmas que aportarás ${formatMoney(num)} para el número ${num}?`)) return;
       const val = num;
-      
-      let actionByEmail = 'me';
-      if (s.type === 'compartido') {
-          actionByEmail = ui.sanManualAporte === 'partner' ? s.partnerEmail : (currentUser?.email || 'me');
-      }
-      
+      const actionByEmail = currentUser?.email || 'me'; // Siempre se asume que es el propio usuario actual
       s.numbers = s.numbers || [];
       s.numbers.push({num, amount:val, date:isoDate(), by: actionByEmail});
   }
